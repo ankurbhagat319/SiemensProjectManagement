@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4c99ef870431407393160286289a0484" Name="Diagram1">
+        <EntityTypeShape EntityType="ProjectManagementDBModel.AssestTransfer" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.AssetDetail" Width="1.5" PointX="6" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.AssetType" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.Device" Width="1.5" PointX="8.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.PlcInfo" Width="1.5" PointX="11" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.ProcessList" Width="1.5" PointX="5.25" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.Project" Width="1.5" PointX="3.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.Role" Width="1.5" PointX="1.5" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.Tool" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.User" Width="1.5" PointX="3.75" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.WishList" Width="1.5" PointX="9" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.WishListType" Width="1.5" PointX="6.75" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_AssestTransfer_AssetType" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_ProcessList_AssestTransfer" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_AssetDetails_AssetType" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_AssetDetails_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_AssetDetails_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_Tools_AssetType" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_WishList_AssetType" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_PlcInfo_Devices" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_PlcInfo_PlcInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_Tools_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_WishList_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_Users_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_Tools_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_WishList_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_WishListType_WishTypeId_WishList_WishTypeId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
