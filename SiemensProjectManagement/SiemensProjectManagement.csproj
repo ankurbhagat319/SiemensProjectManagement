@@ -229,6 +229,7 @@
     <Content Include="Images\assets.jpg" />
     <Content Include="Images\Labview.jpg" />
     <Content Include="Images\wishlist.png" />
+    <Content Include="Images\wishlist2.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
