@@ -141,7 +141,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AssetDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,6 +196,7 @@
     <Compile Include="Models\Role.cs">
       <DependentUpon>ProjectManagementDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SampleModel.cs" />
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>ProjectManagementDB.tt</DependentUpon>
     </Compile>
@@ -282,6 +285,12 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\AssetDetails\Create.cshtml" />
+    <Content Include="Views\AssetDetails\Delete.cshtml" />
+    <Content Include="Views\AssetDetails\Details.cshtml" />
+    <Content Include="Views\AssetDetails\Edit.cshtml" />
+    <Content Include="Views\AssetDetails\Index.cshtml" />
+    <Content Include="Views\Sample\Sample.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
