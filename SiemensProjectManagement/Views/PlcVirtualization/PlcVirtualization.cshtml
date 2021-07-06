@@ -5,32 +5,10 @@
 }
 
 <h2 style="text-align:center;color:white;">Siemens lab view</h2>
+
 <style>
-    .container {
-	background-size: cover;
-  background: rgb(226,226,226); /* Old browsers */
-  background: -moz-linear-gradient(top,  rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(226,226,226,1)), color-stop(50%,rgba(219,219,219,1)), color-stop(51%,rgba(209,209,209,1)), color-stop(100%,rgba(254,254,254,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
-  padding: 20px;
-}
 
-.led-box {
-  height: 30px;
-  width: 25%;
-  margin: 10px 0;
-  float: left;
-}
 
-/*.led-box p {
-  font-size: 12px;
-  text-align: center;
-  margin: 1em;
-}*/
 
     .led-red {
         margin: 0 auto;
@@ -39,27 +17,25 @@
         background-color: #F00;
         border-radius: 50%;
         box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
-        -webkit-animation: blinkRed 0.5s infinite;
+        /*-webkit-animation: blinkRed 0.5s infinite;
         -moz-animation: blinkRed 0.5s infinite;
+        -ms-animation: blinkRed 0.5s infinite;
         -o-animation: blinkRed 0.5s infinite;
-        animation: blinkRed 0.5s infinite;
+        animation: blinkRed 0.5s infinite;*/
     }
-
-
-
     .led-yellow {
         margin: 0 auto;
-        width: 6px;
+        width: 24p;
         height: 6px;
         background-color: #FF0;
         border-radius: 50%;
         box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 12px;
-        -webkit-animation: blinkYellow 1s infinite;
+        /*-webkit-animation: blinkYellow 1s infinite;
         -moz-animation: blinkYellow 1s infinite;
+        -ms-animation: blinkYellow 1s infinite;
         -o-animation: blinkYellow 1s infinite;
-        animation: blinkYellow 1s infinite;
+        animation: blinkYellow 1s infinite;*/
     }
-
 
     .led-green {
         margin: 0 auto;
@@ -68,23 +44,268 @@
         background-color: #ABFF00;
         border-radius: 50%;
         box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
+        -webkit-animation: blinkGreen 1s infinite;
+        -moz-animation: blinkGreen 1s infinite;
+        -ms-animation: blinkGreen 1s infinite;
+        -o-animation: blinkGreen 1s infinite;
+        animation: blinkGreen 1s infinite;
     }
 
-   
-body { background-image: url("http://localhost:57778/Images/lab.jfif");
-       background-size: 100% 100%; background-attachment: fixed; }
-    .btnright{
-        padding-left:80px;
-        border:hidden;
-        background-color:white;
+    @@-webkit-keyframes blinkGreen {
+        from {
+            background-color: #00FF00;
+        }
+
+        50% {
+            background-color: #00FF00;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #00FF00 0 2px 0;
+        }
+
+        to {
+            background-color: #01470e;
+        }
     }
-    .dimension {
-        /*transform: perspective(1500px) rotateY(20deg);
-        border-radius: 1rem;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
-        transition: transform 1s ease 0s;*/
+
+    @@-moz-keyframes blinkGreen {
+        from {
+            background-color: #00FF00;
+        }
+
+        50% {
+            background-color: #00FF00;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #00FF00 0 2px 0;
+        }
+
+        to {
+            background-color: #01470e;
+        }
     }
- 
+
+    @@-ms-keyframes blinkGreen {
+        from {
+            background-color: #00FF00;
+        }
+
+        50% {
+            background-color: #00FF00;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #00FF00 0 2px 0;
+        }
+
+        to {
+            background-color: #01470e;
+        }
+    }
+
+    @@-o-keyframes blinkGreen {
+        from {
+            background-color: #00FF00;
+        }
+
+        50% {
+            background-color: #00FF00;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #00FF00) 0 2px 0;
+        }
+
+        to {
+            background-color: #01470e;
+        }
+    }
+
+    @@keyframes blinkGreen {
+        from {
+            background-color: #00FF00;
+        }
+
+        50% {
+            background-color: #00FF00;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #00FF00 0 2px 0;
+        }
+
+        to {
+            background-color: #01470e;
+        }
+    }
+
+
+
+    @@-webkit-keyframes blinkRed {
+        from {
+            background-color: #F00;
+        }
+
+        50% {
+            background-color: #A00;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
+        }
+
+        to {
+            background-color: #F00;
+        }
+    }
+
+    @@-moz-keyframes blinkRed {
+        from {
+            background-color: #F00;
+        }
+
+        50% {
+            background-color: #A00;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
+        }
+
+        to {
+            background-color: #F00;
+        }
+    }
+
+    @@-ms-keyframes blinkRed {
+        from {
+            background-color: #F00;
+        }
+
+        50% {
+            background-color: #A00;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
+        }
+
+        to {
+            background-color: #F00;
+        }
+    }
+
+    @@-o-keyframes blinkRed {
+        from {
+            background-color: #F00;
+        }
+
+        50% {
+            background-color: #A00;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
+        }
+
+        to {
+            background-color: #F00;
+        }
+    }
+
+    @@keyframes blinkRed {
+        from {
+            background-color: #F00;
+        }
+
+        50% {
+            background-color: #A00;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
+        }
+
+        to {
+            background-color: #F00;
+        }
+    }
+
+    
+
+    @@-webkit-keyframes blinkYellow {
+        from {
+            background-color: #FF0;
+        }
+
+        50% {
+            background-color: #AA0;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
+        }
+
+        to {
+            background-color: #FF0;
+        }
+    }
+
+    @@-moz-keyframes blinkYellow {
+        from {
+            background-color: #FF0;
+        }
+
+        50% {
+            background-color: #AA0;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
+        }
+
+        to {
+            background-color: #FF0;
+        }
+    }
+
+    @@-ms-keyframes blinkYellow {
+        from {
+            background-color: #FF0;
+        }
+
+        50% {
+            background-color: #AA0;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
+        }
+
+        to {
+            background-color: #FF0;
+        }
+    }
+
+    @@-o-keyframes blinkYellow {
+        from {
+            background-color: #FF0;
+        }
+
+        50% {
+            background-color: #AA0;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
+        }
+
+        to {
+            background-color: #FF0;
+        }
+    }
+
+    @@keyframes blinkYellow {
+        from {
+            background-color: #FF0;
+        }
+
+        50% {
+            background-color: #AA0;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
+        }
+
+        to {
+            background-color: #FF0;
+        }
+    }
+
+
+  
+
+
+        body {
+            background-image: url("http://localhost:57778/Images/lab.jfif");
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        .btnright {
+            padding-left: 80px;
+            border: hidden;
+            background-color: white;
+        }
+
+        .dimension {
+            transform: perspective(1500px) rotateY(20deg);
+            transform-style: preserve-3d;
+            border-radius: 1rem;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+            transition: transform 1s ease 0s;
+        }
+
+
+}
 </style>
 <body>
     <div class="container-fluid">
@@ -95,11 +316,11 @@ body { background-image: url("http://localhost:57778/Images/lab.jfif");
                 <br />
                 <div class="jumbotron dimension" style="background-color:darkslategrey; border:ridge;">
                     @*<div class="led-box">
-                        <div class="led-green"></div>
-                        <div class="led-yellow"></div>
-                        <div class="led-red"></div>
-                        <p>Green LED</p>
-                    </div>*@
+                            <div class="led-green"></div>
+                            <div class="led-yellow"></div>
+                            <div class="led-red"></div>
+                            <p>Green LED</p>
+                        </div>*@
                     <div class=" row jumbotron" style="height:1000px; border:ridge; border-color:cadetblue;background-color:white;">
 
                         <div class="row">
@@ -354,15 +575,15 @@ body { background-image: url("http://localhost:57778/Images/lab.jfif");
             </div>
         </div>@*Modal_Ends*@
     </div>
- 
-        <div class="led-box">
-            <div class="led-green"></div>
-            <div class="led-yellow"></div>
-            <div class="led-red"></div>
-            <p>Green LED</p>
-        </div>
-        
-       
-    
+
+    <div class="led-box">
+        <div class="led-green"></div>
+        <div class="led-yellow"></div>
+        <div class="led-red"></div>
+        <p>Green LED</p>
+    </div>
+
+
+
 
 </body>

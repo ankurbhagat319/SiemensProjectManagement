@@ -83,3 +83,4 @@ E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\ProjectMangem
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\ProjectMangementAPI\obj\Debug\ProjectMangementAPI.csproj.CopyComplete
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\ProjectMangementAPI\obj\Debug\ProjectMangementAPI.dll
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\ProjectMangementAPI\obj\Debug\ProjectMangementAPI.pdb
+E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\ProjectMangementAPI\obj\Debug\ProjectMangementAPI.csprojAssemblyReference.cache

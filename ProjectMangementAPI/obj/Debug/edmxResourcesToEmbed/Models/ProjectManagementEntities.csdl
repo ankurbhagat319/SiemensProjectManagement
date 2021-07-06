@@ -107,6 +107,7 @@
     <NavigationProperty Name="Device" Relationship="Self.FK_PlcInfo_Devices" FromRole="PlcInfo" ToRole="Devices" />
     <NavigationProperty Name="PlcInfo1" Relationship="Self.FK_PlcInfo_PlcInfo" FromRole="PlcInfo" ToRole="PlcInfo1" />
     <NavigationProperty Name="PlcInfo2" Relationship="Self.FK_PlcInfo_PlcInfo" FromRole="PlcInfo1" ToRole="PlcInfo" />
+    <NavigationProperty Name="PlcDetails" Relationship="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" FromRole="PlcInfo" ToRole="PlcDetail" />
   </EntityType>
   <EntityType Name="ProcessList">
     <Key>
@@ -240,6 +241,7 @@
     <NavigationProperty Name="User" Relationship="Self.FK_WishList_Users" FromRole="WishList" ToRole="Users" />
     <NavigationProperty Name="WishListType" Relationship="Self.FK_WishListType_WishTypeId_WishList_WishTypeId" FromRole="WishList" ToRole="WishListType" />
     <NavigationProperty Name="ProcssedWishes" Relationship="ProjectManagementDBModel.FK_ProcssedWish_WishList" FromRole="WishList" ToRole="ProcssedWish" />
+    <NavigationProperty Name="WishMapper" Relationship="ProjectManagementDBModel.FK_WishMapper_WishList" FromRole="WishList" ToRole="WishMapper" />
   </EntityType>
   <EntityType Name="WishListType">
     <Key>
@@ -248,6 +250,7 @@
     <Property Name="WishTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="WishTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="WishLists" Relationship="Self.FK_WishListType_WishTypeId_WishList_WishTypeId" FromRole="WishListType" ToRole="WishList" />
+    <NavigationProperty Name="WishMappers" Relationship="ProjectManagementDBModel.FK_WishMapper_WishListType" FromRole="WishListType" ToRole="WishMapper" />
   </EntityType>
   <Association Name="FK_AssestTransfer_AssetType">
     <End Role="AssetType" Type="Self.AssetType" Multiplicity="0..1" />
@@ -538,6 +541,20 @@
       <End Role="WishList" EntitySet="WishLists" />
       <End Role="ProcssedWish" EntitySet="ProcssedWishes" />
     </AssociationSet>
+    <EntitySet Name="WishMappers" EntityType="ProjectManagementDBModel.WishMapper" />
+    <AssociationSet Name="FK_WishMapper_WishList" Association="ProjectManagementDBModel.FK_WishMapper_WishList">
+      <End Role="WishList" EntitySet="WishLists" />
+      <End Role="WishMapper" EntitySet="WishMappers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WishMapper_WishListType" Association="ProjectManagementDBModel.FK_WishMapper_WishListType">
+      <End Role="WishListType" EntitySet="WishListTypes" />
+      <End Role="WishMapper" EntitySet="WishMappers" />
+    </AssociationSet>
+    <EntitySet Name="PlcDetails" EntityType="ProjectManagementDBModel.PlcDetail" />
+    <AssociationSet Name="FK_PlcDetails_PlcInfo" Association="ProjectManagementDBModel.FK_PlcDetails_PlcInfo">
+      <End Role="PlcInfo" EntitySet="PlcInfoes" />
+      <End Role="PlcDetail" EntitySet="PlcDetails" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -580,6 +597,81 @@
       </Principal>
       <Dependent Role="ProcssedWish">
         <PropertyRef Name="WishlistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="WishMapper">
+    <Key>
+      <PropertyRef Name="WishListId" />
+    </Key>
+    <Property Name="WishListId" Type="Int32" Nullable="false" />
+    <Property Name="WishTypeId" Type="Int32" />
+    <Property Name="RequestedDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UnassignedAsset_Id" Type="Int32" />
+    <Property Name="AvailableDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsMapped" Type="Boolean" />
+    <Property Name="IsAcknowledged" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="WishList" Relationship="ProjectManagementDBModel.FK_WishMapper_WishList" FromRole="WishMapper" ToRole="WishList" />
+    <NavigationProperty Name="WishListType" Relationship="ProjectManagementDBModel.FK_WishMapper_WishListType" FromRole="WishMapper" ToRole="WishListType" />
+  </EntityType>
+  <Association Name="FK_WishMapper_WishList">
+    <End Type="ProjectManagementDBModel.WishList" Role="WishList" Multiplicity="1" />
+    <End Type="ProjectManagementDBModel.WishMapper" Role="WishMapper" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="WishList">
+        <PropertyRef Name="WishlistId" />
+      </Principal>
+      <Dependent Role="WishMapper">
+        <PropertyRef Name="WishListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WishMapper_WishListType">
+    <End Type="ProjectManagementDBModel.WishListType" Role="WishListType" Multiplicity="0..1" />
+    <End Type="ProjectManagementDBModel.WishMapper" Role="WishMapper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WishListType">
+        <PropertyRef Name="WishTypeId" />
+      </Principal>
+      <Dependent Role="WishMapper">
+        <PropertyRef Name="WishTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PlcDetail">
+    <Key>
+      <PropertyRef Name="SerialNo" />
+    </Key>
+    <Property Name="PlcId" Type="Int32" />
+    <Property Name="SerialNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Subnet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mlfb" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Firmware" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mac_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Operating_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Station_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="PLC_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PLC_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SMC_SerialNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Plant_DesignationId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Location_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsPingable" Type="Boolean" />
+    <Property Name="IsFaulty" Type="Boolean" />
+    <NavigationProperty Name="PlcInfo" Relationship="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" FromRole="PlcDetail" ToRole="PlcInfo" />
+  </EntityType>
+  <Association Name="FK_PlcDetails_PlcInfo">
+    <End Type="ProjectManagementDBModel.PlcInfo" Role="PlcInfo" Multiplicity="0..1" />
+    <End Type="ProjectManagementDBModel.PlcDetail" Role="PlcDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlcInfo">
+        <PropertyRef Name="PlcId" />
+      </Principal>
+      <Dependent Role="PlcDetail">
+        <PropertyRef Name="PlcId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

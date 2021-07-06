@@ -277,5 +277,43 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="WishMappers">
+      <EntityTypeMapping TypeName="ProjectManagementDBModel.WishMapper">
+        <MappingFragment StoreEntitySet="WishMapper">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsAcknowledged" ColumnName="IsAcknowledged" />
+          <ScalarProperty Name="IsMapped" ColumnName="IsMapped" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="AvailableDuration" ColumnName="AvailableDuration" />
+          <ScalarProperty Name="UnassignedAsset_Id" ColumnName="UnassignedAsset_Id" />
+          <ScalarProperty Name="RequestedDuration" ColumnName="RequestedDuration" />
+          <ScalarProperty Name="WishTypeId" ColumnName="WishTypeId" />
+          <ScalarProperty Name="WishListId" ColumnName="WishListId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlcDetails">
+      <EntityTypeMapping TypeName="ProjectManagementDBModel.PlcDetail">
+        <MappingFragment StoreEntitySet="PlcDetails">
+          <ScalarProperty Name="IsFaulty" ColumnName="IsFaulty" />
+          <ScalarProperty Name="IsPingable" ColumnName="IsPingable" />
+          <ScalarProperty Name="Location_Id" ColumnName="Location_Id" />
+          <ScalarProperty Name="Plant_DesignationId" ColumnName="Plant_DesignationId" />
+          <ScalarProperty Name="SMC_SerialNo" ColumnName="SMC_SerialNo" />
+          <ScalarProperty Name="PLC_Type" ColumnName="PLC_Type" />
+          <ScalarProperty Name="PLC_Name" ColumnName="PLC_Name" />
+          <ScalarProperty Name="Station_Name" ColumnName="Station_Name" />
+          <ScalarProperty Name="Operating_State" ColumnName="Operating_State" />
+          <ScalarProperty Name="Mac_Address" ColumnName="Mac_Address" />
+          <ScalarProperty Name="Firmware" ColumnName="Firmware" />
+          <ScalarProperty Name="Mlfb" ColumnName="Mlfb" />
+          <ScalarProperty Name="Subnet" ColumnName="Subnet" />
+          <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+          <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+          <ScalarProperty Name="PlcId" ColumnName="PlcId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

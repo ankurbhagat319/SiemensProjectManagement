@@ -141,6 +141,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AssetsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlcVirtualizationController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
@@ -148,7 +149,76 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssestTransfer.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AssetDetail.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AssetType.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Device.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlcDetail.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlcInfo.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProcessList.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProcssedWish.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Project.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjectManagementDBEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectManagementDBEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjectManagementDBEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjectManagementDBEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectManagementDBEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SampleModel.cs" />
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tool.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WishList.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WishListType.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WishMapper.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -325,11 +395,28 @@
     <Content Include="Images\s71500PLC.png" />
     <Content Include="Images\wishlist.png" />
     <Content Include="Images\wishlist2.jpg" />
+    <Content Include="Models\ProjectManagementDBEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ProjectManagementDBEntities.edmx</DependentUpon>
+      <LastGenOutput>ProjectManagementDBEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ProjectManagementDBEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ProjectManagementDBEntities.edmx</DependentUpon>
+      <LastGenOutput>ProjectManagementDBEntities.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <EntityDeploy Include="Models\ProjectManagementDBEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ProjectManagementDBEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ProjectManagementDBEntities.edmx.diagram">
+      <DependentUpon>ProjectManagementDBEntities.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -365,6 +452,8 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Test\Test.cshtml" />
     <Content Include="Views\PlcVirtualization\PlcVirtualization.cshtml" />
+    <Content Include="Views\PlcVirtualization\SampleLedCheck.cshtml" />
+    <Content Include="Views\Assets\Assets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -382,12 +471,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectMangementAPI\ProjectMangementAPI.csproj">
-      <Project>{4ac16829-4a64-4a72-be83-ed52491c45e8}</Project>
-      <Name>ProjectMangementAPI</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
