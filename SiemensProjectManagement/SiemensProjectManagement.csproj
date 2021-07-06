@@ -392,6 +392,7 @@
     <Content Include="Images\assets.jpg" />
     <Content Include="Images\di.png" />
     <Content Include="Images\dq.PNG" />
+    <Content Include="Images\lab.jfif" />
     <Content Include="Images\Labview.jpg" />
     <Content Include="Images\s71500PLC.png" />
     <Content Include="Images\wishlist.png" />
