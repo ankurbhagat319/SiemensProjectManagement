@@ -141,86 +141,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AssetDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlcVirtualizationController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AssestTransfer.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AssetDetail.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AssetType.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Device.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PlcInfo.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProcessList.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Project.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProjectManagementDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectManagementDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProjectManagementDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProjectManagementDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectManagementDB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Role.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SampleModel.cs" />
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Tool.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\WishList.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\WishListType.cs">
-      <DependentUpon>ProjectManagementDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -397,33 +325,8 @@
     <Content Include="Images\s71500PLC.png" />
     <Content Include="Images\wishlist.png" />
     <Content Include="Images\wishlist2.jpg" />
-    <Content Include="Models\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ProjectManagementDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ProjectManagementDB.edmx</DependentUpon>
-      <LastGenOutput>ProjectManagementDB.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ProjectManagementDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ProjectManagementDB.edmx</DependentUpon>
-      <LastGenOutput>ProjectManagementDB.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\ProjectManagementDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ProjectManagementDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ProjectManagementDB.edmx.diagram">
-      <DependentUpon>ProjectManagementDB.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
@@ -454,11 +357,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\AssetDetails\Create.cshtml" />
-    <Content Include="Views\AssetDetails\Delete.cshtml" />
-    <Content Include="Views\AssetDetails\Details.cshtml" />
-    <Content Include="Views\AssetDetails\Edit.cshtml" />
-    <Content Include="Views\AssetDetails\Index.cshtml" />
     <Content Include="Views\Sample\Sample.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
@@ -484,6 +382,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectMangementAPI\ProjectMangementAPI.csproj">
+      <Project>{4ac16829-4a64-4a72-be83-ed52491c45e8}</Project>
+      <Name>ProjectMangementAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

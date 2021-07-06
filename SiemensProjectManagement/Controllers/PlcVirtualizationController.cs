@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ProjectMangementAPI.Models;
+
 
 namespace SiemensProjectManagement.Controllers
 {
@@ -15,6 +17,8 @@ namespace SiemensProjectManagement.Controllers
         }
         public ActionResult PlcVirtualization()
         {
+            ProjectManagementDBEntities db = new ProjectManagementDBEntities();
+          
             return View();
         }
     }
