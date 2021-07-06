@@ -1,0 +1,335 @@
+﻿
+@{
+    ViewBag.Title = "PlcVirtualization";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style=";text-align:center;color:white;">Siemens lab view</h2>
+<style>
+    .container {
+	background-size: cover;
+  background: rgb(226,226,226); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(226,226,226,1)), color-stop(50%,rgba(219,219,219,1)), color-stop(51%,rgba(209,209,209,1)), color-stop(100%,rgba(254,254,254,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
+  padding: 20px;
+}
+
+.led-box {
+  height: 30px;
+  width: 25%;
+  margin: 10px 0;
+  float: left;
+}
+
+/*.led-box p {
+  font-size: 12px;
+  text-align: center;
+  margin: 1em;
+}*/
+
+    .led-red {
+        margin: 0 auto;
+        width: 6px;
+        height: 6px;
+        background-color: #F00;
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
+        -webkit-animation: blinkRed 0.5s infinite;
+        -moz-animation: blinkRed 0.5s infinite;
+        -o-animation: blinkRed 0.5s infinite;
+        animation: blinkRed 0.5s infinite;
+    }
+
+
+
+    .led-yellow {
+        margin: 0 auto;
+        width: 6px;
+        height: 6px;
+        background-color: #FF0;
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 12px;
+        -webkit-animation: blinkYellow 1s infinite;
+        -moz-animation: blinkYellow 1s infinite;
+        -o-animation: blinkYellow 1s infinite;
+        animation: blinkYellow 1s infinite;
+    }
+
+
+    .led-green {
+        margin: 0 auto;
+        width: 6px;
+        height: 6px;
+        background-color: #ABFF00;
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
+    }
+
+   
+body { background-image: url("http://localhost:57778/Images/lab.jfif");
+       background-size: 100% 100%; background-attachment: fixed; }
+    .btnright{
+        padding-left:80px;
+        border:hidden;
+        background-color:white;
+    }
+    .dimension {
+        transform: perspective(1500px) rotateY(20deg);
+        border-radius: 1rem;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+        transition: transform 1s ease 0s;
+    }
+ 
+</style>
+<body>
+    <div class="container-fluid">
+        <div class="col-sm-12">
+            <div class="col-sm-3">
+
+                <h3><span class="dimension" style=" text-align:center;color:white;border:ridge;"> Rack 1 </span></h3>
+                <br />
+                <div class="jumbotron dimension" style="background-color:darkslategrey; border:ridge;">
+                    @*<div class="led-box">
+                        <div class="led-green"></div>
+                        <div class="led-yellow"></div>
+                        <div class="led-red"></div>
+                        <p>Green LED</p>
+                    </div>*@
+                    <div class=" row jumbotron" style="height:1000px; border:ridge; border-color:cadetblue;background-color:white;">
+
+                        <div class="row">
+                            <div class="led-green btn pull-left"></div>
+                            <div class="led-yellow btn pull-left"></div>
+                            <div class="led-red btn pull-left"></div>
+
+
+
+                            <div class="led-red btn pull-right"></div>
+                            <div class="led-yellow btn pull-right"></div>
+                            <div class="led-green btn pull-right"></div>
+                        </div>
+                        <div class="row" style="border:double; background-color:white;">
+                            <button class="btn pull-left" data-toggle="modal" data-target="#myModal" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row" style="border:double; background-color:white;">
+
+                            <button class="btn pull-left" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row" style="border:double; background-color:white;">
+
+                            <button class="btn pull-left" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row" style="border:double; background-color:white;">
+
+                            <button class="btn pull-left" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+
+                <h3><span class="dimension" style="text-align:center;color:white;border:ridge;"> Rack 2 </span></h3>
+                <br />
+                <div class="jumbotron dimension" style="background-color:darkslategrey; border:ridge;">
+                    <div class=" row jumbotron" style="height:1000px; border:ridge; border-color:cadetblue;background-color:white;">
+                        <div class="row" style="border:double; background-color:white;">
+
+                            <button class="btn pull-left" data-toggle="modal" data-target="#myModal" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row" style="border:double; background-color:white;">
+
+                            <button class="btn pull-left" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row" style="border:double; background-color:white;">
+
+                            <button class="btn pull-left" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row" style="border:double; background-color:white;">
+
+                            <button class="btn pull-left" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-3">
+
+                <h3><span class="dimension" style="text-align:center;color:white;border:ridge;"> Rack 3 </span></h3>
+                <br />
+                <div class="jumbotron dimension" style="background-color:darkslategrey; border:ridge;">
+                    <div class=" row jumbotron" style="height:1000px; border:ridge; border-color:cadetblue;background-color:white;">
+                        <div class="row" style="border:double; background-color:white;">
+
+                            <button class="btn pull-left" data-toggle="modal" data-target="#myModal" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row" style="border:double; background-color:white;">
+
+                            <button class="btn pull-left" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row" style="border:double; background-color:white;">
+
+                            <button class="btn pull-left" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row" style="border:double; background-color:white;">
+
+                            <button class="btn pull-left" style="background-color:white;">
+                                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                                <img src="~/Images/di.png" style="height:70px;" />
+                            </button>
+                            <button class="btnright"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog" id="modalDialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Plc Details</h4>
+                    </div>
+                    <div class="modal-body" style="font-family:Calibri;font-size:18px;">
+                        <span>Plc Name : 1516 3 PN/DP </span>
+                        <br />
+                        <br />
+                        <span>
+                            IP Address : 192.168.XX.XXX
+                        </span>
+                        <br />
+                        <br />
+                        <span>
+                            Mac Address : XXX XXX XXX XXX XXX
+                        </span>
+                        <br />
+                        <br />
+                        <span>Firmware: R300805 </span>
+                        <br />
+                        <br />
+
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>@*Modal_Ends*@
+    </div>
+ 
+        <div class="led-box">
+            <div class="led-green"></div>
+            <div class="led-yellow"></div>
+            <div class="led-red"></div>
+            <p>Green LED</p>
+        </div>
+        
+       
+    
+
+</body>

@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using SiemensProjectManagement.Models
+@model SiemensProjectManagement.Models.SampleModel
+<h2>Test</h2>
+
+
+
+ 
+<select id="emp" class="dropdown" style="width:100px;">
+    @{
+        foreach(var emp  in ViewData["emp"] as List<SampleModel.Emp>)
+        {
+            <option value="@emp.EmpId">@emp.Name</option>
+        }
+            }
+</select>
+
+}
