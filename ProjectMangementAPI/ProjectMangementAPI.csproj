@@ -180,10 +180,16 @@
     <Compile Include="Models\Device.cs">
       <DependentUpon>ProjectManagementEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PlcDetail.cs">
+      <DependentUpon>ProjectManagementEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PlcInfo.cs">
       <DependentUpon>ProjectManagementEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProcessList.cs">
+      <DependentUpon>ProjectManagementEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProcssedWish.cs">
       <DependentUpon>ProjectManagementEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Project.cs">
@@ -226,6 +232,9 @@
       <DependentUpon>ProjectManagementEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WishListType.cs">
+      <DependentUpon>ProjectManagementEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WishMapper.cs">
       <DependentUpon>ProjectManagementEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

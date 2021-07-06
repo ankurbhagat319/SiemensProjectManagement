@@ -256,5 +256,26 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ProjectManagementDBModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ProjectManagementDBModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="ProcssedWishes">
+      <EntityTypeMapping TypeName="ProjectManagementDBModel.ProcssedWish">
+        <MappingFragment StoreEntitySet="ProcssedWish">
+          <ScalarProperty Name="IsExpired" ColumnName="IsExpired" />
+          <ScalarProperty Name="IsRequestedReceived" ColumnName="IsRequestedReceived" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsAcknowledged" ColumnName="IsAcknowledged" />
+          <ScalarProperty Name="IsNotifed" ColumnName="IsNotifed" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="RemainingDays" ColumnName="RemainingDays" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="CommitedDate" ColumnName="CommitedDate" />
+          <ScalarProperty Name="AvailableDuration" ColumnName="AvailableDuration" />
+          <ScalarProperty Name="RequestedDuration" ColumnName="RequestedDuration" />
+          <ScalarProperty Name="WishlistId" ColumnName="WishlistId" />
+          <ScalarProperty Name="PWish_Id" ColumnName="PWish_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -14,6 +14,12 @@ namespace ProjectMangementAPI.Models
     
     public partial class WishList
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public WishList()
+        {
+            this.ProcssedWishes = new HashSet<ProcssedWish>();
+        }
+    
         public int WishlistId { get; set; }
         public Nullable<int> WishTypeId { get; set; }
         public string Description { get; set; }
@@ -36,5 +42,8 @@ namespace ProjectMangementAPI.Models
         public virtual Project Project { get; set; }
         public virtual User User { get; set; }
         public virtual WishListType WishListType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProcssedWish> ProcssedWishes { get; set; }
+        public virtual WishMapper WishMapper { get; set; }
     }
 }

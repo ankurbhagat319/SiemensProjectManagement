@@ -134,6 +134,26 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have 
     <Property Name="IsCancelled" Type="bit" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
+  <EntityType Name="ProcssedWish">
+    <Key>
+      <PropertyRef Name="PWish_Id" />
+    </Key>
+    <Property Name="PWish_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WishlistId" Type="int" />
+    <Property Name="RequestedDuration" Type="nvarchar" MaxLength="50" />
+    <Property Name="AvailableDuration" Type="nvarchar" MaxLength="50" />
+    <Property Name="CommitedDate" Type="datetime" />
+    <Property Name="ExpiryDate" Type="datetime" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="RemainingDays" Type="int" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="IsNotifed" Type="bit" />
+    <Property Name="IsAcknowledged" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsRequestedReceived" Type="bit" />
+    <Property Name="IsExpired" Type="bit" />
+  </EntityType>
   <EntityType Name="Projects">
     <Key>
       <PropertyRef Name="ProjectID" />
@@ -344,6 +364,18 @@ error 6004: The table 'ProjectManagementDB.dbo.PlcDetails' is referenced by a re
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProcssedWish_WishList">
+    <End Role="WishList" Type="Self.WishList" Multiplicity="0..1" />
+    <End Role="ProcssedWish" Type="Self.ProcssedWish" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WishList">
+        <PropertyRef Name="WishlistId" />
+      </Principal>
+      <Dependent Role="ProcssedWish">
+        <PropertyRef Name="WishlistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Tools_AssetType">
     <End Role="AssetType" Type="Self.AssetType" Multiplicity="0..1" />
     <End Role="Tools" Type="Self.Tools" Multiplicity="*" />
@@ -484,6 +516,7 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
     <EntitySet Name="Devices" EntityType="Self.Devices" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PlcInfo" EntityType="Self.PlcInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProcessList" EntityType="Self.ProcessList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProcssedWish" EntityType="Self.ProcssedWish" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -518,6 +551,10 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
     <AssociationSet Name="FK_ProcessList_AssestTransfer" Association="Self.FK_ProcessList_AssestTransfer">
       <End Role="AssestTransfer" EntitySet="AssestTransfer" />
       <End Role="ProcessList" EntitySet="ProcessList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProcssedWish_WishList" Association="Self.FK_ProcssedWish_WishList">
+      <End Role="WishList" EntitySet="WishList" />
+      <End Role="ProcssedWish" EntitySet="ProcssedWish" />
     </AssociationSet>
     <AssociationSet Name="FK_Tools_AssetType" Association="Self.FK_Tools_AssetType">
       <End Role="AssetType" EntitySet="AssetType" />

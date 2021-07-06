@@ -239,6 +239,7 @@
     <NavigationProperty Name="Project" Relationship="Self.FK_WishList_Projects" FromRole="WishList" ToRole="Projects" />
     <NavigationProperty Name="User" Relationship="Self.FK_WishList_Users" FromRole="WishList" ToRole="Users" />
     <NavigationProperty Name="WishListType" Relationship="Self.FK_WishListType_WishTypeId_WishList_WishTypeId" FromRole="WishList" ToRole="WishListType" />
+    <NavigationProperty Name="ProcssedWishes" Relationship="ProjectManagementDBModel.FK_ProcssedWish_WishList" FromRole="WishList" ToRole="ProcssedWish" />
   </EntityType>
   <EntityType Name="WishListType">
     <Key>
@@ -532,6 +533,11 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="ProcssedWishes" EntityType="ProjectManagementDBModel.ProcssedWish" />
+    <AssociationSet Name="FK_ProcssedWish_WishList" Association="ProjectManagementDBModel.FK_ProcssedWish_WishList">
+      <End Role="WishList" EntitySet="WishLists" />
+      <End Role="ProcssedWish" EntitySet="ProcssedWishes" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -544,4 +550,37 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <EntityType Name="ProcssedWish">
+    <Key>
+      <PropertyRef Name="PWish_Id" />
+    </Key>
+    <Property Name="PWish_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WishlistId" Type="Int32" />
+    <Property Name="RequestedDuration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AvailableDuration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CommitedDate" Type="DateTime" Precision="3" />
+    <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RemainingDays" Type="Int32" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsNotifed" Type="Boolean" />
+    <Property Name="IsAcknowledged" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsRequestedReceived" Type="Boolean" />
+    <Property Name="IsExpired" Type="Boolean" />
+    <NavigationProperty Name="WishList" Relationship="ProjectManagementDBModel.FK_ProcssedWish_WishList" FromRole="ProcssedWish" ToRole="WishList" />
+  </EntityType>
+  <Association Name="FK_ProcssedWish_WishList">
+    <End Type="ProjectManagementDBModel.WishList" Role="WishList" Multiplicity="0..1" />
+    <End Type="ProjectManagementDBModel.ProcssedWish" Role="ProcssedWish" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WishList">
+        <PropertyRef Name="WishlistId" />
+      </Principal>
+      <Dependent Role="ProcssedWish">
+        <PropertyRef Name="WishlistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

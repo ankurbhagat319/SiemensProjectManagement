@@ -33,6 +33,13 @@
         <AssociationConnector Association="ProjectManagementDBModel.FK_Tools_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_WishList_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_WishListType_WishTypeId_WishList_WishTypeId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.ProcssedWish" Width="1.5" PointX="11.25" PointY="11.75" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_ProcssedWish_WishList" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.WishMapper" Width="1.5" PointX="11.25" PointY="7" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_WishMapper_WishList" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_WishMapper_WishListType" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.PlcDetail" Width="1.5" PointX="13.25" PointY="1.25" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

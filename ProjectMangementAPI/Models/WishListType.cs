@@ -18,6 +18,7 @@ namespace ProjectMangementAPI.Models
         public WishListType()
         {
             this.WishLists = new HashSet<WishList>();
+            this.WishMappers = new HashSet<WishMapper>();
         }
     
         public int WishTypeId { get; set; }
@@ -25,5 +26,7 @@ namespace ProjectMangementAPI.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WishList> WishLists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WishMapper> WishMappers { get; set; }
     }
 }

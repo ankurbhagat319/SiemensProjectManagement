@@ -40,6 +40,9 @@ namespace ProjectMangementAPI.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WishList> WishLists { get; set; }
         public virtual DbSet<WishListType> WishListTypes { get; set; }
+        public virtual DbSet<ProcssedWish> ProcssedWishes { get; set; }
+        public virtual DbSet<WishMapper> WishMappers { get; set; }
+        public virtual DbSet<PlcDetail> PlcDetails { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

@@ -14,6 +14,12 @@ namespace ProjectMangementAPI.Models
     
     public partial class PlcInfo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PlcInfo()
+        {
+            this.PlcDetails = new HashSet<PlcDetail>();
+        }
+    
         public int PlcId { get; set; }
         public Nullable<int> UserId { get; set; }
         public string UserName { get; set; }
@@ -33,5 +39,7 @@ namespace ProjectMangementAPI.Models
         public virtual Device Device { get; set; }
         public virtual PlcInfo PlcInfo1 { get; set; }
         public virtual PlcInfo PlcInfo2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlcDetail> PlcDetails { get; set; }
     }
 }

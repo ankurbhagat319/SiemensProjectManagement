@@ -41,3 +41,6 @@ E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjec
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.csproj.CopyComplete
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.dll
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.pdb
+E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\ProjectMangementAPI.dll
+E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\ProjectMangementAPI.pdb
+E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\ProjectMangementAPI.dll.config

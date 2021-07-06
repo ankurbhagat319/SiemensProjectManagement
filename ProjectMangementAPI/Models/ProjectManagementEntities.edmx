@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProjectManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProjectManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssestTransfer">
           <Key>
             <PropertyRef Name="Transfer_id" />
@@ -81,10 +81,13 @@
           <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6002: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PlcDetails">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
           <Property Name="PlcId" Type="int" />
-          <Property Name="SerialNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="SerialNo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IpAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="Subnet" Type="nvarchar" MaxLength="50" />
           <Property Name="Mlfb" Type="nvarchar" MaxLength="50" />
@@ -99,7 +102,7 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have 
           <Property Name="Location_Id" Type="nvarchar" MaxLength="50" />
           <Property Name="IsPingable" Type="bit" />
           <Property Name="IsFaulty" Type="bit" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="PlcInfo">
           <Key>
             <PropertyRef Name="PlcId" />
@@ -138,6 +141,26 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have 
           <Property Name="IsRejected" Type="bit" />
           <Property Name="IsCancelled" Type="bit" />
           <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProcssedWish">
+          <Key>
+            <PropertyRef Name="PWish_Id" />
+          </Key>
+          <Property Name="PWish_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WishlistId" Type="int" />
+          <Property Name="RequestedDuration" Type="nvarchar" MaxLength="50" />
+          <Property Name="AvailableDuration" Type="nvarchar" MaxLength="50" />
+          <Property Name="CommitedDate" Type="datetime" />
+          <Property Name="ExpiryDate" Type="datetime" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="RemainingDays" Type="int" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="IsNotifed" Type="bit" />
+          <Property Name="IsAcknowledged" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsRequestedReceived" Type="bit" />
+          <Property Name="IsExpired" Type="bit" />
         </EntityType>
         <EntityType Name="Projects">
           <Key>
@@ -244,9 +267,12 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have 
           <Property Name="WishTypeName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'ProjectManagementDB.dbo.WishMapper' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6002: The table/view 'ProjectManagementDB.dbo.WishMapper' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="WishMapper">
-          <Property Name="WishListId" Type="int" />
+          <Key>
+            <PropertyRef Name="WishListId" />
+          </Key>
+          <Property Name="WishListId" Type="int" Nullable="false" />
           <Property Name="WishTypeId" Type="int" />
           <Property Name="RequestedDuration" Type="nvarchar(max)" />
           <Property Name="UnassignedAsset_Id" Type="int" />
@@ -256,12 +282,7 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.WishMapper' does not have 
           <Property Name="IsMapped" Type="bit" />
           <Property Name="IsAcknowledged" Type="bit" />
           <Property Name="IsActive" Type="bit" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="ZidUsers">
-          <Property Name="ZID" Type="nvarchar(max)" />
-        </EntityType>-->
+        </EntityType>
         <Association Name="FK_AssestTransfer_AssetType">
           <End Role="AssetType" Type="Self.AssetType" Multiplicity="0..1" />
           <End Role="AssestTransfer" Type="Self.AssestTransfer" Multiplicity="*" />
@@ -310,9 +331,18 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-error 6004: The table 'ProjectManagementDB.dbo.PlcDetails' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_PlcDetails_PlcInfo" />-->
+        <Association Name="FK_PlcDetails_PlcInfo">
+          <End Role="PlcInfo" Type="Self.PlcInfo" Multiplicity="0..1" />
+          <End Role="PlcDetails" Type="Self.PlcDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlcInfo">
+              <PropertyRef Name="PlcId" />
+            </Principal>
+            <Dependent Role="PlcDetails">
+              <PropertyRef Name="PlcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PlcInfo_Devices">
           <End Role="Devices" Type="Self.Devices" Multiplicity="0..1" />
           <End Role="PlcInfo" Type="Self.PlcInfo" Multiplicity="*" />
@@ -346,6 +376,18 @@ error 6004: The table 'ProjectManagementDB.dbo.PlcDetails' is referenced by a re
             </Principal>
             <Dependent Role="ProcessList">
               <PropertyRef Name="TransferId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProcssedWish_WishList">
+          <End Role="WishList" Type="Self.WishList" Multiplicity="0..1" />
+          <End Role="ProcssedWish" Type="Self.ProcssedWish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WishList">
+              <PropertyRef Name="WishlistId" />
+            </Principal>
+            <Dependent Role="ProcssedWish">
+              <PropertyRef Name="WishlistId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -445,12 +487,30 @@ error 6004: The table 'ProjectManagementDB.dbo.PlcDetails' is referenced by a re
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_WishMapper_WishList" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_WishMapper_WishListType" />-->
+        <Association Name="FK_WishMapper_WishList">
+          <End Role="WishList" Type="Self.WishList" Multiplicity="1" />
+          <End Role="WishMapper" Type="Self.WishMapper" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="WishList">
+              <PropertyRef Name="WishlistId" />
+            </Principal>
+            <Dependent Role="WishMapper">
+              <PropertyRef Name="WishListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishMapper_WishListType">
+          <End Role="WishListType" Type="Self.WishListType" Multiplicity="0..1" />
+          <End Role="WishMapper" Type="Self.WishMapper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WishListType">
+              <PropertyRef Name="WishTypeId" />
+            </Principal>
+            <Dependent Role="WishMapper">
+              <PropertyRef Name="WishTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -489,6 +549,7 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
           <EntitySet Name="Devices" EntityType="Self.Devices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlcInfo" EntityType="Self.PlcInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProcessList" EntityType="Self.ProcessList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProcssedWish" EntityType="Self.ProcssedWish" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -496,6 +557,40 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WishList" EntityType="Self.WishList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WishListType" EntityType="Self.WishListType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlcDetails" EntityType="Self.PlcDetails" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PlcDetails].[PlcId] AS [PlcId], 
+    [PlcDetails].[SerialNo] AS [SerialNo], 
+    [PlcDetails].[IpAddress] AS [IpAddress], 
+    [PlcDetails].[Subnet] AS [Subnet], 
+    [PlcDetails].[Mlfb] AS [Mlfb], 
+    [PlcDetails].[Firmware] AS [Firmware], 
+    [PlcDetails].[Mac_Address] AS [Mac_Address], 
+    [PlcDetails].[Operating_State] AS [Operating_State], 
+    [PlcDetails].[Station_Name] AS [Station_Name], 
+    [PlcDetails].[PLC_Name] AS [PLC_Name], 
+    [PlcDetails].[PLC_Type] AS [PLC_Type], 
+    [PlcDetails].[SMC_SerialNo] AS [SMC_SerialNo], 
+    [PlcDetails].[Plant_DesignationId] AS [Plant_DesignationId], 
+    [PlcDetails].[Location_Id] AS [Location_Id], 
+    [PlcDetails].[IsPingable] AS [IsPingable], 
+    [PlcDetails].[IsFaulty] AS [IsFaulty]
+    FROM [dbo].[PlcDetails] AS [PlcDetails]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="WishMapper" EntityType="Self.WishMapper" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WishMapper].[WishListId] AS [WishListId], 
+    [WishMapper].[WishTypeId] AS [WishTypeId], 
+    [WishMapper].[RequestedDuration] AS [RequestedDuration], 
+    [WishMapper].[UnassignedAsset_Id] AS [UnassignedAsset_Id], 
+    [WishMapper].[AvailableDuration] AS [AvailableDuration], 
+    [WishMapper].[Quantity] AS [Quantity], 
+    [WishMapper].[Comments] AS [Comments], 
+    [WishMapper].[IsMapped] AS [IsMapped], 
+    [WishMapper].[IsAcknowledged] AS [IsAcknowledged], 
+    [WishMapper].[IsActive] AS [IsActive]
+    FROM [dbo].[WishMapper] AS [WishMapper]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_AssestTransfer_AssetType" Association="Self.FK_AssestTransfer_AssetType">
             <End Role="AssetType" EntitySet="AssetType" />
             <End Role="AssestTransfer" EntitySet="AssestTransfer" />
@@ -512,6 +607,10 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
             <End Role="Users" EntitySet="Users" />
             <End Role="AssetDetails" EntitySet="AssetDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_PlcDetails_PlcInfo" Association="Self.FK_PlcDetails_PlcInfo">
+            <End Role="PlcInfo" EntitySet="PlcInfo" />
+            <End Role="PlcDetails" EntitySet="PlcDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_PlcInfo_Devices" Association="Self.FK_PlcInfo_Devices">
             <End Role="Devices" EntitySet="Devices" />
             <End Role="PlcInfo" EntitySet="PlcInfo" />
@@ -523,6 +622,10 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
           <AssociationSet Name="FK_ProcessList_AssestTransfer" Association="Self.FK_ProcessList_AssestTransfer">
             <End Role="AssestTransfer" EntitySet="AssestTransfer" />
             <End Role="ProcessList" EntitySet="ProcessList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProcssedWish_WishList" Association="Self.FK_ProcssedWish_WishList">
+            <End Role="WishList" EntitySet="WishList" />
+            <End Role="ProcssedWish" EntitySet="ProcssedWish" />
           </AssociationSet>
           <AssociationSet Name="FK_Tools_AssetType" Association="Self.FK_Tools_AssetType">
             <End Role="AssetType" EntitySet="AssetType" />
@@ -556,9 +659,16 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
             <End Role="WishListType" EntitySet="WishListType" />
             <End Role="WishList" EntitySet="WishList" />
           </AssociationSet>
+          <AssociationSet Name="FK_WishMapper_WishList" Association="Self.FK_WishMapper_WishList">
+            <End Role="WishList" EntitySet="WishList" />
+            <End Role="WishMapper" EntitySet="WishMapper" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishMapper_WishListType" Association="Self.FK_WishMapper_WishListType">
+            <End Role="WishListType" EntitySet="WishListType" />
+            <End Role="WishMapper" EntitySet="WishMapper" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProjectManagementDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -669,6 +779,7 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
           <NavigationProperty Name="Device" Relationship="Self.FK_PlcInfo_Devices" FromRole="PlcInfo" ToRole="Devices" />
           <NavigationProperty Name="PlcInfo1" Relationship="Self.FK_PlcInfo_PlcInfo" FromRole="PlcInfo" ToRole="PlcInfo1" />
           <NavigationProperty Name="PlcInfo2" Relationship="Self.FK_PlcInfo_PlcInfo" FromRole="PlcInfo1" ToRole="PlcInfo" />
+          <NavigationProperty Name="PlcDetails" Relationship="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" FromRole="PlcInfo" ToRole="PlcDetail" />
         </EntityType>
         <EntityType Name="ProcessList">
           <Key>
@@ -801,6 +912,8 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
           <NavigationProperty Name="Project" Relationship="Self.FK_WishList_Projects" FromRole="WishList" ToRole="Projects" />
           <NavigationProperty Name="User" Relationship="Self.FK_WishList_Users" FromRole="WishList" ToRole="Users" />
           <NavigationProperty Name="WishListType" Relationship="Self.FK_WishListType_WishTypeId_WishList_WishTypeId" FromRole="WishList" ToRole="WishListType" />
+          <NavigationProperty Name="ProcssedWishes" Relationship="ProjectManagementDBModel.FK_ProcssedWish_WishList" FromRole="WishList" ToRole="ProcssedWish" />
+          <NavigationProperty Name="WishMapper" Relationship="ProjectManagementDBModel.FK_WishMapper_WishList" FromRole="WishList" ToRole="WishMapper" />
         </EntityType>
         <EntityType Name="WishListType">
           <Key>
@@ -809,6 +922,7 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
           <Property Name="WishTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="WishTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="WishLists" Relationship="Self.FK_WishListType_WishTypeId_WishList_WishTypeId" FromRole="WishListType" ToRole="WishList" />
+          <NavigationProperty Name="WishMappers" Relationship="ProjectManagementDBModel.FK_WishMapper_WishListType" FromRole="WishListType" ToRole="WishMapper" />
         </EntityType>
         <Association Name="FK_AssestTransfer_AssetType">
           <End Role="AssetType" Type="Self.AssetType" Multiplicity="0..1" />
@@ -1094,6 +1208,25 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="ProcssedWishes" EntityType="ProjectManagementDBModel.ProcssedWish" />
+          <AssociationSet Name="FK_ProcssedWish_WishList" Association="ProjectManagementDBModel.FK_ProcssedWish_WishList">
+            <End Role="WishList" EntitySet="WishLists" />
+            <End Role="ProcssedWish" EntitySet="ProcssedWishes" />
+          </AssociationSet>
+          <EntitySet Name="WishMappers" EntityType="ProjectManagementDBModel.WishMapper" />
+          <AssociationSet Name="FK_WishMapper_WishList" Association="ProjectManagementDBModel.FK_WishMapper_WishList">
+            <End Role="WishList" EntitySet="WishLists" />
+            <End Role="WishMapper" EntitySet="WishMappers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishMapper_WishListType" Association="ProjectManagementDBModel.FK_WishMapper_WishListType">
+            <End Role="WishListType" EntitySet="WishListTypes" />
+            <End Role="WishMapper" EntitySet="WishMappers" />
+          </AssociationSet>
+          <EntitySet Name="PlcDetails" EntityType="ProjectManagementDBModel.PlcDetail" />
+          <AssociationSet Name="FK_PlcDetails_PlcInfo" Association="ProjectManagementDBModel.FK_PlcDetails_PlcInfo">
+            <End Role="PlcInfo" EntitySet="PlcInfoes" />
+            <End Role="PlcDetail" EntitySet="PlcDetails" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1106,6 +1239,114 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="ProcssedWish">
+          <Key>
+            <PropertyRef Name="PWish_Id" />
+          </Key>
+          <Property Name="PWish_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WishlistId" Type="Int32" />
+          <Property Name="RequestedDuration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AvailableDuration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CommitedDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RemainingDays" Type="Int32" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsNotifed" Type="Boolean" />
+          <Property Name="IsAcknowledged" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsRequestedReceived" Type="Boolean" />
+          <Property Name="IsExpired" Type="Boolean" />
+          <NavigationProperty Name="WishList" Relationship="ProjectManagementDBModel.FK_ProcssedWish_WishList" FromRole="ProcssedWish" ToRole="WishList" />
+        </EntityType>
+        <Association Name="FK_ProcssedWish_WishList">
+          <End Type="ProjectManagementDBModel.WishList" Role="WishList" Multiplicity="0..1" />
+          <End Type="ProjectManagementDBModel.ProcssedWish" Role="ProcssedWish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WishList">
+              <PropertyRef Name="WishlistId" />
+            </Principal>
+            <Dependent Role="ProcssedWish">
+              <PropertyRef Name="WishlistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="WishMapper">
+          <Key>
+            <PropertyRef Name="WishListId" />
+          </Key>
+          <Property Name="WishListId" Type="Int32" Nullable="false" />
+          <Property Name="WishTypeId" Type="Int32" />
+          <Property Name="RequestedDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UnassignedAsset_Id" Type="Int32" />
+          <Property Name="AvailableDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsMapped" Type="Boolean" />
+          <Property Name="IsAcknowledged" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="WishList" Relationship="ProjectManagementDBModel.FK_WishMapper_WishList" FromRole="WishMapper" ToRole="WishList" />
+          <NavigationProperty Name="WishListType" Relationship="ProjectManagementDBModel.FK_WishMapper_WishListType" FromRole="WishMapper" ToRole="WishListType" />
+        </EntityType>
+        <Association Name="FK_WishMapper_WishList">
+          <End Type="ProjectManagementDBModel.WishList" Role="WishList" Multiplicity="1" />
+          <End Type="ProjectManagementDBModel.WishMapper" Role="WishMapper" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="WishList">
+              <PropertyRef Name="WishlistId" />
+            </Principal>
+            <Dependent Role="WishMapper">
+              <PropertyRef Name="WishListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishMapper_WishListType">
+          <End Type="ProjectManagementDBModel.WishListType" Role="WishListType" Multiplicity="0..1" />
+          <End Type="ProjectManagementDBModel.WishMapper" Role="WishMapper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WishListType">
+              <PropertyRef Name="WishTypeId" />
+            </Principal>
+            <Dependent Role="WishMapper">
+              <PropertyRef Name="WishTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PlcDetail">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="PlcId" Type="Int32" />
+          <Property Name="SerialNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Subnet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mlfb" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Firmware" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mac_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Operating_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Station_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PLC_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PLC_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SMC_SerialNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Plant_DesignationId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsPingable" Type="Boolean" />
+          <Property Name="IsFaulty" Type="Boolean" />
+          <NavigationProperty Name="PlcInfo" Relationship="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" FromRole="PlcDetail" ToRole="PlcInfo" />
+        </EntityType>
+        <Association Name="FK_PlcDetails_PlcInfo">
+          <End Type="ProjectManagementDBModel.PlcInfo" Role="PlcInfo" Multiplicity="0..1" />
+          <End Type="ProjectManagementDBModel.PlcDetail" Role="PlcDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlcInfo">
+              <PropertyRef Name="PlcId" />
+            </Principal>
+            <Dependent Role="PlcDetail">
+              <PropertyRef Name="PlcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1367,6 +1608,65 @@ error 6004: The table 'ProjectManagementDB.dbo.WishMapper' is referenced by a re
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ProjectManagementDBModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ProjectManagementDBModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="ProcssedWishes">
+            <EntityTypeMapping TypeName="ProjectManagementDBModel.ProcssedWish">
+              <MappingFragment StoreEntitySet="ProcssedWish">
+                <ScalarProperty Name="IsExpired" ColumnName="IsExpired" />
+                <ScalarProperty Name="IsRequestedReceived" ColumnName="IsRequestedReceived" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsAcknowledged" ColumnName="IsAcknowledged" />
+                <ScalarProperty Name="IsNotifed" ColumnName="IsNotifed" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="RemainingDays" ColumnName="RemainingDays" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="CommitedDate" ColumnName="CommitedDate" />
+                <ScalarProperty Name="AvailableDuration" ColumnName="AvailableDuration" />
+                <ScalarProperty Name="RequestedDuration" ColumnName="RequestedDuration" />
+                <ScalarProperty Name="WishlistId" ColumnName="WishlistId" />
+                <ScalarProperty Name="PWish_Id" ColumnName="PWish_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WishMappers">
+            <EntityTypeMapping TypeName="ProjectManagementDBModel.WishMapper">
+              <MappingFragment StoreEntitySet="WishMapper">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsAcknowledged" ColumnName="IsAcknowledged" />
+                <ScalarProperty Name="IsMapped" ColumnName="IsMapped" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="AvailableDuration" ColumnName="AvailableDuration" />
+                <ScalarProperty Name="UnassignedAsset_Id" ColumnName="UnassignedAsset_Id" />
+                <ScalarProperty Name="RequestedDuration" ColumnName="RequestedDuration" />
+                <ScalarProperty Name="WishTypeId" ColumnName="WishTypeId" />
+                <ScalarProperty Name="WishListId" ColumnName="WishListId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlcDetails">
+            <EntityTypeMapping TypeName="ProjectManagementDBModel.PlcDetail">
+              <MappingFragment StoreEntitySet="PlcDetails">
+                <ScalarProperty Name="IsFaulty" ColumnName="IsFaulty" />
+                <ScalarProperty Name="IsPingable" ColumnName="IsPingable" />
+                <ScalarProperty Name="Location_Id" ColumnName="Location_Id" />
+                <ScalarProperty Name="Plant_DesignationId" ColumnName="Plant_DesignationId" />
+                <ScalarProperty Name="SMC_SerialNo" ColumnName="SMC_SerialNo" />
+                <ScalarProperty Name="PLC_Type" ColumnName="PLC_Type" />
+                <ScalarProperty Name="PLC_Name" ColumnName="PLC_Name" />
+                <ScalarProperty Name="Station_Name" ColumnName="Station_Name" />
+                <ScalarProperty Name="Operating_State" ColumnName="Operating_State" />
+                <ScalarProperty Name="Mac_Address" ColumnName="Mac_Address" />
+                <ScalarProperty Name="Firmware" ColumnName="Firmware" />
+                <ScalarProperty Name="Mlfb" ColumnName="Mlfb" />
+                <ScalarProperty Name="Subnet" ColumnName="Subnet" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+                <ScalarProperty Name="PlcId" ColumnName="PlcId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
