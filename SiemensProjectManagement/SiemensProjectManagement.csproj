@@ -167,6 +167,7 @@
     <Compile Include="Models\PlcInfo.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PlcVirtualizationModel.cs" />
     <Compile Include="Models\ProcessList.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>

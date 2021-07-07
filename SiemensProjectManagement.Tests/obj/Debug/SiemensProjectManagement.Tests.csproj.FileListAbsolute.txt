@@ -39,3 +39,5 @@ E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjec
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.csproj.CopyComplete
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.dll
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.pdb
+E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\EntityFramework.dll
+E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\EntityFramework.xml
