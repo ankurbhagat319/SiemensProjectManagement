@@ -1,0 +1,59 @@
+﻿@using SiemensProjectManagement.Models;
+@model SiemensProjectManagement.Models.AssetDetail
+@{
+    ViewBag.Title = "Assets";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Assets</h2>
+<table>
+    <thead>
+        <tr>
+            <td>
+                Username
+            </td>
+            <td>
+                Hostname
+            </td>
+            <td>
+                Serial No.
+            </td>
+            <td>
+                Location
+            </td>
+            <td>
+                ExpireBy
+            </td>
+            <td>
+                ProjectName
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @{ foreach (var result in TempData["Assets"] as List<AssetDetail>)
+            {
+                <tr>
+                    <td>
+                        @result.UserName
+                    </td>
+
+                    <td>
+                        @result.HostName
+                    </td>
+                    <td>
+                        @result.Serial_No
+                    </td>
+                    <td>
+                        @result.Location
+                    </td>
+                    <td>
+                        @result.ExpireBy
+                    </td>
+                    <td>
+                        @result.ProjectID
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

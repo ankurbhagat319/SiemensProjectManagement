@@ -1,0 +1,671 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AssestTransfer">
+    <Key>
+      <PropertyRef Name="Transfer_id" />
+    </Key>
+    <Property Name="Transfer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectId" Type="int" />
+    <Property Name="AssetId" Type="int" />
+    <Property Name="AssetType_Id" Type="int" />
+    <Property Name="Responsible_UserId" Type="int" />
+    <Property Name="Requester_UserId" Type="nvarchar" MaxLength="50" />
+    <Property Name="Transfer_State" Type="nvarchar(max)" />
+    <Property Name="Responsible_Comments" Type="nvarchar(max)" />
+    <Property Name="Requester_Comments" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="date" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsCancelled" Type="bit" />
+    <Property Name="IsAcknowledeged" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="AssetDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="UserName" Type="nvarchar(max)" />
+    <Property Name="ProjectID" Type="int" />
+    <Property Name="Type" Type="nvarchar(max)" />
+    <Property Name="AssetType_Id" Type="int" />
+    <Property Name="Manufacturer" Type="nvarchar(max)" />
+    <Property Name="Resources_Class" Type="nvarchar(max)" />
+    <Property Name="Serial_No" Type="nvarchar(max)" />
+    <Property Name="HostName" Type="nvarchar(max)" />
+    <Property Name="SpiridonNo" Type="nvarchar(max)" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="PRNO" Type="nvarchar(max)" />
+    <Property Name="PONO" Type="nvarchar(max)" />
+    <Property Name="WarrantyStartDate" Type="nvarchar(max)" />
+    <Property Name="AgeOfAsset" Type="nvarchar(max)" />
+    <Property Name="ExpireBy" Type="nvarchar(max)" />
+    <Property Name="Owner" Type="nvarchar(max)" />
+    <Property Name="RAM" Type="nvarchar(max)" />
+    <Property Name="Storage" Type="nvarchar(max)" />
+    <Property Name="Processor" Type="nvarchar(max)" />
+    <Property Name="CPUClockSpeed" Type="nvarchar(max)" />
+    <Property Name="PhysicalCores" Type="nvarchar(max)" />
+    <Property Name="NIC_Count" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="date" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ISActive" Type="bit" />
+    <Property Name="ToBeReplaced" Type="bit" />
+    <Property Name="Acknowledge" Type="bit" />
+  </EntityType>
+  <EntityType Name="AssetType">
+    <Key>
+      <PropertyRef Name="AssetType_Id" />
+    </Key>
+    <Property Name="AssetType_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssetType_Name" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Devices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mlfb" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="BuildTargetName" Type="nvarchar" MaxLength="100" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+    <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="PlcDetails">
+    <Key>
+      <PropertyRef Name="SerialNo" />
+    </Key>
+    <Property Name="PlcId" Type="int" />
+    <Property Name="SerialNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IpAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="Subnet" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mlfb" Type="nvarchar" MaxLength="50" />
+    <Property Name="Firmware" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mac_Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="Operating_State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Station_Name" Type="nvarchar" MaxLength="150" />
+    <Property Name="PLC_Name" Type="nchar" MaxLength="10" />
+    <Property Name="PLC_Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="SMC_SerialNo" Type="nvarchar" MaxLength="150" />
+    <Property Name="Plant_DesignationId" Type="nvarchar" MaxLength="50" />
+    <Property Name="Location_Id" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsPingable" Type="bit" />
+    <Property Name="IsFaulty" Type="bit" />
+  </EntityType>
+  <EntityType Name="PlcInfo">
+    <Key>
+      <PropertyRef Name="PlcId" />
+    </Key>
+    <Property Name="PlcId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProjectId" Type="int" />
+    <Property Name="IpAddress" Type="nvarchar" MaxLength="150" />
+    <Property Name="DeviceId" Type="int" />
+    <Property Name="Rack_No" Type="nvarchar" MaxLength="100" />
+    <Property Name="Serial_No" Type="nvarchar" MaxLength="50" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="AssetType_id" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="date" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="ProcessList">
+    <Key>
+      <PropertyRef Name="ProcessId" />
+    </Key>
+    <Property Name="ProcessId" Type="int" Nullable="false" />
+    <Property Name="ProcessName" Type="nvarchar" MaxLength="150" />
+    <Property Name="TransferId" Type="int" />
+    <Property Name="Responsible_UserId" Type="int" />
+    <Property Name="Requester_UserId" Type="int" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="date" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsAccepted" Type="bit" />
+    <Property Name="IsRejected" Type="bit" />
+    <Property Name="IsCancelled" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="ProcssedWish">
+    <Key>
+      <PropertyRef Name="PWish_Id" />
+    </Key>
+    <Property Name="PWish_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WishlistId" Type="int" />
+    <Property Name="RequestedDuration" Type="nvarchar" MaxLength="50" />
+    <Property Name="AvailableDuration" Type="nvarchar" MaxLength="50" />
+    <Property Name="CommitedDate" Type="datetime" />
+    <Property Name="ExpiryDate" Type="datetime" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="RemainingDays" Type="int" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="IsNotifed" Type="bit" />
+    <Property Name="IsAcknowledged" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsRequestedReceived" Type="bit" />
+    <Property Name="IsExpired" Type="bit" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectName" Type="nvarchar(max)" />
+    <Property Name="ProjectCategory" Type="nvarchar" MaxLength="100" />
+    <Property Name="Segment" Type="nvarchar" MaxLength="100" />
+    <Property Name="SegmentHead" Type="nvarchar" MaxLength="100" />
+    <Property Name="SegmentHead_ZID" Type="nvarchar" MaxLength="100" />
+    <Property Name="SegmentHead_Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="SubSegment" Type="nvarchar" MaxLength="100" />
+    <Property Name="SubsegmentHead" Type="nvarchar" MaxLength="100" />
+    <Property Name="SubSegmentHead_ZID" Type="nvarchar" MaxLength="100" />
+    <Property Name="SubsegmentHead_Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="ProjectManager" Type="nvarchar" MaxLength="100" />
+    <Property Name="ManagerZID" Type="nvarchar" MaxLength="100" />
+    <Property Name="ManagerEmail" Type="nvarchar" MaxLength="100" />
+    <Property Name="Modified_Date" Type="datetime" />
+    <Property Name="Modified_By" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tools">
+    <Key>
+      <PropertyRef Name="ToolId" />
+    </Key>
+    <Property Name="ToolId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="AssetType_Id" Type="int" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="ProjectID" Type="int" />
+    <Property Name="SerialNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Quantity" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" />
+    <Property Name="DisplayName" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="ScrumTeam" Type="nchar" MaxLength="10" />
+    <Property Name="GripLevel" Type="nvarchar(max)" />
+    <Property Name="Joining_Date" Type="datetime" />
+    <Property Name="Designation" Type="nvarchar(max)" />
+    <Property Name="Project_ID" Type="int" />
+    <Property Name="Modified_date" Type="datetime" />
+    <Property Name="Modified_By" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="WishList">
+    <Key>
+      <PropertyRef Name="WishlistId" />
+    </Key>
+    <Property Name="WishlistId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WishTypeId" Type="int" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="ProjectID" Type="int" />
+    <Property Name="AssetTypeId" Type="int" />
+    <Property Name="AssetId" Type="int" />
+    <Property Name="Quantity" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="RequestDuration" Type="nvarchar" MaxLength="50" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="CreatedTime" Type="date" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedTime" Type="date" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsAcknowledged" Type="bit" />
+    <Property Name="IsMapped" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="WishListType">
+    <Key>
+      <PropertyRef Name="WishTypeId" />
+    </Key>
+    <Property Name="WishTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WishTypeName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ProjectManagementDB.dbo.WishMapper' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="WishMapper">
+    <Key>
+      <PropertyRef Name="WishListId" />
+    </Key>
+    <Property Name="WishListId" Type="int" Nullable="false" />
+    <Property Name="WishTypeId" Type="int" />
+    <Property Name="RequestedDuration" Type="nvarchar(max)" />
+    <Property Name="UnassignedAsset_Id" Type="int" />
+    <Property Name="AvailableDuration" Type="nvarchar(max)" />
+    <Property Name="Quantity" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="IsMapped" Type="bit" />
+    <Property Name="IsAcknowledged" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ZidUsers">
+          <Property Name="ZID" Type="nvarchar(max)" />
+        </EntityType>-->
+  <Association Name="FK_AssestTransfer_AssetType">
+    <End Role="AssetType" Type="Self.AssetType" Multiplicity="0..1" />
+    <End Role="AssestTransfer" Type="Self.AssestTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssetType">
+        <PropertyRef Name="AssetType_Id" />
+      </Principal>
+      <Dependent Role="AssestTransfer">
+        <PropertyRef Name="AssetType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssetDetails_AssetType">
+    <End Role="AssetType" Type="Self.AssetType" Multiplicity="0..1" />
+    <End Role="AssetDetails" Type="Self.AssetDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssetType">
+        <PropertyRef Name="AssetType_Id" />
+      </Principal>
+      <Dependent Role="AssetDetails">
+        <PropertyRef Name="AssetType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssetDetails_Projects">
+    <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+    <End Role="AssetDetails" Type="Self.AssetDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="AssetDetails">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssetDetails_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="AssetDetails" Type="Self.AssetDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="AssetDetails">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlcDetails_PlcInfo">
+    <End Role="PlcInfo" Type="Self.PlcInfo" Multiplicity="0..1" />
+    <End Role="PlcDetails" Type="Self.PlcDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlcInfo">
+        <PropertyRef Name="PlcId" />
+      </Principal>
+      <Dependent Role="PlcDetails">
+        <PropertyRef Name="PlcId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlcInfo_Devices">
+    <End Role="Devices" Type="Self.Devices" Multiplicity="0..1" />
+    <End Role="PlcInfo" Type="Self.PlcInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Devices">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlcInfo">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlcInfo_PlcInfo">
+    <End Role="PlcInfo" Type="Self.PlcInfo" Multiplicity="1" />
+    <End Role="PlcInfo1" Type="Self.PlcInfo" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PlcInfo">
+        <PropertyRef Name="PlcId" />
+      </Principal>
+      <Dependent Role="PlcInfo1">
+        <PropertyRef Name="PlcId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProcessList_AssestTransfer">
+    <End Role="AssestTransfer" Type="Self.AssestTransfer" Multiplicity="0..1" />
+    <End Role="ProcessList" Type="Self.ProcessList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssestTransfer">
+        <PropertyRef Name="Transfer_id" />
+      </Principal>
+      <Dependent Role="ProcessList">
+        <PropertyRef Name="TransferId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProcssedWish_WishList">
+    <End Role="WishList" Type="Self.WishList" Multiplicity="0..1" />
+    <End Role="ProcssedWish" Type="Self.ProcssedWish" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WishList">
+        <PropertyRef Name="WishlistId" />
+      </Principal>
+      <Dependent Role="ProcssedWish">
+        <PropertyRef Name="WishlistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tools_AssetType">
+    <End Role="AssetType" Type="Self.AssetType" Multiplicity="0..1" />
+    <End Role="Tools" Type="Self.Tools" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssetType">
+        <PropertyRef Name="AssetType_Id" />
+      </Principal>
+      <Dependent Role="Tools">
+        <PropertyRef Name="AssetType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tools_Projects">
+    <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+    <End Role="Tools" Type="Self.Tools" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Tools">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tools_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Tools" Type="Self.Tools" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Tools">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WishList_AssetType">
+    <End Role="AssetType" Type="Self.AssetType" Multiplicity="0..1" />
+    <End Role="WishList" Type="Self.WishList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssetType">
+        <PropertyRef Name="AssetType_Id" />
+      </Principal>
+      <Dependent Role="WishList">
+        <PropertyRef Name="AssetTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WishList_Projects">
+    <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+    <End Role="WishList" Type="Self.WishList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="WishList">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WishList_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="WishList" Type="Self.WishList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="WishList">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WishListType_WishTypeId_WishList_WishTypeId">
+    <End Role="WishListType" Type="Self.WishListType" Multiplicity="0..1" />
+    <End Role="WishList" Type="Self.WishList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WishListType">
+        <PropertyRef Name="WishTypeId" />
+      </Principal>
+      <Dependent Role="WishList">
+        <PropertyRef Name="WishTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WishMapper_WishList">
+    <End Role="WishList" Type="Self.WishList" Multiplicity="1" />
+    <End Role="WishMapper" Type="Self.WishMapper" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="WishList">
+        <PropertyRef Name="WishlistId" />
+      </Principal>
+      <Dependent Role="WishMapper">
+        <PropertyRef Name="WishListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WishMapper_WishListType">
+    <End Role="WishListType" Type="Self.WishListType" Multiplicity="0..1" />
+    <End Role="WishMapper" Type="Self.WishMapper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WishListType">
+        <PropertyRef Name="WishTypeId" />
+      </Principal>
+      <Dependent Role="WishMapper">
+        <PropertyRef Name="WishTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="ProjectManagementDBModelStoreContainer">
+    <EntitySet Name="AssestTransfer" EntityType="Self.AssestTransfer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AssetDetails" EntityType="Self.AssetDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AssetType" EntityType="Self.AssetType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Devices" EntityType="Self.Devices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlcInfo" EntityType="Self.PlcInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProcessList" EntityType="Self.ProcessList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProcssedWish" EntityType="Self.ProcssedWish" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tools" EntityType="Self.Tools" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WishList" EntityType="Self.WishList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WishListType" EntityType="Self.WishListType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlcDetails" EntityType="Self.PlcDetails" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [PlcDetails].[PlcId] AS [PlcId], 
+    [PlcDetails].[SerialNo] AS [SerialNo], 
+    [PlcDetails].[IpAddress] AS [IpAddress], 
+    [PlcDetails].[Subnet] AS [Subnet], 
+    [PlcDetails].[Mlfb] AS [Mlfb], 
+    [PlcDetails].[Firmware] AS [Firmware], 
+    [PlcDetails].[Mac_Address] AS [Mac_Address], 
+    [PlcDetails].[Operating_State] AS [Operating_State], 
+    [PlcDetails].[Station_Name] AS [Station_Name], 
+    [PlcDetails].[PLC_Name] AS [PLC_Name], 
+    [PlcDetails].[PLC_Type] AS [PLC_Type], 
+    [PlcDetails].[SMC_SerialNo] AS [SMC_SerialNo], 
+    [PlcDetails].[Plant_DesignationId] AS [Plant_DesignationId], 
+    [PlcDetails].[Location_Id] AS [Location_Id], 
+    [PlcDetails].[IsPingable] AS [IsPingable], 
+    [PlcDetails].[IsFaulty] AS [IsFaulty]
+    FROM [dbo].[PlcDetails] AS [PlcDetails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="WishMapper" EntityType="Self.WishMapper" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [WishMapper].[WishListId] AS [WishListId], 
+    [WishMapper].[WishTypeId] AS [WishTypeId], 
+    [WishMapper].[RequestedDuration] AS [RequestedDuration], 
+    [WishMapper].[UnassignedAsset_Id] AS [UnassignedAsset_Id], 
+    [WishMapper].[AvailableDuration] AS [AvailableDuration], 
+    [WishMapper].[Quantity] AS [Quantity], 
+    [WishMapper].[Comments] AS [Comments], 
+    [WishMapper].[IsMapped] AS [IsMapped], 
+    [WishMapper].[IsAcknowledged] AS [IsAcknowledged], 
+    [WishMapper].[IsActive] AS [IsActive]
+    FROM [dbo].[WishMapper] AS [WishMapper]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_AssestTransfer_AssetType" Association="Self.FK_AssestTransfer_AssetType">
+      <End Role="AssetType" EntitySet="AssetType" />
+      <End Role="AssestTransfer" EntitySet="AssestTransfer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssetDetails_AssetType" Association="Self.FK_AssetDetails_AssetType">
+      <End Role="AssetType" EntitySet="AssetType" />
+      <End Role="AssetDetails" EntitySet="AssetDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssetDetails_Projects" Association="Self.FK_AssetDetails_Projects">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="AssetDetails" EntitySet="AssetDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssetDetails_Users" Association="Self.FK_AssetDetails_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AssetDetails" EntitySet="AssetDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlcDetails_PlcInfo" Association="Self.FK_PlcDetails_PlcInfo">
+      <End Role="PlcInfo" EntitySet="PlcInfo" />
+      <End Role="PlcDetails" EntitySet="PlcDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlcInfo_Devices" Association="Self.FK_PlcInfo_Devices">
+      <End Role="Devices" EntitySet="Devices" />
+      <End Role="PlcInfo" EntitySet="PlcInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlcInfo_PlcInfo" Association="Self.FK_PlcInfo_PlcInfo">
+      <End Role="PlcInfo" EntitySet="PlcInfo" />
+      <End Role="PlcInfo1" EntitySet="PlcInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProcessList_AssestTransfer" Association="Self.FK_ProcessList_AssestTransfer">
+      <End Role="AssestTransfer" EntitySet="AssestTransfer" />
+      <End Role="ProcessList" EntitySet="ProcessList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProcssedWish_WishList" Association="Self.FK_ProcssedWish_WishList">
+      <End Role="WishList" EntitySet="WishList" />
+      <End Role="ProcssedWish" EntitySet="ProcssedWish" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tools_AssetType" Association="Self.FK_Tools_AssetType">
+      <End Role="AssetType" EntitySet="AssetType" />
+      <End Role="Tools" EntitySet="Tools" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tools_Projects" Association="Self.FK_Tools_Projects">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="Tools" EntitySet="Tools" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tools_Users" Association="Self.FK_Tools_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Tools" EntitySet="Tools" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WishList_AssetType" Association="Self.FK_WishList_AssetType">
+      <End Role="AssetType" EntitySet="AssetType" />
+      <End Role="WishList" EntitySet="WishList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WishList_Projects" Association="Self.FK_WishList_Projects">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="WishList" EntitySet="WishList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WishList_Users" Association="Self.FK_WishList_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="WishList" EntitySet="WishList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WishListType_WishTypeId_WishList_WishTypeId" Association="Self.FK_WishListType_WishTypeId_WishList_WishTypeId">
+      <End Role="WishListType" EntitySet="WishListType" />
+      <End Role="WishList" EntitySet="WishList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WishMapper_WishList" Association="Self.FK_WishMapper_WishList">
+      <End Role="WishList" EntitySet="WishList" />
+      <End Role="WishMapper" EntitySet="WishMapper" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WishMapper_WishListType" Association="Self.FK_WishMapper_WishListType">
+      <End Role="WishListType" EntitySet="WishListType" />
+      <End Role="WishMapper" EntitySet="WishMapper" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
