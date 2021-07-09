@@ -18,17 +18,9 @@ namespace SiemensProjectManagement.Controllers
         public ActionResult Assets()
         {
             ProjectManagementDB db = new ProjectManagementDB();
-            var assets = db.AssetDetails.Select(x => x).Where(x => x.UserName == "z003tyvc").ToList();
+            var assets = db.AssetDetails.ToList();
 
-            //var tmp = from et in db.AssetDetails
-                 
-            //          select new
-            //          {
-            //            ProjectName =  et.Project.ProjectName,
-            //            HostName  = et.HostName,
-
-
-            //          };
+       
 
             TempData["assets"] = assets;
             return View();
