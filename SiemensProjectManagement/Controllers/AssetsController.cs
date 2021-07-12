@@ -9,23 +9,32 @@ namespace SiemensProjectManagement.Controllers
 {
     public class AssetsController : Controller
     {
+        ProjectManagementDB db = new ProjectManagementDB();
+        int selectedID;
         // GET: Assets
         public ActionResult Index()
         {
-            return View();
+            UserModel uModel;
+            uModel = new UserModel
+            {
+                Users = db.Users
+            };
+            return View(uModel);
+        }
+
+        [HttpPost]
+        public ActionResult Index(UserModel model)
+        {
+            selectedID = model.selectedUserID;
+            var assets = db.AssetDetails.Where(x => x.UserID == selectedID).ToList();
+            var plcs = db.PlcInfoes.Where(x => x.UserId == selectedID).ToList();
+            TempData["assets"] = assets;
+            TempData["plcs"] = plcs;
+            return RedirectToAction("Assets"); 
         }
 
         public ActionResult Assets()
         {
-            ProjectManagementDB db = new ProjectManagementDB();
-
-        
-            
-            var assets = db.AssetDetails.ToList();
-
-       
-
-            TempData["assets"] = assets;
             return View();
         }
     }

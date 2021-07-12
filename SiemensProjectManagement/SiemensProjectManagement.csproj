@@ -212,6 +212,7 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\WishList.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
