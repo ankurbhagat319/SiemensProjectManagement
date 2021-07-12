@@ -18,6 +18,9 @@ namespace SiemensProjectManagement.Controllers
         public ActionResult Assets()
         {
             ProjectManagementDB db = new ProjectManagementDB();
+
+        
+            
             var assets = db.AssetDetails.ToList();
 
        

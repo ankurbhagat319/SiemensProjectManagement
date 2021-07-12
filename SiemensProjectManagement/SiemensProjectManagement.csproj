@@ -146,6 +146,7 @@
     <Compile Include="Controllers\PlcVirtualizationController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\WishListsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -455,6 +456,11 @@
     <Content Include="Views\PlcVirtualization\PlcVirtualization.cshtml" />
     <Content Include="Views\PlcVirtualization\SampleLedCheck.cshtml" />
     <Content Include="Views\Assets\Assets.cshtml" />
+    <Content Include="Views\WishLists\Create.cshtml" />
+    <Content Include="Views\WishLists\Delete.cshtml" />
+    <Content Include="Views\WishLists\Details.cshtml" />
+    <Content Include="Views\WishLists\Edit.cshtml" />
+    <Content Include="Views\WishLists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
