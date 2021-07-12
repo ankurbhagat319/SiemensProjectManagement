@@ -1,0 +1,15 @@
+﻿
+@model SiemensProjectManagement.Models.UserModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2> Index </h2>
+
+@using(Html.BeginForm(null, null, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken();
+    @Html.DropDownListFor(Model => Model.selectedUserID, new SelectList(Model.Users, "UserID", "DisplayName"), new { @id = "userID" } )
+    <input type= "submit" value="Show" />
+            }
+
