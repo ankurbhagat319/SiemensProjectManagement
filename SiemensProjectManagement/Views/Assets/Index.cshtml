@@ -5,11 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2> Index </h2>
+<div  class="container-fluid">
+    @using (Html.BeginForm(null, null, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+        @Html.DropDownListFor(Model => Model.selectedUserID, new SelectList(Model.Users, "UserID", "DisplayName"), new { @id = "userID" })
+        <input type="submit" value="Show" />
+    }
 
-@using(Html.BeginForm(null, null, FormMethod.Post))
-            {
-                @Html.AntiForgeryToken();
-    @Html.DropDownListFor(Model => Model.selectedUserID, new SelectList(Model.Users, "UserID", "DisplayName"), new { @id = "userID" } )
-    <input type= "submit" value="Show" />
-            }
-
+</div>

@@ -52,342 +52,149 @@
 <body>
     <br/>
     <div class="container-fluid">
-
-                <div class="tab">
-                    <button class="tablinks" onclick="openCity(event, 'Assets')">Assets</button>
-                    <button class="tablinks" onclick="openCity(event, 'PLCs')">PLCs</button>
-                    <button class="tablinks" onclick="openCity(event, 'Transfer')">Transfer</button>
-                </div>
-
-                <!-- Tab content -->
-                <div id="Assets" class="tabcontent">
-                    <h3>Assets</h3>
-                    <table id="AssetTable">
-                        <thead>
-                            <tr>
-                                <td>
-                                    Username
-                                </td>
-                                <td>
-                                    Hostname
-                                </td>
-                                <td>
-                                    Serial No.
-                                </td>
-                                <td>
-                                    Location
-                                </td>
-                                <td>
-                                    ExpireBy
-                                </td>
-                                <td>
-                                    ProjectName
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{ foreach (var result in TempData["Assets"] as List<AssetDetail>)
-                                {
-                    <tr>
-                        <td>
-                            @result.UserName
-                        </td>
-
-                        <td>
-                            @result.HostName
-                        </td>
-                        <td>
-                            @result.Serial_No
-                        </td>
-                        <td>
-                            @result.Location
-                        </td>
-                        <td>
-                            @result.ExpireBy
-                        </td>
-                        <td>
-                            @result.ProjectID
-                        </td>
-                    </tr>
- } }
-                        </tbody>
-                    </table>
-                </div>
-
-                <div id="PLCs" class="tabcontent">
-                    <h3>PLCs</h3>
-                    <table id="PLCTable">
-                        <thead>
-                            <tr>
-                                <td>
-                                    PLCID
-                                </td>
-                                <td>
-                                    Username
-                                </td>
-                                <td>
-                                    DeviceID
-                                </td>
-                                <td>
-                                    IPAddress
-                                </td>
-                                <td>
-                                    RackNo.
-                                </td>
-                                <td>
-                                    SerialNo.
-                                </td>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{ foreach (var result in TempData["plcs"] as List<PlcInfo>)
-                                {
-                    <tr>
-                        <td>
-                            @result.PlcId
-                        </td>
-
-                        <td>
-                            @result.UserName
-                        </td>
-                        <td>
-                            @result.DeviceId
-                        </td>
-                        <td>
-                            @result.IpAddress
-                        </td>
-                        <td>
-                            @result.Rack_No
-                        </td>
-                        <td>
-                            @result.Serial_No
-                        </td>
-                    </tr> } }
-                        </tbody>
-                    </table>
-                </div>
-
-                <div id="Transfer" class="tabcontent">
-                    <h3>Transfer</h3>
-                    <table id="TransferTable">
-                        <thead>
-                            <tr>
-                                <td>
-                                    Username
-                                </td>
-                                <td>
-                                    Hostname
-                                </td>
-                                <td>
-                                    Serial No.
-                                </td>
-                                <td>
-                                    Location
-                                </td>
-                                <td>
-                                    ExpireBy
-                                </td>
-                                <td>
-                                    ProjectName
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{ foreach (var result in TempData["Assets"] as List<AssetDetail>)
-                                {
-                    <tr>
-                        <td>
-                            @result.UserName
-                        </td>
-
-                        <td>
-                            @result.HostName
-                        </td>
-                        <td>
-                            @result.Serial_No
-                        </td>
-                        <td>
-                            @result.Location
-                        </td>
-                        <td>
-                            @result.ExpireBy
-                        </td>
-                        <td>
-                            @result.ProjectID
-                        </td>
-                    </tr> } }
-                        </tbody>
-                    </table>
-                </div>
-        
-
-                @*<div class="tab-content">
-                           <div id="AssetsTab" class="tab-content active">
-                               <h3>Assets</h3>
-                               <p>List of Assets</p>
-                               <table id="AssetTable" class="table-striped">
-                                   <thead>
-                                       <tr>
-                                           <td>
-                                               Username
-                                           </td>
-                                           <td>
-                                               Hostname
-                                           </td>
-                                           <td>
-                                               Serial No.
-                                           </td>
-                                           <td>
-                                               Location
-                                           </td>
-                                           <td>
-                                               ExpireBy
-                                           </td>
-                                           <td>
-                                               ProjectName
-                                           </td>
-                                       </tr>
-                                   </thead>
-                                   <tbody>
-                                       @{ foreach (var result in TempData["Assets"] as List<AssetDetail>)
-                                           {
-                               <tr>
-                                   <td>
-                                       @result.UserName
-                                   </td>
-
-                                   <td>
-                                       @result.HostName
-                                   </td>
-                                   <td>
-                                       @result.Serial_No
-                                   </td>
-                                   <td>
-                                       @result.Location
-                                   </td>
-                                   <td>
-                                       @result.ExpireBy
-                                   </td>
-                                   <td>
-                                       @result.ProjectID
-                                   </td>
-                               </tr> } }
-                                   </tbody>
-                               </table>
-                           </div>
-                           <div id="PLCsTab" class="tab-content" style="width:100%;height:100%;">
-                               <h3>PLCs</h3>
-                               <p>List of PLCs</p>
-                               <table id="PLCTable" class="table-striped">
-                                   <thead>
-                                       <tr>
-                                           <td>
-                                               PLCID
-                                           </td>
-                                           <td>
-                                               Username
-                                           </td>
-                                           <td>
-                                               DeviceID
-                                           </td>
-                                           <td>
-                                               IPAddress
-                                           </td>
-                                           <td>
-                                               RackNo.
-                                           </td>
-                                           <td>
-                                               SerialNo.
-                                           </td>
-
-                                       </tr>
-                                   </thead>
-                                   <tbody>
-                                       @{ foreach (var result in TempData["plcs"] as List<PlcInfo>)
-                                           {
-                               <tr>
-                                   <td>
-                                       @result.PlcId
-                                   </td>
-
-                                   <td>
-                                       @result.UserName
-                                   </td>
-                                   <td>
-                                       @result.DeviceId
-                                   </td>
-                                   <td>
-                                       @result.IpAddress
-                                   </td>
-                                   <td>
-                                       @result.Rack_No
-                                   </td>
-                                   <td>
-                                       @result.Serial_No
-                                   </td>
-                               </tr>
-        } }
-                                   </tbody>
-                               </table>
-                           </div>
-                           <div id="transferTab" class="tab-content">
-                               <h3>Transfer</h3>
-                               <p>List of Transfers</p>
-                               <table id="TransferTable" class="table-striped">
-                                   <thead>
-                                       <tr>
-                                           <td>
-                                               Username
-                                           </td>
-                                           <td>
-                                               Hostname
-                                           </td>
-                                           <td>
-                                               Serial No.
-                                           </td>
-                                           <td>
-                                               Location
-                                           </td>
-                                           <td>
-                                               ExpireBy
-                                           </td>
-                                           <td>
-                                               ProjectName
-                                           </td>
-                                       </tr>
-                                   </thead>
-                                   <tbody>
-                                       @{ foreach (var result in TempData["Assets"] as List<AssetDetail>)
-                                           {
-                               <tr>
-                                   <td>
-                                       @result.UserName
-                                   </td>
-
-                                   <td>
-                                       @result.HostName
-                                   </td>
-                                   <td>
-                                       @result.Serial_No
-                                   </td>
-                                   <td>
-                                       @result.Location
-                                   </td>
-                                   <td>
-                                       @result.ExpireBy
-                                   </td>
-                                   <td>
-                                       @result.ProjectID
-                                   </td>
-                               </tr>
-        } }
-                                   </tbody>
-                               </table>
-                           </div>
-                       </div>*@
-
+        <div class="row">
+            <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'Assets')">Assets</button>
+                <button class="tablinks" onclick="openCity(event, 'PLCs')">PLCs</button>
+                <button class="tablinks" onclick="openCity(event, 'Transfer')">Transfer</button>
             </div>
+            <!-- Tab content -->
+            <div id="Assets" class="tabcontent">
+                <h3>Assets</h3>
+
+                <table id="AssetTable">
+                    <thead>
+                        <tr>
+                            <td>Username </td>
+                            <td>Hostname </td>
+                            <td> Serial No. </td>
+                            <td>Location</td>
+                            <td>ExpireBy </td>
+                            <td>ProjectName</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ foreach (var result in TempData["Assets"] as List<AssetDetail>)
+                            {
+                                <tr>
+                                    <td>@result.UserName </td>
+                                    <td>@result.HostName </td>
+                                    <td>@result.Serial_No  </td>
+                                    <td> @result.Location </td>
+                                    <td>@result.ExpireBy</td>
+                                    <td> @result.ProjectID </td>
+                                </tr>
+                            } }
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="PLCs" class="tabcontent ">
+                <h3>PLCs</h3>
+                <table id="PLCTable">
+                    <thead>
+                        <tr>
+                            <td>
+                                PLCID
+                            </td>
+                            <td>
+                                Username
+                            </td>
+                            <td>
+                                DeviceID
+                            </td>
+                            <td>
+                                IPAddress
+                            </td>
+                            <td>
+                                RackNo.
+                            </td>
+                            <td>
+                                SerialNo.
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ foreach (var result in TempData["plcs"] as List<PlcInfo>)
+                            {
+                                <tr>
+                                    <td>
+                                        @result.PlcId
+                                    </td>
+                                    <td>
+                                        @result.UserName
+                                    </td>
+                                    <td>
+                                        @result.DeviceId
+                                    </td>
+                                    <td>
+                                        @result.IpAddress
+                                    </td>
+                                    <td>
+                                        @result.Rack_No
+                                    </td>
+                                    <td>
+                                        @result.Serial_No
+                                    </td>
+                                </tr> } }
+                    </tbody>
+                </table>
+            </div>
+            <div id="Transfer" class="tabcontent ">
+                <h3>Transfer</h3>
+                <table id="TransferTable">
+                    <thead>
+                        <tr>
+                            <td>
+                                Username
+                            </td>
+                            <td>
+                                Hostname
+                            </td>
+                            <td>
+                                Serial No.
+                            </td>
+                            <td>
+                                Location
+                            </td>
+                            <td>
+                                ExpireBy
+                            </td>
+                            <td>
+                                ProjectName
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ foreach (var result in TempData["Assets"] as List<AssetDetail>)
+                            {
+                                <tr>
+                                    <td>
+                                        @result.UserName
+                                    </td>
+                                    <td>
+                                        @result.HostName
+                                    </td>
+                                    <td>
+                                        @result.Serial_No
+                                    </td>
+                                    <td>
+                                        @result.Location
+                                    </td>
+                                    <td>
+                                        @result.ExpireBy
+                                    </td>
+                                    <td>
+                                        @result.ProjectID
+                                    </td>
+                                </tr> } }
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
     
 </body>
 
@@ -396,17 +203,20 @@
     debugger;
     var tablefc1 = $('#AssetTable').DataTable({
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "autoWidth": false,
         "columnDefs": [
             {
                 //"targets": [0],
                 //"visible": false,
                 //"searchable": false
-            }
+            },
+            //"bAutoWidth": false,
         ],
         "order": [[0, "desc"]]
     });
     var tablefc2 = $('#PLCTable').DataTable({
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "autoWidth": false,
         "columnDefs": [
             {
                 //"targets": [0],
@@ -414,6 +224,7 @@
                 //"searchable": false
             }
         ],
+
         "order": [[0, "desc"]]
     });
     var tablefc3 = $('#TransferTable').DataTable({
@@ -425,6 +236,7 @@
                 //"searchable": false
             }
         ],
+        "autoWidth": false,
         "order": [[0, "desc"]]
     });
 

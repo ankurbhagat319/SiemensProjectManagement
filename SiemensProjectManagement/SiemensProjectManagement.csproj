@@ -462,6 +462,7 @@
     <Content Include="Views\WishLists\Details.cshtml" />
     <Content Include="Views\WishLists\Edit.cshtml" />
     <Content Include="Views\WishLists\Index.cshtml" />
+    <Content Include="Views\Assets\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
