@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SiemensProjectManagement.Models
 {
-    public class UserModel
+    public  class UserModel
     {
         public IEnumerable<User> Users { get; set; }
 

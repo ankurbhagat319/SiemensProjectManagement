@@ -156,6 +156,7 @@
     <Compile Include="Models\AssetDetail.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssetDetailsModel.cs" />
     <Compile Include="Models\AssetType.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>

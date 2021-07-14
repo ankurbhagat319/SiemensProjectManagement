@@ -2,13 +2,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js" integrity="sha512-ZuOjyqq409+q6uc49UiBF3fTeyRyP8Qs0Jf/7FxH5LfhqBMzrR5cwbpDA4BgzSo884w6q/+oNdIeHenOqhISGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js" integrity="sha512-ZuOjyqq409+q6uc49UiBF3fTeyRyP8Qs0Jf/7FxH5LfhqBMzrR5cwbpDA4BgzSo884w6q/+oNdIeHenOqhISGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @using SiemensProjectManagement.Models;
 @model SiemensProjectManagement.Models.AssetDetail
 @{ ViewBag.Title = "Assets"; Layout = "~/Views/Shared/_Layout.cshtml"; }
-
 <style>
     /* Style the tab */
     .tab {
@@ -46,23 +45,23 @@
         border-top: none;
     }
 </style>
-
 <h2>Assets</h2>
-
 <body>
-    <br/>
+    <br />
     <div class="container-fluid">
         <div class="row">
+        </div>
+        <div class="row">
             <div class="tab">
-                <button class="tablinks" onclick="openCity(event, 'Assets')">Assets</button>
-                <button class="tablinks" onclick="openCity(event, 'PLCs')">PLCs</button>
-                <button class="tablinks" onclick="openCity(event, 'Transfer')">Transfer</button>
+                <button class="tablinks active" id="tabassets" onclick="openAssets(event, 'Assets')">Assets</button>
+                <button class="tablinks" id="tabplcs" onclick="openAssets(event, 'PLCs')">PLCs</button>
+                <button class="tablinks" id="tabtransfer" onclick="openAssets(event, 'Transfer')">Transfer</button>
             </div>
             <!-- Tab content -->
             <div id="Assets" class="tabcontent">
                 <h3>Assets</h3>
 
-                <table id="AssetTable">
+                <table id="AssetTable" class="table-bordered table-striped">
                     <thead>
                         <tr>
                             <td>Username </td>
@@ -71,6 +70,7 @@
                             <td>Location</td>
                             <td>ExpireBy </td>
                             <td>ProjectName</td>
+                            <td>Transfer</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,59 +83,37 @@
                                     <td> @result.Location </td>
                                     <td>@result.ExpireBy</td>
                                     <td> @result.ProjectID </td>
+                                    <td>  </td>
                                 </tr>
                             } }
                     </tbody>
                 </table>
             </div>
-
             <div id="PLCs" class="tabcontent ">
                 <h3>PLCs</h3>
                 <table id="PLCTable">
                     <thead>
                         <tr>
-                            <td>
-                                PLCID
-                            </td>
-                            <td>
-                                Username
-                            </td>
-                            <td>
-                                DeviceID
-                            </td>
-                            <td>
-                                IPAddress
-                            </td>
-                            <td>
-                                RackNo.
-                            </td>
-                            <td>
-                                SerialNo.
-                            </td>
+                            <td> PLCID </td>
+                            <td>Username </td>
+                            <td> DeviceID</td>
+                            <td>IPAddress</td>
+                            <td> RackNo.</td>
+                            <td>SerialNo. </td>
+                            <td>Transfer</td>
                         </tr>
                     </thead>
                     <tbody>
                         @{ foreach (var result in TempData["plcs"] as List<PlcInfo>)
                             {
                                 <tr>
-                                    <td>
-                                        @result.PlcId
-                                    </td>
-                                    <td>
-                                        @result.UserName
-                                    </td>
-                                    <td>
-                                        @result.DeviceId
-                                    </td>
-                                    <td>
-                                        @result.IpAddress
-                                    </td>
-                                    <td>
-                                        @result.Rack_No
-                                    </td>
-                                    <td>
-                                        @result.Serial_No
-                                    </td>
+                                    <td> @result.PlcId</td>
+                                    <td>@result.UserName</td>
+                                    <td> @result.DeviceId</td>
+                                    <td>@result.IpAddress</td>
+                                    <td> @result.Rack_No</td>
+                                    <td> @result.Serial_No</td>
+                                    <td></td>
                                 </tr> } }
                     </tbody>
                 </table>
@@ -145,48 +123,26 @@
                 <table id="TransferTable">
                     <thead>
                         <tr>
-                            <td>
-                                Username
-                            </td>
-                            <td>
-                                Hostname
-                            </td>
-                            <td>
-                                Serial No.
-                            </td>
-                            <td>
-                                Location
-                            </td>
-                            <td>
-                                ExpireBy
-                            </td>
-                            <td>
-                                ProjectName
-                            </td>
+                            <td>Username </td>
+                            <td>Hostname </td>
+                            <td>Serial No.</td>
+                            <td>Location</td>
+                            <td>ExpireBy </td>
+                            <td>ProjectName</td>
+                            <td>Transfer</td>
                         </tr>
                     </thead>
                     <tbody>
                         @{ foreach (var result in TempData["Assets"] as List<AssetDetail>)
                             {
                                 <tr>
-                                    <td>
-                                        @result.UserName
-                                    </td>
-                                    <td>
-                                        @result.HostName
-                                    </td>
-                                    <td>
-                                        @result.Serial_No
-                                    </td>
-                                    <td>
-                                        @result.Location
-                                    </td>
-                                    <td>
-                                        @result.ExpireBy
-                                    </td>
-                                    <td>
-                                        @result.ProjectID
-                                    </td>
+                                    <td> @result.UserName</td>
+                                    <td>@result.HostName</td>
+                                    <td>@result.Serial_No</td>
+                                    <td>@result.Location</td>
+                                    <td>@result.ExpireBy</td>
+                                    <td>@result.ProjectID</td>
+                                    <td></td>
                                 </tr> } }
 
                     </tbody>
@@ -195,34 +151,103 @@
 
         </div>
     </div>
-    
+    <div class="modal fade" id="mdlAssets" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Asset Transfer</h4>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <label>Project Name</label>
+                        </div>
+                        <div class="col-sm-9">
+
+                            <select id="mdlProject" class="bootstrap-select" disabled style="width:100%;"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <label>Owner</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select id="mdlReponsible"  disabled class="bootstrap-select" style="width:100%;"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <label>Asset Type</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select id="mdlAssettype" disabled class="bootstrap-select" style="width:100%;"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <label>Requester Name</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select id="mdlrequester"  class="bootstrap-select" style="width:100%;" placeholder="Please select name">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="btnUpdate" class="btn btn-primary" data-dismiss="modal">Transfer</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </body>
 
-
 <script>
-    debugger;
+    document.getElementById("tabassets").click();
     var tablefc1 = $('#AssetTable').DataTable({
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         "autoWidth": false,
-        "columnDefs": [
-            {
-                //"targets": [0],
-                //"visible": false,
-                //"searchable": false
+        "columnDefs": [{
+        //    'targets': 0,
+        //    'searchable': false,
+        //    'orderable': false,
+        //    'className': 'select-checkbox',
+
+        //}, {data-toggle="modal" data-target="#myModal"
+                'targets': 6,
+                'searchable': false,
+                'orderable': false,
+                'className': 'dt-body-center',
+                'render': function (data, type, full, meta) {
+                    return '<input type="button"  class = "btn btn-success"  class="btn-primary" value="Transfer" name="id[]" value="'
+                        + $('<div/>').text(data).html() + '">';
+                },
             },
-            //"bAutoWidth": false,
+
         ],
         "order": [[0, "desc"]]
     });
     var tablefc2 = $('#PLCTable').DataTable({
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         "autoWidth": false,
-        "columnDefs": [
-            {
-                //"targets": [0],
-                //"visible": false,
-                //"searchable": false
-            }
+        "columnDefs": [ {
+                'targets': 6,
+                'searchable': false,
+                'orderable': false,
+                'className': 'dt-body-center',
+                'render': function (data, type, full, meta) {
+                    return '<input type="button"  class = "btn btn-success" data-toggle="modal" data-target="#myModal" class="btn-primary" value="Transfer" name="id[]" value="'
+                        + $('<div/>').text(data).html() + '">';
+                },
+            },
         ],
 
         "order": [[0, "desc"]]
@@ -230,17 +255,23 @@
     var tablefc3 = $('#TransferTable').DataTable({
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         "columnDefs": [
-            {
-                //"targets": [0],
-                //"visible": false,
-                //"searchable": false
-            }
+             {
+                'targets': 6,
+                'searchable': false,
+                'orderable': false,
+                'className': 'dt-body-center',
+                'render': function (data, type, full, meta) {
+                    return '<input type="button"  class = "btn btn-success" data-toggle="modal" data-target="#myModal" class="btn-primary" value="Transfer" name="id[]" value="'
+                        + $('<div/>').text(data).html() + '">';
+                },
+            },
         ],
         "autoWidth": false,
         "order": [[0, "desc"]]
     });
 
-    function openCity(evt, cityName) {
+    function openAssets(evt, cityName) {
+        debugger;
         // Declare all variables
         var i, tabcontent, tablinks;
 
@@ -260,4 +291,49 @@
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
     }
+    $(document).ready(function (){
+        //$("#mdlProject")
+        //    .select2({
+
+        //        allowClear: true
+        //    });
+        //$("#mdlReponsible")
+        //    .select2({
+
+        //        allowClear: true
+        //    });
+        //$("#mdlAssettype")
+        //    .select2({
+
+        //        allowClear: true
+        //    });
+        //$("#mdlrequester")
+        //    .select2({
+
+        //        allowClear: true
+        //    });
+
+    });
+
+    var assetdet = [];
+    $('#AssetTable tbody' ).on('click', '.btn-success', function () {
+
+        var tr = $(this).closest("tr");
+
+        var SerialNo = tr[0].childNodes[5].innerText;
+        $.getJSON("@Url.Action("GetAsset", "Assets")", { SerialNo: SerialNo }, function (data) {
+            if (data) {
+                debugger;
+                assetdet = data[0];
+                var assetType = [];
+                $('#mdlAssettype').append(new Option(assetdet.AssetType_Name, assetdet.AssetType_Id));
+                $('#mdlReponsible').append(new Option(assetdet.UserName, assetdet.UserID));
+                $('#mdlProject').append(new Option(assetdet.ProjectName, assetdet.ProjectId));
+
+                $('#mdlAssets').modal({
+                    show: 'true'
+                });
+                }
+         });
+    });
 </script>
