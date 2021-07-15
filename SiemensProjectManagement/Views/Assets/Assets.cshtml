@@ -1,10 +1,10 @@
 ﻿<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+@*<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />*@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js" integrity="sha512-ZuOjyqq409+q6uc49UiBF3fTeyRyP8Qs0Jf/7FxH5LfhqBMzrR5cwbpDA4BgzSo884w6q/+oNdIeHenOqhISGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js" integrity="sha512-ZuOjyqq409+q6uc49UiBF3fTeyRyP8Qs0Jf/7FxH5LfhqBMzrR5cwbpDA4BgzSo884w6q/+oNdIeHenOqhISGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 @using SiemensProjectManagement.Models;
 @model SiemensProjectManagement.Models.AssetDetail
 @{ ViewBag.Title = "Assets"; Layout = "~/Views/Shared/_Layout.cshtml"; }
@@ -175,7 +175,7 @@
                             <label>Owner</label>
                         </div>
                         <div class="col-sm-9">
-                            <select id="mdlReponsible"  disabled class="bootstrap-select" style="width:100%;"></select>
+                            <select id="mdlReponsible" disabled class="bootstrap-select" style="width:100%;"></select>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -191,7 +191,7 @@
                             <label>Requester Name</label>
                         </div>
                         <div class="col-sm-9">
-                            <select id="mdlrequester"  class="bootstrap-select" style="width:100%;" placeholder="Please select name">
+                            <select id="mdlrequester" class="bootstrap-select" style="width:100%;" placeholder="Please select name">
                                 <option></option>
                             </select>
                         </div>
@@ -201,7 +201,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" id="btnUpdate" class="btn btn-primary" data-dismiss="modal">Transfer</button>
+                    <button type="button" id="btnUpdate"  onclick ="fnTransferAssets()"  class="btn btn-primary" data-dismiss="modal">Transfer</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
 
@@ -292,29 +292,46 @@
         evt.currentTarget.className += " active";
     }
     $(document).ready(function (){
-        //$("#mdlProject")
-        //    .select2({
+        $("#mdlProject")
+            .select2({
 
-        //        allowClear: true
-        //    });
-        //$("#mdlReponsible")
-        //    .select2({
+                allowClear: true
+            });
+        $("#mdlReponsible")
+            .select2({
 
-        //        allowClear: true
-        //    });
-        //$("#mdlAssettype")
-        //    .select2({
+                allowClear: true
+            });
+        $("#mdlAssettype")
+            .select2({
 
-        //        allowClear: true
-        //    });
-        //$("#mdlrequester")
-        //    .select2({
+                allowClear: true
+            });
+        $("#mdlrequester")
+            .select2({
 
-        //        allowClear: true
-        //    });
+                allowClear: true
+            });
 
     });
-
+    function AssetTransfer()
+    {
+        this.ProjectId;
+        this.AssetId;
+        this.AssetType_Id;
+        this.Responsible_UserId;
+        this.Requester_UserId;
+        this.Transfer_State;
+        this.Responsible_Comments;
+        this.Requester_Comments;
+        this.CreatedDate;
+        this.CreatedBy;
+        this.ModifiedDate;
+        this.ModifiedBy;
+        this.IsCancelled;
+        this.IsAcknowledeged;
+        this.IsActive;
+    }
     var assetdet = [];
     $('#AssetTable tbody' ).on('click', '.btn-success', function () {
 
@@ -324,16 +341,61 @@
         $.getJSON("@Url.Action("GetAsset", "Assets")", { SerialNo: SerialNo }, function (data) {
             if (data) {
                 debugger;
-                assetdet = data[0];
+                assetdet = data.AsseDetails[0];
+                _requester = data.Users;
                 var assetType = [];
                 $('#mdlAssettype').append(new Option(assetdet.AssetType_Name, assetdet.AssetType_Id));
                 $('#mdlReponsible').append(new Option(assetdet.UserName, assetdet.UserID));
                 $('#mdlProject').append(new Option(assetdet.ProjectName, assetdet.ProjectId));
-
+                $('#mdlrequester').select2({
+                    data: _requester
+                });
+               
                 $('#mdlAssets').modal({
                     show: 'true'
                 });
                 }
          });
     });
+    function fnTransferAssets() {
+         var assetTransfer = new AssetTransfer();
+        assetTransfer.ProjectId = parseInt( $('#mdlProject').val());
+        assetTransfer.AssetId = 1;
+        assetTransfer.AssetType_Id = parseInt($('#mdlAssettype').val());
+        assetTransfer.Responsible_UserId = parseInt( $('#mdlReponsible').val());
+                assetTransfer.Transfer_State = "Initiated"
+                assetTransfer.Responsible_Comments = "";
+        assetTransfer.Requester_Comments = "";
+        assetTransfer.CreatedDate = null;
+        assetTransfer.CreatedBy = null;
+        assetTransfer.ModifiedDate = null;
+        assetTransfer.ModifiedBy = null;
+        assetTransfer.IsCancelled = null;
+        assetTransfer.IsAcknowledeged = null;
+        assetTransfer.IsActive = null;
+
+        
+        var a = JSON.stringify(assetTransfer);
+        alert(a);
+     
+        $.getJSON("@Url.Action("AssetTransfer", "Assets")", { list: JSON.stringify(assetTransfer) }, function (data) {
+            if (data) {
+
+            }
+        });
+
+
+        @*$.ajax({
+            type: 'POST',
+            url: '@Url.Action("AssetTransfer", "Assets")',
+            data: { list: JSON.stringify(assetTransfer) },
+            contentType: "application/json; charset=utf-8",
+               success: function (view) {
+                   alert("transferd Successfully");
+            },
+            failure: function (response) {
+            }
+        });*@
+    }
+
 </script>

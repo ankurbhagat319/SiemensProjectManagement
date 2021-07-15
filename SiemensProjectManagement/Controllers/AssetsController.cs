@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SiemensProjectManagement.Models;
 
 namespace SiemensProjectManagement.Controllers
@@ -62,19 +66,51 @@ namespace SiemensProjectManagement.Controllers
                 ModifiedBy = x.ModifiedBy,
        
             }).ToList();
-       
+            var Users = db.Users.Select(x => new Requester
+            {
+                id = x.UserID,
+           
+               text = x.DisplayName
+            });
+
             // return Json(assetDetails.ToArray(), JsonRequestBehavior.AllowGet);
 
             return new JsonResult()
             {
-                Data = assetDetails.ToArray(),
+                Data = new
+                {
+                   Users = Users.ToArray(),
+                   AsseDetails =  assetDetails.ToArray(),
+
+                },
                 ContentType = "application/json",
                 ContentEncoding = Encoding.UTF8,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                 MaxJsonLength = Int32.MaxValue
+           
             };
         }
-        
+
+        public ActionResult AssetTransfer(string list)
+        {
+            var jsonData = JObject.Parse(list);
+            AssestTransfer _transefr = JsonConvert.DeserializeObject<AssestTransfer>(list);
+
+            
+            //var js = new jsonSear();
+            //var deserializedList = (object[])js.DeserializeObject(list);
+            ProjectManagementDB dbcontext = new ProjectManagementDB();
+            if (ModelState.IsValid)
+            {
+                Create(_transefr);
+                dbcontext.SaveChanges();
+            }
+
+
+            return null;
+        }
+
+
         [HttpPost]
         public ActionResult Index(UserModel model)
         {
@@ -86,6 +122,26 @@ namespace SiemensProjectManagement.Controllers
             return RedirectToAction("Assets"); 
         }
 
-     
+
+
+        // POST: AssetTransfer/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Transfer_id,ProjectId,AssetId,AssetType_Id,Responsible_UserId,Requester_UserId,Transfer_State,Responsible_Comments,Requester_Comments,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,IsCancelled,IsAcknowledeged,IsActive")] AssestTransfer assestTransfer)
+        {
+            if (ModelState.IsValid)
+            {
+                db.AssestTransfers.Add(assestTransfer);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.AssetType_Id = new SelectList(db.AssetTypes, "AssetType_Id", "AssetType_Name", assestTransfer.AssetType_Id);
+            return View(assestTransfer);
+        }
+
+
     }
 }

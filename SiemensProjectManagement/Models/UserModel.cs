@@ -14,4 +14,13 @@ namespace SiemensProjectManagement.Models
         public string selectedUsername { get; set; }
 
     }
+    public class Requester
+    {
+        public int id { get; set; }
+
+        public string text { get; set; }
+
+       
+    }
+
 }
