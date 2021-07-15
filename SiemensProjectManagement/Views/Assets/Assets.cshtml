@@ -375,8 +375,8 @@
         assetTransfer.IsActive = null;
 
         
-        var a = JSON.stringify(assetTransfer);
-        alert(a);
+        //var a = JSON.stringify(assetTransfer);
+        //alert(a);
      
         $.getJSON("@Url.Action("AssetTransfer", "Assets")", { list: JSON.stringify(assetTransfer) }, function (data) {
             if (data) {

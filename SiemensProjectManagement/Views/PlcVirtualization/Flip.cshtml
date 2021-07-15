@@ -1,0 +1,273 @@
+﻿
+@{
+    ViewBag.Title = "Flip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Flip/1.1.2/jquery.flip.min.js"></script>
+<h2>Flip</h2>
+
+<style>
+    .container {
+        width: 1200px;
+        height:1260px;
+        position: relative;
+        perspective: 800px;
+    }
+
+    #card {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transform-style: preserve-3d;
+        transition: transform 1s;
+    }
+
+        #card figure {
+            margin: 0;
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+
+        #card .front {
+            background: red;
+        }
+
+        #card .back {
+            background: blue;
+            transform: rotateY( 180deg);
+        }
+
+        #card.flipped {
+            transform: rotateY( 180deg);
+        }
+</style>
+
+<div class="container">
+    <div id="card">
+        <figure class="front">
+        <div id="Rack1side1" class="jumbotron dimension front" style="background-color:darkslategrey; border:ridge;">
+
+    <div class=" row jumbotron" style="height:1000px; border:ridge; border-color:cadetblue;background-color:white;">
+
+        <div class="row">
+            <div id="Rack1_Plc1_green1" class="led-green btn pull-left"></div>
+            <div id="Rack1_Plc1_yellow1" class="led-yellow btn pull-left"></div>
+            <div id="Rack1_Plc1_red1" class="led-red btn pull-left"></div>
+
+
+
+            <div class="led-red btn pull-right"></div>
+            <div class="led-yellow btn pull-right"></div>
+            <div class="led-green btn pull-right"></div>
+        </div>
+        <div class="row" style="border:double; background-color:white;">
+            <button id="Rack1_Plc1" class="btn pull-left" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal" style="background-color:white;">
+                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                <img src="~/Images/di.png" style="height:70px;" />
+                <img src="~/Images/di.png" style="height:70px;" />
+            </button>
+            <button id="Rack1_Plc2" class=" btn btnright" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <div class="led-green btn pull-left"></div>
+            <div class="led-yellow btn pull-left"></div>
+            <div class="led-red btn pull-left"></div>
+
+
+
+            <div class="led-red btn pull-right"></div>
+            <div class="led-yellow btn pull-right"></div>
+            <div class="led-green btn pull-right"></div>
+        </div>
+        <div class="row" style="border:double; background-color:white;">
+
+            <button id="Rack1_Plc3" class="btn pull-left" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal" style="background-color:white;">
+                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                <img src="~/Images/di.png" style="height:70px;" />
+                <img src="~/Images/di.png" style="height:70px;" />
+            </button>
+            <button id="Rack1_Plc4" class=" btn btnright" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <div class="led-green btn pull-left"></div>
+            <div class="led-yellow btn pull-left"></div>
+            <div class="led-red btn pull-left"></div>
+
+
+
+            <div class="led-red btn pull-right"></div>
+            <div class="led-yellow btn pull-right"></div>
+            <div class="led-green btn pull-right"></div>
+        </div>
+        <div class="row" style="border:double; background-color:white;">
+
+            <button id="Rack1_Plc5" class="btn pull-left" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal" style="background-color:white;">
+                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                <img src="~/Images/di.png" style="height:70px;" />
+                <img src="~/Images/di.png" style="height:70px;" />
+            </button>
+            <button id="Rack1_Plc6" class=" btn btnright" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <div class="led-green btn pull-left"></div>
+            <div class="led-yellow btn pull-left"></div>
+            <div class="led-red btn pull-left"></div>
+
+
+
+            <div class="led-red btn pull-right"></div>
+            <div class="led-yellow btn pull-right"></div>
+            <div class="led-green btn pull-right"></div>
+        </div>
+        <div class="row" style="border:double; background-color:white;">
+
+            <button id="Rack1_Plc7" class="btn pull-left" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal" style="background-color:white;">
+                <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                <img src="~/Images/di.png" style="height:70px;" />
+                <img src="~/Images/di.png" style="height:70px;" />
+            </button>
+            <button id="Rack1_Plc8" class=" btn btnright" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+        </div>
+    </div>
+</div>
+        
+        </figure>
+        <figure class="back">
+
+            <div id="Rack1side2" class="jumbotron dimension" style="background-color:darkslategrey; border:ridge;">
+
+                <div class=" row jumbotron" style="height:1000px; border:ridge; border-color:cadetblue;background-color:white;">
+
+                    <div class="row">
+                        <div id="Rack1_Plc1_green1" class="led-green btn pull-left"></div>
+                        <div id="Rack1_Plc1_yellow1" class="led-yellow btn pull-left"></div>
+                        <div id="Rack1_Plc1_red1" class="led-red btn pull-left"></div>
+
+
+
+                        <div class="led-red btn pull-right"></div>
+                        <div class="led-yellow btn pull-right"></div>
+                        <div class="led-green btn pull-right"></div>
+                    </div>
+                    <div class="row" style="border:double; background-color:white;">
+                        <button id="Rack1_Plc1" class="btn pull-left" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal" style="background-color:white;">
+                            <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                            <img src="~/Images/di.png" style="height:70px;" />
+                            <img src="~/Images/di.png" style="height:70px;" />
+                        </button>
+                        <button id="Rack1_Plc2" class=" btn btnright" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="led-green btn pull-left"></div>
+                        <div class="led-yellow btn pull-left"></div>
+                        <div class="led-red btn pull-left"></div>
+
+
+
+                        <div class="led-red btn pull-right"></div>
+                        <div class="led-yellow btn pull-right"></div>
+                        <div class="led-green btn pull-right"></div>
+                    </div>
+                    <div class="row" style="border:double; background-color:white;">
+
+                        <button id="Rack1_Plc3" class="btn pull-left" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal" style="background-color:white;">
+                            <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                            <img src="~/Images/di.png" style="height:70px;" />
+                            <img src="~/Images/di.png" style="height:70px;" />
+                        </button>
+                        <button id="Rack1_Plc4" class=" btn btnright" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                    </div>
+
+                    <br />
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="led-green btn pull-left"></div>
+                        <div class="led-yellow btn pull-left"></div>
+                        <div class="led-red btn pull-left"></div>
+
+
+
+                        <div class="led-red btn pull-right"></div>
+                        <div class="led-yellow btn pull-right"></div>
+                        <div class="led-green btn pull-right"></div>
+                    </div>
+                    <div class="row" style="border:double; background-color:white;">
+
+                        <button id="Rack1_Plc5" class="btn pull-left" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal" style="background-color:white;">
+                            <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                            <img src="~/Images/di.png" style="height:70px;" />
+                            <img src="~/Images/di.png" style="height:70px;" />
+                        </button>
+                        <button id="Rack1_Plc6" class=" btn btnright" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="led-green btn pull-left"></div>
+                        <div class="led-yellow btn pull-left"></div>
+                        <div class="led-red btn pull-left"></div>
+
+
+
+                        <div class="led-red btn pull-right"></div>
+                        <div class="led-yellow btn pull-right"></div>
+                        <div class="led-green btn pull-right"></div>
+                    </div>
+                    <div class="row" style="border:double; background-color:white;">
+
+                        <button id="Rack1_Plc7" class="btn pull-left" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal" style="background-color:white;">
+                            <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
+                            <img src="~/Images/di.png" style="height:70px;" />
+                            <img src="~/Images/di.png" style="height:70px;" />
+                        </button>
+                        <button id="Rack1_Plc8" class=" btn btnright" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
+
+                    </div>
+                </div>
+            </div>
+        </figure>
+    </div>
+</div>
+
+<section id="options">
+    <p>
+        <button id="flip">Flip Card</button>
+    </p>
+</section>
+
+<script>
+
+    var card = document.getElementById('card');
+
+    document.getElementById('flip').addEventListener('click', function () {
+        card.classList.toggle('flipped');
+    }, false);
+
+
+</script>

@@ -425,6 +425,9 @@
     <Content Include="Models\ProjectManagementDBEntities.edmx.diagram">
       <DependentUpon>ProjectManagementDBEntities.edmx</DependentUpon>
     </Content>
+    <None Include=".bin\bower.cmd" />
+    <None Include=".bin\git.cmd" />
+    <None Include=".bin\node.cmd" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\i18n\af.js" />
     <Content Include="Scripts\i18n\ar.js" />
@@ -534,6 +537,7 @@
     <Content Include="Views\AssetTransfer\Details.cshtml" />
     <Content Include="Views\AssetTransfer\Edit.cshtml" />
     <Content Include="Views\AssetTransfer\Index.cshtml" />
+    <Content Include="Views\PlcVirtualization\Flip.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,139 @@
+﻿@model SiemensProjectManagement.Models.AssestTransfer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AssestTransfer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssetId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssetId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Responsible_UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Responsible_UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Requester_UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Requester_UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transfer_State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transfer_State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Responsible_Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Responsible_Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Requester_Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Requester_Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsCancelled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsCancelled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAcknowledeged)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAcknowledeged)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssetType.AssetType_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssetType.AssetType_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Transfer_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -93,10 +93,8 @@ namespace SiemensProjectManagement.Controllers
 
         public ActionResult AssetTransfer(string list)
         {
-            var jsonData = JObject.Parse(list);
+            //var jsonData = JObject.Parse(list);
             AssestTransfer _transefr = JsonConvert.DeserializeObject<AssestTransfer>(list);
-
-            
             //var js = new jsonSear();
             //var deserializedList = (object[])js.DeserializeObject(list);
             ProjectManagementDB dbcontext = new ProjectManagementDB();

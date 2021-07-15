@@ -16,6 +16,10 @@ namespace SiemensProjectManagement.Controllers
         {
             return View();
         }
+        public ActionResult Flip()
+        {
+            return View();
+        }
         public ActionResult PlcVirtualization()
         {
             //ProjectManagementDBEntities db = new ProjectManagementDBEntities();

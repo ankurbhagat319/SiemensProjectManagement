@@ -1,0 +1,118 @@
+﻿@model IEnumerable<SiemensProjectManagement.Models.AssestTransfer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssetId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Responsible_UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Requester_UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transfer_State)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Responsible_Comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Requester_Comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCancelled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAcknowledeged)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssetType.AssetType_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssetId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Responsible_UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Requester_UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Transfer_State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Responsible_Comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Requester_Comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCancelled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAcknowledeged)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssetType.AssetType_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Transfer_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Transfer_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Transfer_id })
+        </td>
+    </tr>
+}
+
+</table>
