@@ -17,6 +17,7 @@ E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjec
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\System.Web.WebPages.Razor.dll
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\System.Web.Optimization.dll
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\System.Web.Http.dll
+E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\EntityFramework.dll
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\System.Web.Http.WebHost.dll
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\System.Net.Http.Formatting.dll
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\SiemensProjectManagement.pdb
@@ -32,6 +33,7 @@ E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjec
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\System.Web.WebPages.Razor.xml
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\System.Web.Optimization.xml
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\System.Web.Http.xml
+E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\EntityFramework.xml
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\System.Web.Http.WebHost.xml
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\System.Net.Http.Formatting.xml
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.csprojAssemblyReference.cache
@@ -39,5 +41,3 @@ E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjec
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.csproj.CopyComplete
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.dll
 E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.pdb
-E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\EntityFramework.dll
-E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\EntityFramework.xml
