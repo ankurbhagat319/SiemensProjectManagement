@@ -14,13 +14,121 @@ namespace SiemensProjectManagement.Controllers
     {
         private ProjectManagementDB db = new ProjectManagementDB();
 
+        
         // GET: WishLists
         public ActionResult Index()
         {
-            var wishLists = db.WishLists.Include(w => w.AssetType).Include(w => w.Project).Include(w => w.User).Include(w => w.WishListType).Include(w => w.WishMapper);
-            return View(wishLists.ToList());
+            //var wishLists = db.WishLists.Include(w => w.AssetType).Include(w => w.Project).Include(w => w.User)
+            //    .Include(w => w.WishListType);
+            //.Select(x=> new { AssetId = ((x.AssetTypeId == 1) ? (from v1 in db.Devices where v1.Id == x.AssetId select v1.ProductName)
+            //: ((x.AssetTypeId == 2) ? (from v1 in getList where v1.Key == x.AssetId select v1.Value)
+            // : (from v1 in db.Tools where v1.ToolId == x.AssetId select v1.Description)))
+            // });
+            //(from val in db.WishLists
+
+            // select new
+            // {
+            //     val.WishListType,
+            //     val.Description,
+            //     ["AssetId#"] = ((val.AssetTypeId == 1) ? (from v1 in db.Devices where v1.Id == val.AssetId select v1.ProductName)
+            //   : ((val.AssetTypeId == 2) ? (from v1 in getList where v1.Key == val.AssetId select v1.Value)
+            //    : (from v1 in db.Tools where v1.ToolId == val.AssetId select v1.Description))),
+
+            // });
+
+            List<WishListDetailsModel> wishLists = db.GetWishListDetails().Select(x => new WishListDetailsModel {
+                WishlistId = x.WishlistId,
+                WishTypeName = x.WishTypeName,
+                UserName = x.UserName,
+                ProjectName = x.ProjectName,
+                AssetType_Name = x.AssetType_Name,
+                Asset = x.Asset,
+                Quantity =(int) x.Quantity,
+                Description = x.Description,
+                RequestDuration = x.RequestDuration
+            }).ToList();
+
+            TempData["PLCwishList"] = wishLists.Where(x => x.AssetType_Name.ToUpper() == "PLC").ToList();
+            TempData["PCwishList"] = wishLists.Where(x => x.AssetType_Name.Contains("PC")).ToList();
+            TempData["ToolswishList"] = wishLists.Where(x => x.AssetType_Name.ToUpper() == "TOOLS").ToList();
+
+            return View();
         }
 
+
+        public JsonResult GetDetails(string id)
+        {
+            JsonResult result = null;
+            switch (id)
+            {
+                case "1":
+                    ViewBag.AssetId = (from clist in db.Devices
+                                       where (clist.TypeName == id)
+                                       select new { clist.Id, clist.ProductName }); //new SelectList(db.Devices, "Id", "ProductName");
+
+                    result = Json(new SelectList(db.Devices, "Id", "ProductName"));
+                    break;
+                case "2":
+                    ViewBag.AssetId = (from clist in db.Assets
+                                       select new { clist.Id, clist.Asset1 });  //new SelectList(db.Devices, "Id", "ProductName");
+
+                    result = Json(new SelectList(db.Assets, "Id", "Asset1"));
+                    break;
+                case "3":
+                    ViewBag.AssetId = (from clist in db.Tools
+                                       where (clist.AssetType_Id == int.Parse(id))
+                                       select new { clist.ToolId, clist.Description }); //new SelectList(db.Devices, "Id", "ProductName");
+
+                    result = Json(new SelectList(db.Tools, "ToolId", "Description"));
+                    break;
+            }
+
+            return result;
+        }
+        public JsonResult GetAutoMappedAssetDetails()
+        {
+
+            JsonResult result = null;
+            var wishLists = db.GetWishAutoMappedDetails().Select(x => new GetWishAutomappedDetailsModel
+            {
+                WishlistId = x.WishlistId,
+                WishTypeName = x.WishTypeName,
+                ProjectName = x.ProjectName,
+                AssetType_Name = x.AssetType_Name,
+                Asset = x.Asset,
+                AvailableQuantity = (int)x.AvailableQuantity,
+                Description = x.Description,
+                RequestDuration = x.RequestDuration,
+                AvailableDuration = x.AvailableDuration
+            }).ToList();
+
+            TempData["MappedAssetDetails"] = wishLists.ToList();
+
+            result = Json( wishLists.ToList());
+            return result;
+        }
+
+        public ActionResult MappedAssetDetails()
+        {
+
+            var wishLists = db.GetWishAutoMappedDetails().Select(x => new GetWishAutomappedDetailsModel
+            {
+                WishlistId = x.WishlistId,
+                WishTypeName = x.WishTypeName,
+                ProjectName = x.ProjectName,
+                AssetType_Name = x.AssetType_Name,
+                Asset = x.Asset,
+                AvailableQuantity = (int)x.AvailableQuantity,
+                Description = x.Description,
+                RequestDuration = x.RequestDuration,
+                AvailableDuration = x.AvailableDuration
+            }).ToList();
+
+            TempData["MappedAssetDetails"] = wishLists.ToList();
+
+            ViewBag.MappedAssetDetails = wishLists.ToList();
+            return View();
+        }
         // GET: WishLists/Details/5
         public ActionResult Details(int? id)
         {
@@ -41,9 +149,9 @@ namespace SiemensProjectManagement.Controllers
         {
             ViewBag.AssetTypeId = new SelectList(db.AssetTypes, "AssetType_Id", "AssetType_Name");
             ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "ProjectName");
-            ViewBag.UserId = new SelectList(db.Users, "UserID", "UserName");
+            ViewBag.UserId = new SelectList(db.Users, "UserID", "DisplayName");
             ViewBag.WishTypeId = new SelectList(db.WishListTypes, "WishTypeId", "WishTypeName");
-            ViewBag.WishlistId = new SelectList(db.WishMappers, "WishListId", "RequestedDuration");
+            ViewBag.AssetId = new SelectList(db.Devices, "Id", "ProductName");
             return View();
         }
 
@@ -52,7 +160,9 @@ namespace SiemensProjectManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "WishlistId,WishTypeId,Description,UserId,ProjectID,AssetTypeId,AssetId,Quantity,RequestDuration,Comments,CreatedTime,CreatedBy,ModifiedTime,ModifiedBy,IsAcknowledged,IsMapped,IsActive")] WishList wishList)
+        //public ActionResult Create([Bind(Include = "WishlistId,WishTypeId,Description,UserId,ProjectID,AssetTypeId,AssetId,Quantity,RequestDuration,Comments,CreatedTime,CreatedBy,ModifiedTime,ModifiedBy,IsAcknowledged,IsMapped,IsActive")] WishList wishList)
+
+        public ActionResult Create([Bind(Include = "WishlistId,WishTypeId,Description,UserId,ProjectID,AssetTypeId,AssetId,Quantity,RequestDuration,Comments")] WishList wishList)
         {
             if (ModelState.IsValid)
             {
@@ -63,9 +173,11 @@ namespace SiemensProjectManagement.Controllers
 
             ViewBag.AssetTypeId = new SelectList(db.AssetTypes, "AssetType_Id", "AssetType_Name", wishList.AssetTypeId);
             ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "ProjectName", wishList.ProjectID);
-            ViewBag.UserId = new SelectList(db.Users, "UserID", "UserName", wishList.UserId);
+            ViewBag.UserId = new SelectList(db.Users, "UserID", "DisplayName", wishList.UserId);
             ViewBag.WishTypeId = new SelectList(db.WishListTypes, "WishTypeId", "WishTypeName", wishList.WishTypeId);
-            ViewBag.WishlistId = new SelectList(db.WishMappers, "WishListId", "RequestedDuration", wishList.WishlistId);
+            ViewBag.AssetId = (wishList.AssetTypeId==1)?new SelectList(db.Devices, "Id", "ProductName", wishList.AssetId)
+               : ((wishList.AssetTypeId == 2) ? new SelectList(db.Assets, "Id", "Asset", wishList.AssetId) 
+               :new SelectList(db.Tools, "ToolId", "Description", wishList.AssetId));
             return View(wishList);
         }
 
@@ -83,9 +195,11 @@ namespace SiemensProjectManagement.Controllers
             }
             ViewBag.AssetTypeId = new SelectList(db.AssetTypes, "AssetType_Id", "AssetType_Name", wishList.AssetTypeId);
             ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "ProjectName", wishList.ProjectID);
-            ViewBag.UserId = new SelectList(db.Users, "UserID", "UserName", wishList.UserId);
+            ViewBag.UserId = new SelectList(db.Users, "UserID", "DisplayName", wishList.UserId);
             ViewBag.WishTypeId = new SelectList(db.WishListTypes, "WishTypeId", "WishTypeName", wishList.WishTypeId);
-            ViewBag.WishlistId = new SelectList(db.WishMappers, "WishListId", "RequestedDuration", wishList.WishlistId);
+            ViewBag.AssetId = (wishList.AssetTypeId == 1) ? new SelectList(db.Devices, "Id", "ProductName", wishList.AssetId)
+               : ((wishList.AssetTypeId == 2) ? new SelectList(db.Assets, "Id", "Asset1", wishList.AssetId)
+               : new SelectList(db.Tools, "ToolId", "Description", wishList.AssetId));
             return View(wishList);
         }
 
@@ -104,9 +218,11 @@ namespace SiemensProjectManagement.Controllers
             }
             ViewBag.AssetTypeId = new SelectList(db.AssetTypes, "AssetType_Id", "AssetType_Name", wishList.AssetTypeId);
             ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "ProjectName", wishList.ProjectID);
-            ViewBag.UserId = new SelectList(db.Users, "UserID", "UserName", wishList.UserId);
+            ViewBag.UserId = new SelectList(db.Users, "UserID", "DisplayName", wishList.UserId);
             ViewBag.WishTypeId = new SelectList(db.WishListTypes, "WishTypeId", "WishTypeName", wishList.WishTypeId);
-            ViewBag.WishlistId = new SelectList(db.WishMappers, "WishListId", "RequestedDuration", wishList.WishlistId);
+            ViewBag.AssetId = (wishList.AssetTypeId == 1) ? new SelectList(db.Devices, "Id", "ProductName", wishList.AssetId)
+               : ((wishList.AssetTypeId == 2) ? new SelectList(db.Assets, "Id", "Asset1", wishList.AssetId)
+               : new SelectList(db.Tools, "ToolId", "Description", wishList.AssetId));
             return View(wishList);
         }
 
@@ -122,6 +238,7 @@ namespace SiemensProjectManagement.Controllers
             {
                 return HttpNotFound();
             }
+            //wishList. 
             return View(wishList);
         }
 

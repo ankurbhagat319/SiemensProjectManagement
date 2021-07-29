@@ -12,6 +12,13 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.WishListType.WishTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WishListType.WishTypeName)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Description)
         </dt>
 
@@ -128,7 +135,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.User.UserName)
+            @Html.DisplayFor(model => model.User.DisplayName)
         </dd>
 
         <dt>
@@ -137,14 +144,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.WishListType.WishTypeName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.WishMapper.RequestedDuration)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.WishMapper.RequestedDuration)
         </dd>
 
     </dl>
