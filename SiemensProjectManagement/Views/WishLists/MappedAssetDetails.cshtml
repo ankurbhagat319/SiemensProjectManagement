@@ -1,0 +1,282 @@
+﻿
+@using SiemensProjectManagement.Models;
+@model SiemensProjectManagement.Models.GetWishAutomappedDetailsModel
+@{
+    ViewBag.Title = "MappedAssetDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js" integrity="sha512-ZuOjyqq409+q6uc49UiBF3fTeyRyP8Qs0Jf/7FxH5LfhqBMzrR5cwbpDA4BgzSo884w6q/+oNdIeHenOqhISGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<style>
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Style the buttons that are used to open the tab content */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
+<h2>Wish Automapped Asset Details</h2>
+<body>
+    <button type="button" id="btnPopup">Open Dialog</button>
+    <br />
+    <div id="WishListPC" class="tabcontent">
+        <h3>WishList PC/VM details</h3>
+        @*<table id="wishlistpcdetails" class="col-sm-12">
+                <thead>
+                    <tr>
+                        <td class="col-sm-3">
+                            <input id="checkAll" type="checkbox" />
+                            SelectAll
+                        </td>
+                        <td class="col-sm-3">
+                            WishlistId
+                        </td>
+                        <td class="col-sm-3">
+                            WishTypeName
+                        </td>
+                        <td class="col-sm-3">
+                            ProjectName
+                        </td>
+                        <td class="col-sm-3">
+                            AssetType_Name
+                        </td>
+                        <td class="col-sm-3">
+                            Asset
+                        </td>
+                        <td class="col-sm-3">
+                            AvailableQuantity
+                        </td>
+                        <td class="col-sm-3">
+                            Description
+                        </td>
+                        <td class="col-sm-3">
+                            RequestDuration
+                        </td>
+                        <td class="col-sm-3">
+                            AvailableDuration
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ foreach (var result in TempData["MappedAssetDetails"] as List<GetWishAutomappedDetailsModel>)
+                        {
+                    <tr>
+
+                        <td class="col-sm-9">
+                            <input id="Checkbox1" type="checkbox" />
+                        </td>
+                        <td class="col-sm-9">
+                            @result.WishlistId
+                        </td>
+
+                        <td class="col-sm-9">
+                            @result.WishTypeName
+                        </td>
+                        <td class="col-sm-9">
+                            @result.ProjectName
+                        </td>
+                        <td class="col-sm-9">
+                            @result.AssetType_Name
+                        </td>
+                        <td class="col-sm-9">
+                            @result.Asset
+                        </td>
+                        <td class="col-sm-9">
+                            @result.AvailableQuantity
+                        </td>
+                        <td class="col-sm-9">
+                            @result.Description
+                        </td>
+                        <td class="col-sm-9">
+                            @result.RequestDuration
+                        </td>
+                        <td class="col-sm-9">
+                            @result.AvailableDuration
+                        </td>
+                    </tr>
+                        }
+                    }
+                </tbody>
+            </table>*@
+    </div>
+
+    <div class="modal fade" id="mdlAssets" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Wishlist Automapped Asset details</h4>
+
+                </div>
+                <div class="modal-body">
+                    <table id="wishlistpcdetails" class="table-bordered table-striped" style="text-align:center">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <input id="checkAll" type="checkbox" />
+                                    SelectAll
+                                </td>
+                                <td>
+                                    WishlistId
+                                </td>
+                                <td>
+                                    WishTypeName
+                                </td>
+                                <td>
+                                    ProjectName
+                                </td>
+                                <td>
+                                    AssetType_Name
+                                </td>
+                                <td>
+                                    Asset
+                                </td>
+                                <td>
+                                    AvailableQuantity
+                                </td>
+                                <td>
+                                    Description
+                                </td>
+                                <td>
+                                    RequestDuration
+                                </td>
+                                <td>
+                                    AvailableDuration
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ foreach (var result in TempData["MappedAssetDetails"] as List<GetWishAutomappedDetailsModel>)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            <input id="Checkbox1" class="checkboxclass" type="checkbox" />
+                                        </td>
+                                        <td>
+                                            @result.WishlistId
+                                        </td>
+
+                                        <td>
+                                            @result.WishTypeName
+                                        </td>
+                                        <td>
+                                            @result.ProjectName
+                                        </td>
+                                        <td>
+                                            @result.AssetType_Name
+                                        </td>
+                                        <td>
+                                            @result.Asset
+                                        </td>
+                                        <td>
+                                            @result.AvailableQuantity
+                                        </td>
+                                        <td>
+                                            @result.Description
+                                        </td>
+                                        <td>
+                                            @result.RequestDuration
+                                        </td>
+                                        <td>
+                                            @result.AvailableDuration
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="btnRequest" class="btn btn-primary" data-dismiss="modal">Request for Asset</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    //function myfunction() {
+    //    document.getElementById("mdlAssets").open();
+    //}
+    $(document).ready(function () {
+
+        $(window).on('load', function () {
+            $('#mdlAssets').modal('show');
+        });
+        $("#checkAll").click(function () {
+            $(".checkboxclass").prop('checked', $(this).prop('checked'));
+        });
+
+        $("input[type=checkbox]").click(function () {
+            if (!$(this).prop("checked")) {
+                $("#checkAll").prop("checked", false);
+            }
+        });
+        $(".checkboxclass").change(function () {
+            if ($('.checkboxclass:checked').length == $('.checkboxclass').length) {
+                $("#checkAll").prop("checked", true);
+            }
+        });
+        $("#btnPopup").click(function () {
+            $("#mdlAssets").modal("show");
+        });
+
+        $("#btnRequest").click(function () {
+
+            if ($('.checkboxclass:checked').length > 0) {
+                alert('Transfer request mail has been sent to the user.');
+            }
+            else {
+                if (confirm('Please select required mapped asset details to be requested.')) {
+                    $('#mdlAssets').modal({ 'backdrop': 'static' });
+                }
+                else {
+                    $('#mdlAssets').modal({ 'backdrop': 'static' });
+                }
+            }
+        });
+
+        
+
+    });
+
+
+</script>
