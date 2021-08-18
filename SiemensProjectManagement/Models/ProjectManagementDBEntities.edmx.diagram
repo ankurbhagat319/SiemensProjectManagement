@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="ProjectManagementDBModel.User" Width="1.5" PointX="0.75" PointY="18" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectManagementDBModel.WishList" Width="1.5" PointX="3" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectManagementDBModel.WishListType" Width="1.5" PointX="0.75" PointY="28.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectManagementDBModel.PlcDetail" Width="1.5" PointX="7.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectManagementDBModel.WishMapper" Width="1.5" PointX="8.25" PointY="20.625" IsExpanded="true" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_AssestTransfer_AssetType" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_ProcessList_AssestTransfer" ManuallyRouted="false" />
@@ -29,7 +28,6 @@
         <AssociationConnector Association="ProjectManagementDBModel.FK_Tools_AssetType" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_WishList_AssetType" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_PlcInfo_Devices" ManuallyRouted="false" />
-        <AssociationConnector Association="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_PlcInfo_PlcInfo" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_ProcssedWish_WishList" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_Tools_Projects" ManuallyRouted="false" />
@@ -40,6 +38,9 @@
         <AssociationConnector Association="ProjectManagementDBModel.FK_WishListType_WishTypeId_WishList_WishTypeId" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_WishMapper_WishList" ManuallyRouted="false" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_WishMapper_WishListType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.Asset" Width="1.5" PointX="8.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ProjectManagementDBModel.PlcDetail" Width="1.5" PointX="7.25" PointY="1.125" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

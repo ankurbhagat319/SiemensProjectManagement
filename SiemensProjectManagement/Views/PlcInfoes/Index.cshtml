@@ -1,0 +1,124 @@
+﻿@model IEnumerable<SiemensProjectManagement.Models.PlcInfo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IpAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rack_No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Serial_No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssetType_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Device.Mlfb)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlcInfo1.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlcInfo2.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IpAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rack_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Serial_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssetType_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Device.Mlfb)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlcInfo1.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlcInfo2.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PlcId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PlcId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PlcId })
+        </td>
+    </tr>
+}
+
+</table>

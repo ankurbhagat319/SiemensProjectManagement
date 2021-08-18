@@ -253,28 +253,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PlcDetails">
-      <EntityTypeMapping TypeName="ProjectManagementDBModel.PlcDetail">
-        <MappingFragment StoreEntitySet="PlcDetails">
-          <ScalarProperty Name="PlcId" ColumnName="PlcId" />
-          <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
-          <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
-          <ScalarProperty Name="Subnet" ColumnName="Subnet" />
-          <ScalarProperty Name="Mlfb" ColumnName="Mlfb" />
-          <ScalarProperty Name="Firmware" ColumnName="Firmware" />
-          <ScalarProperty Name="Mac_Address" ColumnName="Mac_Address" />
-          <ScalarProperty Name="Operating_State" ColumnName="Operating_State" />
-          <ScalarProperty Name="Station_Name" ColumnName="Station_Name" />
-          <ScalarProperty Name="PLC_Name" ColumnName="PLC_Name" />
-          <ScalarProperty Name="PLC_Type" ColumnName="PLC_Type" />
-          <ScalarProperty Name="SMC_SerialNo" ColumnName="SMC_SerialNo" />
-          <ScalarProperty Name="Plant_DesignationId" ColumnName="Plant_DesignationId" />
-          <ScalarProperty Name="Location_Id" ColumnName="Location_Id" />
-          <ScalarProperty Name="IsPingable" ColumnName="IsPingable" />
-          <ScalarProperty Name="IsFaulty" ColumnName="IsFaulty" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="WishMappers">
       <EntityTypeMapping TypeName="ProjectManagementDBModel.WishMapper">
         <MappingFragment StoreEntitySet="WishMapper">
@@ -315,5 +293,37 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ProjectManagementDBModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ProjectManagementDBModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="Assets">
+      <EntityTypeMapping TypeName="ProjectManagementDBModel.Asset">
+        <MappingFragment StoreEntitySet="Asset">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Asset1" ColumnName="Asset" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlcDetails">
+      <EntityTypeMapping TypeName="ProjectManagementDBModel.PlcDetail">
+        <MappingFragment StoreEntitySet="PlcDetails">
+          <ScalarProperty Name="IsFaulty" ColumnName="IsFaulty" />
+          <ScalarProperty Name="IsPingable" ColumnName="IsPingable" />
+          <ScalarProperty Name="Location_Id" ColumnName="Location_Id" />
+          <ScalarProperty Name="Plant_DesignationId" ColumnName="Plant_DesignationId" />
+          <ScalarProperty Name="SMC_SerialNo" ColumnName="SMC_SerialNo" />
+          <ScalarProperty Name="PLC_Type" ColumnName="PLC_Type" />
+          <ScalarProperty Name="PLC_Name" ColumnName="PLC_Name" />
+          <ScalarProperty Name="Station_Name" ColumnName="Station_Name" />
+          <ScalarProperty Name="Operating_State" ColumnName="Operating_State" />
+          <ScalarProperty Name="Mac_Address" ColumnName="Mac_Address" />
+          <ScalarProperty Name="Firmware" ColumnName="Firmware" />
+          <ScalarProperty Name="Mlfb" ColumnName="Mlfb" />
+          <ScalarProperty Name="Subnet" ColumnName="Subnet" />
+          <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+          <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+          <ScalarProperty Name="PlcId" ColumnName="PlcId" />
+          <ScalarProperty Name="PId" ColumnName="PId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

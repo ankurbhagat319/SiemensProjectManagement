@@ -21,6 +21,14 @@
     <Property Name="IsAcknowledeged" Type="bit" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
+  <EntityType Name="Asset">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Asset" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
   <EntityType Name="AssetDetails">
     <Key>
       <PropertyRef Name="Id" />
@@ -75,12 +83,11 @@
     <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
     <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="PlcDetails">
     <Key>
-      <PropertyRef Name="SerialNo" />
+      <PropertyRef Name="PId" />
     </Key>
+    <Property Name="PId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PlcId" Type="int" />
     <Property Name="SerialNo" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IpAddress" Type="nvarchar" MaxLength="50" />
@@ -90,7 +97,7 @@ warning 6002: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have 
     <Property Name="Mac_Address" Type="nvarchar" MaxLength="50" />
     <Property Name="Operating_State" Type="nvarchar" MaxLength="50" />
     <Property Name="Station_Name" Type="nvarchar" MaxLength="150" />
-    <Property Name="PLC_Name" Type="nchar" MaxLength="10" />
+    <Property Name="PLC_Name" Type="nvarchar" MaxLength="50" />
     <Property Name="PLC_Type" Type="nvarchar" MaxLength="50" />
     <Property Name="SMC_SerialNo" Type="nvarchar" MaxLength="150" />
     <Property Name="Plant_DesignationId" Type="nvarchar" MaxLength="50" />
@@ -201,7 +208,7 @@ warning 6002: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have 
     <Key>
       <PropertyRef Name="ToolId" />
     </Key>
-    <Property Name="ToolId" Type="int" Nullable="false" />
+    <Property Name="ToolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="AssetType_Id" Type="int" />
     <Property Name="UserId" Type="int" />
@@ -544,9 +551,11 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="ProjectManagementDBModelStoreContainer">
     <EntitySet Name="AssestTransfer" EntityType="Self.AssestTransfer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Asset" EntityType="Self.Asset" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AssetDetails" EntityType="Self.AssetDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AssetType" EntityType="Self.AssetType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Devices" EntityType="Self.Devices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlcDetails" EntityType="Self.PlcDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PlcInfo" EntityType="Self.PlcInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProcessList" EntityType="Self.ProcessList" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProcssedWish" EntityType="Self.ProcssedWish" Schema="dbo" store:Type="Tables" />
@@ -557,26 +566,6 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WishList" EntityType="Self.WishList" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WishListType" EntityType="Self.WishListType" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="PlcDetails" EntityType="Self.PlcDetails" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [PlcDetails].[PlcId] AS [PlcId], 
-    [PlcDetails].[SerialNo] AS [SerialNo], 
-    [PlcDetails].[IpAddress] AS [IpAddress], 
-    [PlcDetails].[Subnet] AS [Subnet], 
-    [PlcDetails].[Mlfb] AS [Mlfb], 
-    [PlcDetails].[Firmware] AS [Firmware], 
-    [PlcDetails].[Mac_Address] AS [Mac_Address], 
-    [PlcDetails].[Operating_State] AS [Operating_State], 
-    [PlcDetails].[Station_Name] AS [Station_Name], 
-    [PlcDetails].[PLC_Name] AS [PLC_Name], 
-    [PlcDetails].[PLC_Type] AS [PLC_Type], 
-    [PlcDetails].[SMC_SerialNo] AS [SMC_SerialNo], 
-    [PlcDetails].[Plant_DesignationId] AS [Plant_DesignationId], 
-    [PlcDetails].[Location_Id] AS [Location_Id], 
-    [PlcDetails].[IsPingable] AS [IsPingable], 
-    [PlcDetails].[IsFaulty] AS [IsFaulty]
-    FROM [dbo].[PlcDetails] AS [PlcDetails]</DefiningQuery>
-    </EntitySet>
     <EntitySet Name="WishMapper" EntityType="Self.WishMapper" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [WishMapper].[WishListId] AS [WishListId], 

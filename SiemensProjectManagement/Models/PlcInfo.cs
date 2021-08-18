@@ -37,9 +37,9 @@ namespace SiemensProjectManagement.Models
         public Nullable<bool> IsActive { get; set; }
     
         public virtual Device Device { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlcDetail> PlcDetails { get; set; }
         public virtual PlcInfo PlcInfo1 { get; set; }
         public virtual PlcInfo PlcInfo2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlcDetail> PlcDetails { get; set; }
     }
 }

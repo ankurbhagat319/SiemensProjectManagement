@@ -143,15 +143,22 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AssetsController.cs" />
     <Compile Include="Controllers\AssetTransferController.cs" />
+    <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PlcDetailsController.cs" />
+    <Compile Include="Controllers\PlcInfoesController.cs" />
     <Compile Include="Controllers\PlcVirtualizationController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WishListsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AssestTransfer.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Asset.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AssetDetail.cs">
@@ -396,6 +403,14 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\assets.jpg" />
+    <Content Include="Images\CPU 1510SP-1 PN.PNG" />
+    <Content Include="Images\CPU 1511-1 PN.PNG" />
+    <Content Include="Images\CPU 1512SP-1 PN.PNG" />
+    <Content Include="Images\CPU 1513-1 PN.PNG" />
+    <Content Include="Images\CPU 1515-2 PN.PNG" />
+    <Content Include="Images\CPU 1516-3 PNDP.PNG" />
+    <Content Include="Images\CPU 1517-3 PNDP.jpg" />
+    <Content Include="Images\CPU 1518-4 PNDP.jpg" />
     <Content Include="Images\di.png" />
     <Content Include="Images\dq.PNG" />
     <Content Include="Images\lab.jfif" />
@@ -429,6 +444,7 @@
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\carousel.js" />
     <Content Include="Scripts\i18n\af.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
@@ -502,7 +518,9 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -538,6 +556,21 @@
     <Content Include="Views\AssetTransfer\Edit.cshtml" />
     <Content Include="Views\AssetTransfer\Index.cshtml" />
     <Content Include="Views\PlcVirtualization\Flip.cshtml" />
+    <Content Include="Views\PlcDetails\Create.cshtml" />
+    <Content Include="Views\PlcDetails\Delete.cshtml" />
+    <Content Include="Views\PlcDetails\Details.cshtml" />
+    <Content Include="Views\PlcDetails\Edit.cshtml" />
+    <Content Include="Views\PlcDetails\Index.cshtml" />
+    <Content Include="Views\Devices\Create.cshtml" />
+    <Content Include="Views\Devices\Delete.cshtml" />
+    <Content Include="Views\Devices\Details.cshtml" />
+    <Content Include="Views\Devices\Edit.cshtml" />
+    <Content Include="Views\Devices\Index.cshtml" />
+    <Content Include="Views\PlcInfoes\Create.cshtml" />
+    <Content Include="Views\PlcInfoes\Delete.cshtml" />
+    <Content Include="Views\PlcInfoes\Details.cshtml" />
+    <Content Include="Views\PlcInfoes\Edit.cshtml" />
+    <Content Include="Views\PlcInfoes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

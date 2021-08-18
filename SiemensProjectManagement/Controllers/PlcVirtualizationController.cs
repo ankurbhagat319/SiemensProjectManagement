@@ -60,5 +60,6 @@ namespace SiemensProjectManagement.Controllers
 
             return Json(plcdet.ToArray(),JsonRequestBehavior.AllowGet);
         }
+ 
     }
 }

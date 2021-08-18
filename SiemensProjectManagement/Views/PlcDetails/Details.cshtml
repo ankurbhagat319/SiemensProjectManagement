@@ -1,0 +1,139 @@
+﻿@model SiemensProjectManagement.Models.PlcDetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PlcDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IpAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IpAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subnet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subnet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mlfb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mlfb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Firmware)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Firmware)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mac_Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mac_Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Operating_State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Operating_State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Station_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Station_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PLC_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PLC_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PLC_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PLC_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SMC_SerialNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SMC_SerialNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Plant_DesignationId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Plant_DesignationId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location_Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPingable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPingable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsFaulty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsFaulty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlcInfo.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlcInfo.UserName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SerialNo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

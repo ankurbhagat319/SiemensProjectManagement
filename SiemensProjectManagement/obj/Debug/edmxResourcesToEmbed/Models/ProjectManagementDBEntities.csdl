@@ -105,9 +105,9 @@
     <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="Device" Relationship="Self.FK_PlcInfo_Devices" FromRole="PlcInfo" ToRole="Devices" />
-    <NavigationProperty Name="PlcDetails" Relationship="Self.FK_PlcDetails_PlcInfo" FromRole="PlcInfo" ToRole="PlcDetails" />
     <NavigationProperty Name="PlcInfo1" Relationship="Self.FK_PlcInfo_PlcInfo" FromRole="PlcInfo" ToRole="PlcInfo1" />
     <NavigationProperty Name="PlcInfo2" Relationship="Self.FK_PlcInfo_PlcInfo" FromRole="PlcInfo1" ToRole="PlcInfo" />
+    <NavigationProperty Name="PlcDetails" Relationship="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" FromRole="PlcInfo" ToRole="PlcDetail" />
   </EntityType>
   <EntityType Name="ProcessList">
     <Key>
@@ -273,28 +273,6 @@
     <NavigationProperty Name="WishLists" Relationship="Self.FK_WishListType_WishTypeId_WishList_WishTypeId" FromRole="WishListType" ToRole="WishList" />
     <NavigationProperty Name="WishMappers" Relationship="Self.FK_WishMapper_WishListType" FromRole="WishListType" ToRole="WishMapper" />
   </EntityType>
-  <EntityType Name="PlcDetail">
-    <Key>
-      <PropertyRef Name="SerialNo" />
-    </Key>
-    <Property Name="PlcId" Type="Int32" />
-    <Property Name="SerialNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Subnet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Mlfb" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Firmware" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Mac_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Operating_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Station_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="PLC_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="PLC_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="SMC_SerialNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Plant_DesignationId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Location_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="IsPingable" Type="Boolean" />
-    <Property Name="IsFaulty" Type="Boolean" />
-    <NavigationProperty Name="PlcInfo" Relationship="Self.FK_PlcDetails_PlcInfo" FromRole="PlcDetails" ToRole="PlcInfo" />
-  </EntityType>
   <EntityType Name="WishMapper">
     <Key>
       <PropertyRef Name="WishListId" />
@@ -405,18 +383,6 @@
       </Principal>
       <Dependent Role="PlcInfo">
         <PropertyRef Name="DeviceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PlcDetails_PlcInfo">
-    <End Role="PlcInfo" Type="Self.PlcInfo" Multiplicity="0..1" />
-    <End Role="PlcDetails" Type="Self.PlcDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PlcInfo">
-        <PropertyRef Name="PlcId" />
-      </Principal>
-      <Dependent Role="PlcDetails">
-        <PropertyRef Name="PlcId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -555,7 +521,6 @@
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="WishLists" EntityType="Self.WishList" />
     <EntitySet Name="WishListTypes" EntityType="Self.WishListType" />
-    <EntitySet Name="PlcDetails" EntityType="Self.PlcDetail" />
     <EntitySet Name="WishMappers" EntityType="Self.WishMapper" />
     <AssociationSet Name="FK_AssestTransfer_AssetType" Association="Self.FK_AssestTransfer_AssetType">
       <End Role="AssetType" EntitySet="AssetTypes" />
@@ -588,10 +553,6 @@
     <AssociationSet Name="FK_PlcInfo_Devices" Association="Self.FK_PlcInfo_Devices">
       <End Role="Devices" EntitySet="Devices" />
       <End Role="PlcInfo" EntitySet="PlcInfoes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PlcDetails_PlcInfo" Association="Self.FK_PlcDetails_PlcInfo">
-      <End Role="PlcInfo" EntitySet="PlcInfoes" />
-      <End Role="PlcDetails" EntitySet="PlcDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_PlcInfo_PlcInfo" Association="Self.FK_PlcInfo_PlcInfo">
       <End Role="PlcInfo" EntitySet="PlcInfoes" />
@@ -663,6 +624,12 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="Assets" EntityType="ProjectManagementDBModel.Asset" />
+    <EntitySet Name="PlcDetails" EntityType="ProjectManagementDBModel.PlcDetail" />
+    <AssociationSet Name="FK_PlcDetails_PlcInfo" Association="ProjectManagementDBModel.FK_PlcDetails_PlcInfo">
+      <End Role="PlcInfo" EntitySet="PlcInfoes" />
+      <End Role="PlcDetail" EntitySet="PlcDetails" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -675,4 +642,47 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <EntityType Name="Asset">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Asset1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="PlcDetail">
+    <Key>
+      <PropertyRef Name="PId" />
+    </Key>
+    <Property Name="PId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlcId" Type="Int32" />
+    <Property Name="SerialNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Subnet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mlfb" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Firmware" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mac_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Operating_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Station_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="PLC_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PLC_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SMC_SerialNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Plant_DesignationId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Location_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsPingable" Type="Boolean" />
+    <Property Name="IsFaulty" Type="Boolean" />
+    <NavigationProperty Name="PlcInfo" Relationship="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" FromRole="PlcDetail" ToRole="PlcInfo" />
+  </EntityType>
+  <Association Name="FK_PlcDetails_PlcInfo">
+    <End Type="ProjectManagementDBModel.PlcInfo" Role="PlcInfo" Multiplicity="0..1" />
+    <End Type="ProjectManagementDBModel.PlcDetail" Role="PlcDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlcInfo">
+        <PropertyRef Name="PlcId" />
+      </Principal>
+      <Dependent Role="PlcDetail">
+        <PropertyRef Name="PlcId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

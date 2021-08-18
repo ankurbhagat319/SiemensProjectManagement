@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProjectManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProjectManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssestTransfer">
           <Key>
             <PropertyRef Name="Transfer_id" />
@@ -24,6 +24,14 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="IsCancelled" Type="bit" />
           <Property Name="IsAcknowledeged" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Asset">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Asset" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="AssetDetails">
@@ -80,12 +88,11 @@
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
           <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PlcDetails">
           <Key>
-            <PropertyRef Name="SerialNo" />
+            <PropertyRef Name="PId" />
           </Key>
+          <Property Name="PId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PlcId" Type="int" />
           <Property Name="SerialNo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IpAddress" Type="nvarchar" MaxLength="50" />
@@ -95,7 +102,7 @@ warning 6002: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have 
           <Property Name="Mac_Address" Type="nvarchar" MaxLength="50" />
           <Property Name="Operating_State" Type="nvarchar" MaxLength="50" />
           <Property Name="Station_Name" Type="nvarchar" MaxLength="150" />
-          <Property Name="PLC_Name" Type="nchar" MaxLength="10" />
+          <Property Name="PLC_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="PLC_Type" Type="nvarchar" MaxLength="50" />
           <Property Name="SMC_SerialNo" Type="nvarchar" MaxLength="150" />
           <Property Name="Plant_DesignationId" Type="nvarchar" MaxLength="50" />
@@ -206,7 +213,7 @@ warning 6002: The table/view 'ProjectManagementDB.dbo.PlcDetails' does not have 
           <Key>
             <PropertyRef Name="ToolId" />
           </Key>
-          <Property Name="ToolId" Type="int" Nullable="false" />
+          <Property Name="ToolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="AssetType_Id" Type="int" />
           <Property Name="UserId" Type="int" />
@@ -549,9 +556,11 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ProjectManagementDBModelStoreContainer">
           <EntitySet Name="AssestTransfer" EntityType="Self.AssestTransfer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Asset" EntityType="Self.Asset" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssetDetails" EntityType="Self.AssetDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssetType" EntityType="Self.AssetType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Devices" EntityType="Self.Devices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlcDetails" EntityType="Self.PlcDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlcInfo" EntityType="Self.PlcInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProcessList" EntityType="Self.ProcessList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProcssedWish" EntityType="Self.ProcssedWish" Schema="dbo" store:Type="Tables" />
@@ -562,26 +571,6 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WishList" EntityType="Self.WishList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WishListType" EntityType="Self.WishListType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PlcDetails" EntityType="Self.PlcDetails" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [PlcDetails].[PlcId] AS [PlcId], 
-    [PlcDetails].[SerialNo] AS [SerialNo], 
-    [PlcDetails].[IpAddress] AS [IpAddress], 
-    [PlcDetails].[Subnet] AS [Subnet], 
-    [PlcDetails].[Mlfb] AS [Mlfb], 
-    [PlcDetails].[Firmware] AS [Firmware], 
-    [PlcDetails].[Mac_Address] AS [Mac_Address], 
-    [PlcDetails].[Operating_State] AS [Operating_State], 
-    [PlcDetails].[Station_Name] AS [Station_Name], 
-    [PlcDetails].[PLC_Name] AS [PLC_Name], 
-    [PlcDetails].[PLC_Type] AS [PLC_Type], 
-    [PlcDetails].[SMC_SerialNo] AS [SMC_SerialNo], 
-    [PlcDetails].[Plant_DesignationId] AS [Plant_DesignationId], 
-    [PlcDetails].[Location_Id] AS [Location_Id], 
-    [PlcDetails].[IsPingable] AS [IsPingable], 
-    [PlcDetails].[IsFaulty] AS [IsFaulty]
-    FROM [dbo].[PlcDetails] AS [PlcDetails]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="WishMapper" EntityType="Self.WishMapper" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [WishMapper].[WishListId] AS [WishListId], 
@@ -673,8 +662,7 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
             <End Role="WishMapper" EntitySet="WishMapper" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProjectManagementDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -783,9 +771,9 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Device" Relationship="Self.FK_PlcInfo_Devices" FromRole="PlcInfo" ToRole="Devices" />
-          <NavigationProperty Name="PlcDetails" Relationship="Self.FK_PlcDetails_PlcInfo" FromRole="PlcInfo" ToRole="PlcDetails" />
           <NavigationProperty Name="PlcInfo1" Relationship="Self.FK_PlcInfo_PlcInfo" FromRole="PlcInfo" ToRole="PlcInfo1" />
           <NavigationProperty Name="PlcInfo2" Relationship="Self.FK_PlcInfo_PlcInfo" FromRole="PlcInfo1" ToRole="PlcInfo" />
+          <NavigationProperty Name="PlcDetails" Relationship="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" FromRole="PlcInfo" ToRole="PlcDetail" />
         </EntityType>
         <EntityType Name="ProcessList">
           <Key>
@@ -951,28 +939,6 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
           <NavigationProperty Name="WishLists" Relationship="Self.FK_WishListType_WishTypeId_WishList_WishTypeId" FromRole="WishListType" ToRole="WishList" />
           <NavigationProperty Name="WishMappers" Relationship="Self.FK_WishMapper_WishListType" FromRole="WishListType" ToRole="WishMapper" />
         </EntityType>
-        <EntityType Name="PlcDetail">
-          <Key>
-            <PropertyRef Name="SerialNo" />
-          </Key>
-          <Property Name="PlcId" Type="Int32" />
-          <Property Name="SerialNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Subnet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Mlfb" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Firmware" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Mac_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Operating_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Station_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="PLC_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="PLC_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SMC_SerialNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Plant_DesignationId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Location_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsPingable" Type="Boolean" />
-          <Property Name="IsFaulty" Type="Boolean" />
-          <NavigationProperty Name="PlcInfo" Relationship="Self.FK_PlcDetails_PlcInfo" FromRole="PlcDetails" ToRole="PlcInfo" />
-        </EntityType>
         <EntityType Name="WishMapper">
           <Key>
             <PropertyRef Name="WishListId" />
@@ -1083,18 +1049,6 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
             </Principal>
             <Dependent Role="PlcInfo">
               <PropertyRef Name="DeviceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PlcDetails_PlcInfo">
-          <End Role="PlcInfo" Type="Self.PlcInfo" Multiplicity="0..1" />
-          <End Role="PlcDetails" Type="Self.PlcDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PlcInfo">
-              <PropertyRef Name="PlcId" />
-            </Principal>
-            <Dependent Role="PlcDetails">
-              <PropertyRef Name="PlcId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1233,7 +1187,6 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="WishLists" EntityType="Self.WishList" />
           <EntitySet Name="WishListTypes" EntityType="Self.WishListType" />
-          <EntitySet Name="PlcDetails" EntityType="Self.PlcDetail" />
           <EntitySet Name="WishMappers" EntityType="Self.WishMapper" />
           <AssociationSet Name="FK_AssestTransfer_AssetType" Association="Self.FK_AssestTransfer_AssetType">
             <End Role="AssetType" EntitySet="AssetTypes" />
@@ -1266,10 +1219,6 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
           <AssociationSet Name="FK_PlcInfo_Devices" Association="Self.FK_PlcInfo_Devices">
             <End Role="Devices" EntitySet="Devices" />
             <End Role="PlcInfo" EntitySet="PlcInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlcDetails_PlcInfo" Association="Self.FK_PlcDetails_PlcInfo">
-            <End Role="PlcInfo" EntitySet="PlcInfoes" />
-            <End Role="PlcDetails" EntitySet="PlcDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_PlcInfo_PlcInfo" Association="Self.FK_PlcInfo_PlcInfo">
             <End Role="PlcInfo" EntitySet="PlcInfoes" />
@@ -1341,6 +1290,12 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Assets" EntityType="ProjectManagementDBModel.Asset" />
+          <EntitySet Name="PlcDetails" EntityType="ProjectManagementDBModel.PlcDetail" />
+          <AssociationSet Name="FK_PlcDetails_PlcInfo" Association="ProjectManagementDBModel.FK_PlcDetails_PlcInfo">
+            <End Role="PlcInfo" EntitySet="PlcInfoes" />
+            <End Role="PlcDetail" EntitySet="PlcDetails" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1353,6 +1308,49 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Asset">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Asset1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="PlcDetail">
+          <Key>
+            <PropertyRef Name="PId" />
+          </Key>
+          <Property Name="PId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlcId" Type="Int32" />
+          <Property Name="SerialNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Subnet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mlfb" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Firmware" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mac_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Operating_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Station_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PLC_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PLC_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SMC_SerialNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Plant_DesignationId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsPingable" Type="Boolean" />
+          <Property Name="IsFaulty" Type="Boolean" />
+          <NavigationProperty Name="PlcInfo" Relationship="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" FromRole="PlcDetail" ToRole="PlcInfo" />
+        </EntityType>
+        <Association Name="FK_PlcDetails_PlcInfo">
+          <End Type="ProjectManagementDBModel.PlcInfo" Role="PlcInfo" Multiplicity="0..1" />
+          <End Type="ProjectManagementDBModel.PlcDetail" Role="PlcDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlcInfo">
+              <PropertyRef Name="PlcId" />
+            </Principal>
+            <Dependent Role="PlcDetail">
+              <PropertyRef Name="PlcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1611,28 +1609,6 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PlcDetails">
-            <EntityTypeMapping TypeName="ProjectManagementDBModel.PlcDetail">
-              <MappingFragment StoreEntitySet="PlcDetails">
-                <ScalarProperty Name="PlcId" ColumnName="PlcId" />
-                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
-                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
-                <ScalarProperty Name="Subnet" ColumnName="Subnet" />
-                <ScalarProperty Name="Mlfb" ColumnName="Mlfb" />
-                <ScalarProperty Name="Firmware" ColumnName="Firmware" />
-                <ScalarProperty Name="Mac_Address" ColumnName="Mac_Address" />
-                <ScalarProperty Name="Operating_State" ColumnName="Operating_State" />
-                <ScalarProperty Name="Station_Name" ColumnName="Station_Name" />
-                <ScalarProperty Name="PLC_Name" ColumnName="PLC_Name" />
-                <ScalarProperty Name="PLC_Type" ColumnName="PLC_Type" />
-                <ScalarProperty Name="SMC_SerialNo" ColumnName="SMC_SerialNo" />
-                <ScalarProperty Name="Plant_DesignationId" ColumnName="Plant_DesignationId" />
-                <ScalarProperty Name="Location_Id" ColumnName="Location_Id" />
-                <ScalarProperty Name="IsPingable" ColumnName="IsPingable" />
-                <ScalarProperty Name="IsFaulty" ColumnName="IsFaulty" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="WishMappers">
             <EntityTypeMapping TypeName="ProjectManagementDBModel.WishMapper">
               <MappingFragment StoreEntitySet="WishMapper">
@@ -1673,6 +1649,38 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ProjectManagementDBModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ProjectManagementDBModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Assets">
+            <EntityTypeMapping TypeName="ProjectManagementDBModel.Asset">
+              <MappingFragment StoreEntitySet="Asset">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Asset1" ColumnName="Asset" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlcDetails">
+            <EntityTypeMapping TypeName="ProjectManagementDBModel.PlcDetail">
+              <MappingFragment StoreEntitySet="PlcDetails">
+                <ScalarProperty Name="IsFaulty" ColumnName="IsFaulty" />
+                <ScalarProperty Name="IsPingable" ColumnName="IsPingable" />
+                <ScalarProperty Name="Location_Id" ColumnName="Location_Id" />
+                <ScalarProperty Name="Plant_DesignationId" ColumnName="Plant_DesignationId" />
+                <ScalarProperty Name="SMC_SerialNo" ColumnName="SMC_SerialNo" />
+                <ScalarProperty Name="PLC_Type" ColumnName="PLC_Type" />
+                <ScalarProperty Name="PLC_Name" ColumnName="PLC_Name" />
+                <ScalarProperty Name="Station_Name" ColumnName="Station_Name" />
+                <ScalarProperty Name="Operating_State" ColumnName="Operating_State" />
+                <ScalarProperty Name="Mac_Address" ColumnName="Mac_Address" />
+                <ScalarProperty Name="Firmware" ColumnName="Firmware" />
+                <ScalarProperty Name="Mlfb" ColumnName="Mlfb" />
+                <ScalarProperty Name="Subnet" ColumnName="Subnet" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+                <ScalarProperty Name="PlcId" ColumnName="PlcId" />
+                <ScalarProperty Name="PId" ColumnName="PId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

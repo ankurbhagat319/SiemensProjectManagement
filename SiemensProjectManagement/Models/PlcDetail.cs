@@ -14,6 +14,7 @@ namespace SiemensProjectManagement.Models
     
     public partial class PlcDetail
     {
+        public int PId { get; set; }
         public Nullable<int> PlcId { get; set; }
         public string SerialNo { get; set; }
         public string IpAddress { get; set; }
@@ -32,8 +33,5 @@ namespace SiemensProjectManagement.Models
         public Nullable<bool> IsFaulty { get; set; }
     
         public virtual PlcInfo PlcInfo { get; set; }
-        public string Rack_No { get; internal set; }
-        public int? DeviceID { get; internal set; }
-        public string Plc_SerialNo { get; internal set; }
     }
 }

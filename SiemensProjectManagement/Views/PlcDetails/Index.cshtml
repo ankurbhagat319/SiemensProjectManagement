@@ -1,0 +1,118 @@
+﻿@model IEnumerable<SiemensProjectManagement.Models.PlcDetail>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IpAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subnet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mlfb)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Firmware)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mac_Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Operating_State)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Station_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PLC_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PLC_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SMC_SerialNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Plant_DesignationId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsPingable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsFaulty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlcInfo.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IpAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subnet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mlfb)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Firmware)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mac_Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Operating_State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Station_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PLC_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PLC_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SMC_SerialNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Plant_DesignationId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPingable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsFaulty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlcInfo.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SerialNo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SerialNo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SerialNo })
+        </td>
+    </tr>
+}
+
+</table>
