@@ -56,6 +56,7 @@
                 <button class="tablinks active" id="tabassets" onclick="openAssets(event, 'Assets')">Assets</button>
                 <button class="tablinks" id="tabplcs" onclick="openAssets(event, 'PLCs')">PLCs</button>
                 <button class="tablinks" id="tabtransfer" onclick="openAssets(event, 'Transfer')">Transfer</button>
+                <button class="tablinks" id="tabprocesslist" onclick="openAssets(event, 'ProcessList')">ProcessList</button>
             </div>
             <!-- Tab content -->
             <div id="Assets" class="tabcontent">
@@ -74,7 +75,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{ foreach (var result in TempData["Assets"] as List<AssetDetail>)
+                        @{ foreach (var result in TempData["assets"] as List<AssetDetail>)
                             {
                                 <tr>
                                     <td>@result.UserName </td>
@@ -83,7 +84,7 @@
                                     <td> @result.Location </td>
                                     <td>@result.ExpireBy</td>
                                     <td> @result.ProjectID </td>
-                                    <td>  </td>
+                                    <td> </td>
                                 </tr>
                             } }
                     </tbody>
@@ -91,7 +92,7 @@
             </div>
             <div id="PLCs" class="tabcontent ">
                 <h3>PLCs</h3>
-                <table id="PLCTable">
+                <table id="PLCTable" class="table-bordered table-striped">
                     <thead>
                         <tr>
                             <td> PLCID </td>
@@ -114,36 +115,71 @@
                                     <td> @result.Rack_No</td>
                                     <td> @result.Serial_No</td>
                                     <td></td>
-                                </tr> } }
+                                </tr>
+                            } }
                     </tbody>
                 </table>
             </div>
             <div id="Transfer" class="tabcontent ">
                 <h3>Transfer</h3>
-                <table id="TransferTable">
+                <table id="TransferTable" class="table-bordered table-striped">
                     <thead>
                         <tr>
-                            <td>Username </td>
-                            <td>Hostname </td>
-                            <td>Serial No.</td>
-                            <td>Location</td>
-                            <td>ExpireBy </td>
-                            <td>ProjectName</td>
-                            <td>Transfer</td>
+                            <td>Transfer_Id </td>
+                            <td>Asset_Id </td>
+                            <td>Requester_UserId</td>
+                            <td>TransferState</td>
+                            <td>Comments </td>
+                            <td>CreatedDate</td>
+                            <td>Revert</td>
                         </tr>
                     </thead>
                     <tbody>
-                        @{ foreach (var result in TempData["Assets"] as List<AssetDetail>)
+                        @{ foreach (var result in TempData["transfer"] as List<AssestTransfer>)
                             {
                                 <tr>
-                                    <td> @result.UserName</td>
-                                    <td>@result.HostName</td>
-                                    <td>@result.Serial_No</td>
-                                    <td>@result.Location</td>
-                                    <td>@result.ExpireBy</td>
-                                    <td>@result.ProjectID</td>
+                                    <td> @result.Transfer_id</td>
+                                    <td>@result.AssetId</td>
+                                    <td>@result.Requester_UserId</td>
+                                    <td>@result.Transfer_State</td>
+                                    <td>@result.Responsible_Comments</td>
+                                    <td>@result.CreatedDate</td>
                                     <td></td>
-                                </tr> } }
+                                </tr>
+                            } }
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="ProcessList" class="tabcontent ">
+                <h3>ProcessList</h3>
+                <table id="ProcessTable" class="table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td>Transfer_Id </td>
+                            <td>Asset_Id </td>
+                            <td>Responsible_UserId</td>
+                            <td>TransferState</td>
+                            <td>Comments </td>
+                            <td>CreatedDate</td>
+                            <td>Approve</td>
+                            <td>Reject</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ foreach (var result in TempData["processList"] as List<AssestTransfer>)
+                            {
+                                <tr>
+                                    <td>@result.Transfer_id</td>
+                                    <td>@result.AssetId</td>
+                                    <td>@result.Responsible_UserId</td>
+                                    <td>@result.Transfer_State</td>
+                                    <td>@result.Responsible_Comments</td>
+                                    <td>@result.CreatedDate</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            } }
 
                     </tbody>
                 </table>
@@ -196,12 +232,86 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <label>Comments</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <textarea id="mdlcomments" class="form-control" style="width:100%;">
+                            </textarea>
+                        </div>
+                    </div>
 
 
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" id="btnUpdate"  onclick ="fnTransferAssets()"  class="btn btn-primary" data-dismiss="modal">Transfer</button>
+                    <button type="button" id="btnUpdate" onclick="fnTransferAssets()" class="btn btn-primary" data-dismiss="modal">Transfer</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mdlTransfer" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Approve Transfer Request</h4>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <label>Transfer Id</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select id="mdlTransferid" disabled class="bootstrap-select" style="width:100%;"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <label>Responsible_Id</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select id="mdlReponsibleuser" disabled class="bootstrap-select" style="width:100%;"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <label>Asset Id</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select id="mdlAssetid" disabled class="bootstrap-select" style="width:100%;"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <label>Requester_Id</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select id="mdlrequesteruser" disabled class="bootstrap-select" style="width:100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <label>Comments</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <textarea id="mdlRequestercomments" class="form-control" style="width:100%;">
+                            </textarea>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="btnUpdate" onclick="EditTransferRequest()" class="btn btn-primary" data-dismiss="modal">Approve</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
 
@@ -244,7 +354,9 @@
                 'orderable': false,
                 'className': 'dt-body-center',
                 'render': function (data, type, full, meta) {
-                    return '<input type="button"  class = "btn btn-success" data-toggle="modal" data-target="#myModal" class="btn-primary" value="Transfer" name="id[]" value="'
+                    //return '<input type="button"  class = "btn btn-success" data-toggle="modal" data-target="#myModal" class="btn-primary" value="Transfer" name="id[]" value="'
+                    //    + $('<div/>').text(data).html() + '">';
+                    return '<input type="button"  class = "btn btn-success" class="btn-primary" value="Transfer" name="id[]" value="'
                         + $('<div/>').text(data).html() + '">';
                 },
             },
@@ -254,6 +366,7 @@
     });
     var tablefc3 = $('#TransferTable').DataTable({
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+
         "columnDefs": [
              {
                 'targets': 6,
@@ -261,7 +374,35 @@
                 'orderable': false,
                 'className': 'dt-body-center',
                 'render': function (data, type, full, meta) {
-                    return '<input type="button"  class = "btn btn-success" data-toggle="modal" data-target="#myModal" class="btn-primary" value="Transfer" name="id[]" value="'
+                    return '<input type="button"  class = "btn btn-danger" class="btn-primary" value="Revert" name="id[]" value="'
+                        + $('<div/>').text(data).html() + '">';
+                },
+            },
+        ],
+        "autoWidth": false,
+        "order": [[0, "desc"]]
+    });
+    var tablefc4 = $('#ProcessTable').DataTable({
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+
+        "columnDefs": [
+            {
+                'targets': 6,
+                'searchable': false,
+                'orderable': false,
+                'className': 'dt-body-center',
+                'render': function (data, type, full, meta) {
+                    return '<input type="button"  class = "btn btn-success" class="btn-primary" value="Approve" name="id[]" value="'
+                        + $('<div/>').text(data).html() + '">';
+                },
+            },
+            {
+                'targets': 7,
+                'searchable': false,
+                'orderable': false,
+                'className': 'dt-body-center',
+                'render': function (data, type, full, meta) {
+                    return '<input type="button"  class = "btn btn-danger" class="btn-primary" value="Reject" name="id[]" value="'
                         + $('<div/>').text(data).html() + '">';
                 },
             },
@@ -313,6 +454,30 @@
                 allowClear: true
             });
 
+        $("#mdlTransferid")
+            .select2({
+
+                allowClear: true
+            });
+
+        $("#mdlReponsibleuser")
+            .select2({
+
+                allowClear: true
+            });
+
+        $("#mdlAssetid")
+            .select2({
+
+                allowClear: true
+            });
+
+        $("#mdlrequesteruser")
+            .select2({
+
+                allowClear: true
+            });
+
     });
     function AssetTransfer()
     {
@@ -332,31 +497,28 @@
         this.IsAcknowledeged;
         this.IsActive;
     }
-    var assetdet = [];
-    $('#AssetTable tbody' ).on('click', '.btn-success', function () {
 
-        var tr = $(this).closest("tr");
+    function EditTransferRequest() {
 
-        var SerialNo = tr[0].childNodes[5].innerText;
-        $.getJSON("@Url.Action("GetAsset", "Assets")", { SerialNo: SerialNo }, function (data) {
+        var assetTransfer = new AssetTransfer();
+        assetTransfer.Transfer_State = "Accepted";
+        assetTransfer.Requester_Comments = $('#mdlRequestercomments').val();
+        assetTransfer.CreatedDate = new Date().toLocaleString();
+        assetTransfer.CreatedBy = null;
+        assetTransfer.ModifiedDate = new Date().toLocaleString();
+        assetTransfer.ModifiedBy = $('#mdlrequesteruser').val();
+        assetTransfer.IsCancelled = null;
+        assetTransfer.IsAcknowledeged = true;
+        assetTransfer.IsActive = true;
+
+        $.getJSON("@Url.Action("EditEntry", "AssetTransfer")", { list: JSON.stringify(assetTransfer) }, function (data) {
             if (data) {
-                debugger;
-                assetdet = data.AsseDetails[0];
-                _requester = data.Users;
-                var assetType = [];
-                $('#mdlAssettype').append(new Option(assetdet.AssetType_Name, assetdet.AssetType_Id));
-                $('#mdlReponsible').append(new Option(assetdet.UserName, assetdet.UserID));
-                $('#mdlProject').append(new Option(assetdet.ProjectName, assetdet.ProjectId));
-                $('#mdlrequester').select2({
-                    data: _requester
-                });
-               
-                $('#mdlAssets').modal({
-                    show: 'true'
-                });
-                }
-         });
-    });
+
+            }
+        });
+
+    }
+
     function fnTransferAssets() {
          var assetTransfer = new AssetTransfer();
         assetTransfer.ProjectId = parseInt( $('#mdlProject').val());
@@ -364,9 +526,10 @@
         assetTransfer.AssetType_Id = parseInt($('#mdlAssettype').val());
         assetTransfer.Responsible_UserId = parseInt( $('#mdlReponsible').val());
                 assetTransfer.Transfer_State = "Initiated"
-                assetTransfer.Responsible_Comments = "";
+        assetTransfer.Responsible_Comments = $('#mdlcomments').val();
+        assetTransfer.Requester_UserId = parseInt($('#mdlrequester').val());
         assetTransfer.Requester_Comments = "";
-        assetTransfer.CreatedDate = null;
+        assetTransfer.CreatedDate = new Date().toLocaleString();
         assetTransfer.CreatedBy = null;
         assetTransfer.ModifiedDate = null;
         assetTransfer.ModifiedBy = null;
@@ -374,10 +537,10 @@
         assetTransfer.IsAcknowledeged = null;
         assetTransfer.IsActive = null;
 
-        
+
         //var a = JSON.stringify(assetTransfer);
         //alert(a);
-     
+
         $.getJSON("@Url.Action("AssetTransfer", "Assets")", { list: JSON.stringify(assetTransfer) }, function (data) {
             if (data) {
 
@@ -397,5 +560,123 @@
             }
         });*@
     }
+
+    var assetdet = [];
+    $('#AssetTable tbody' ).on('click', '.btn-success', function () {
+
+        var tr = $(this).closest("tr");
+
+        var SerialNo = tr[0].childNodes[5].innerText;
+        $.getJSON("@Url.Action("GetAsset", "Assets")", { SerialNo: SerialNo }, function (data) {
+            if (data) {
+                debugger;
+                assetdet = data.AsseDetails[0];
+                _requester = data.Users;
+                var assetType = [];
+                $('#mdlAssettype').append(new Option(assetdet.AssetType_Name, assetdet.AssetType_Id));
+                $('#mdlReponsible').append(new Option(assetdet.UserName, assetdet.UserID));
+                $('#mdlProject').append(new Option(assetdet.ProjectName, assetdet.ProjectId));
+                $('#mdlrequester').select2({
+                    data: _requester
+                });
+
+                $('#mdlAssets').modal({
+                    show: 'true'
+                });
+                }
+         });
+    });
+
+    $('#PLCTable tbody' ).on('click', '.btn-success', function () {
+
+        var tr = $(this).closest("tr");
+
+        var SerialNo = tr[0].childNodes[5].innerText;
+        $.getJSON("@Url.Action("GetAsset", "Assets")", { SerialNo: SerialNo }, function (data) {
+            if (data) {
+                debugger;
+                assetdet = data.AsseDetails[0];
+                _requester = data.Users;
+                var assetType = [];
+                $('#mdlAssettype').append(new Option(assetdet.AssetType_Name, assetdet.AssetType_Id));
+                $('#mdlReponsible').append(new Option(assetdet.UserName, assetdet.UserID));
+                $('#mdlProject').append(new Option(assetdet.ProjectName, assetdet.ProjectId));
+                $('#mdlrequester').select2({
+                    data: _requester
+                });
+
+                $('#mdlAssets').modal({
+                    show: 'true'
+                });
+                }
+         });
+    });
+
+    $('#TransferTable tbody').on('click', '.btn-danger', function () {
+        var tr = $(this).closest("tr");
+
+        debugger;
+        var Transfer_ID = parseInt(tr[0].childNodes[1].innerText);
+        tr.remove();
+        $.getJSON("@Url.Action("DeleteEntry", "AssetTransfer")", { id: Transfer_ID }, function (data) {
+            if (data) {
+                debugger;
+                alert("Transfer request deleted successfully.");
+                //tr.remove();
+                //var myTable = $('#TransferTable').DataTable();
+
+                //myTable.row(tr).delete();
+
+                //$('#myTable').on('click', 'tbody tr', function () {
+
+                //    myTable.row(this).delete();
+
+                //});
+
+            }
+        });
+    });
+    var assetDet = [];
+    $('#ProcessTable tbody' ).on('click', '.btn-success', function () {
+
+        var tr = $(this).closest("tr");
+
+        var Transfer_Id = tr[0].childNodes[1].innerText;
+        $.getJSON("@Url.Action("GetTransferDetails", "AssetTransfer")", { id: Transfer_Id }, function (data) {
+            if (data) {
+                debugger;
+                assetDet = data.AssetTransferDetails[0];
+                
+                $('#mdlTransferid').append(new Option(assetDet.TransferId, assetDet.TransferId));
+                $('#mdlReponsibleuser').append(new Option(assetDet.Responsible_UserId, assetDet.Responsible_UserId));
+                $('#mdlAssetid').append(new Option(assetDet.AssetId, assetDet.AssetId));
+                $('#mdlrequesteruser').append(new Option(assetDet.Requester_UserId, assetDet.Requester_UserId));
+                
+                $('#mdlTransfer').modal({
+                    show: 'true'
+                });
+                }
+         });
+    });
+
+
+
+
+
+
+    @*$('#ProcessTable tbody').on('click', '.btn-danger', function () {
+        debugger;
+        var tr = $(this).closest("tr");
+
+        var Transfer_ID = parseInt(tr[0].childNodes[1].innerText);
+
+        $.getJSON("@Url.Action("DeleteEntry", "AssetTransfer")", { id: Transfer_ID }, function (data) {
+            if (data) {
+                debugger;
+                alert("Transfer request deleted successfully.");
+
+            }
+        });
+    });*@
 
 </script>

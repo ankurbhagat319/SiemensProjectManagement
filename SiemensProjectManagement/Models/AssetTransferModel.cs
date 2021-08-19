@@ -7,6 +7,7 @@ namespace SiemensProjectManagement.Models
 {
     public class AssetTransferModel
     {
+        public string TransferId { get; set; }
         public string ProjectId { get; set; }
         public string AssetId { get; set; }
         public string AssetType_Id { get; set; }
@@ -22,6 +23,10 @@ namespace SiemensProjectManagement.Models
         public string IsCancelled { get; set; }
         public string IsAcknowledeged { get; set; }
         public string IsActive { get; set; }
+
+        public string Responsibe_Name { get; set; }
+
+        public string Requester_Name { get; set; }
 
     }
 }

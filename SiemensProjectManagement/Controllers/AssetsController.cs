@@ -115,8 +115,12 @@ namespace SiemensProjectManagement.Controllers
             selectedID = model.selectedUserID;
             var assets = db.AssetDetails.Where(x => x.UserID == selectedID).ToList();
             var plcs = db.PlcInfoes.Where(x => x.UserId == selectedID).ToList();
+            var transfer = db.AssestTransfers.Where(x => x.Responsible_UserId == selectedID).ToList();
+            var processList = db.AssestTransfers.Where(x => x.Requester_UserId == selectedID.ToString()).ToList();
             TempData["assets"] = assets;
             TempData["plcs"] = plcs;
+            TempData["transfer"] = transfer;
+            TempData["processList"] = processList;
             return RedirectToAction("Assets"); 
         }
 
