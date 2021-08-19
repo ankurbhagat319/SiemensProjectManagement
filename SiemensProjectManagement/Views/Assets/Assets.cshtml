@@ -591,7 +591,7 @@
 
         var tr = $(this).closest("tr");
 
-        var SerialNo = tr[0].childNodes[5].innerText;
+        var SerialNo = tr[0].childNodes[11].innerText;
         $.getJSON("@Url.Action("GetAsset", "Assets")", { SerialNo: SerialNo }, function (data) {
             if (data) {
                 debugger;
