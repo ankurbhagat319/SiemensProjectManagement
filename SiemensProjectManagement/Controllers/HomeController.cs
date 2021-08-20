@@ -10,6 +10,7 @@ namespace SiemensProjectManagement.Controllers
     {
         public ActionResult Index()
         {
+
             return View();
         }
 

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SiemensProjectManagement.Models;
 //using ProjectMangementAPI.Models;
+using SiemensLibraries;
 
 
 namespace SiemensProjectManagement.Controllers
@@ -22,8 +23,10 @@ namespace SiemensProjectManagement.Controllers
         }
         public ActionResult PlcVirtualization()
         {
+           // EmailUtility.SendEmail("ProjectAssetsdept@Itest.com", "ankur.bhagat@siemens.com,ajith.k@siemens.com,monika.babu@siemens.com,suresh.mohan@siemens.com,ashutosh.kumar@siemens.com", "TestMail", "lab Virtualization and project asset management Test mail check", true);
+            
             //ProjectManagementDBEntities db = new ProjectManagementDBEntities();
-          
+
             return View();
         }
         public ActionResult SampleLedCheck()

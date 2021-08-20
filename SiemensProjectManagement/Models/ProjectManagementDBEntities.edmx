@@ -524,6 +524,8 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetWishAutoMappedDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetWishListDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -1296,6 +1298,8 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
             <End Role="PlcInfo" EntitySet="PlcInfoes" />
             <End Role="PlcDetail" EntitySet="PlcDetails" />
           </AssociationSet>
+          <FunctionImport Name="GetWishAutoMappedDetails" ReturnType="Collection(ProjectManagementDBModel.GetWishAutoMappedDetails_Result)" />
+          <FunctionImport Name="GetWishListDetails" ReturnType="Collection(ProjectManagementDBModel.GetWishListDetails_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1351,6 +1355,28 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetWishAutoMappedDetails_Result">
+          <Property Type="Int32" Name="WishlistId" Nullable="false" />
+          <Property Type="String" Name="WishTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ProjectName" Nullable="true" />
+          <Property Type="String" Name="AssetType_Name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Asset" Nullable="true" />
+          <Property Type="Int32" Name="RequestDuration" Nullable="false" />
+          <Property Type="Int32" Name="AvailableDuration" Nullable="false" />
+          <Property Type="Int32" Name="AvailableQuantity" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetWishListDetails_Result">
+          <Property Type="Int32" Name="WishlistId" Nullable="false" />
+          <Property Type="String" Name="WishTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserName" Nullable="true" />
+          <Property Type="String" Name="ProjectName" Nullable="true" />
+          <Property Type="String" Name="AssetType_Name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Asset" Nullable="true" />
+          <Property Type="Decimal" Name="Quantity" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="String" Name="RequestDuration" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1681,6 +1707,36 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetWishAutoMappedDetails" FunctionName="ProjectManagementDBModel.Store.GetWishAutoMappedDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProjectManagementDBModel.GetWishAutoMappedDetails_Result">
+                <ScalarProperty Name="WishlistId" ColumnName="WishlistId" />
+                <ScalarProperty Name="WishTypeName" ColumnName="WishTypeName" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="AssetType_Name" ColumnName="AssetType_Name" />
+                <ScalarProperty Name="Asset" ColumnName="Asset" />
+                <ScalarProperty Name="RequestDuration" ColumnName="RequestDuration" />
+                <ScalarProperty Name="AvailableDuration" ColumnName="AvailableDuration" />
+                <ScalarProperty Name="AvailableQuantity" ColumnName="AvailableQuantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetWishListDetails" FunctionName="ProjectManagementDBModel.Store.GetWishListDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProjectManagementDBModel.GetWishListDetails_Result">
+                <ScalarProperty Name="WishlistId" ColumnName="WishlistId" />
+                <ScalarProperty Name="WishTypeName" ColumnName="WishTypeName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="AssetType_Name" ColumnName="AssetType_Name" />
+                <ScalarProperty Name="Asset" ColumnName="Asset" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RequestDuration" ColumnName="RequestDuration" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

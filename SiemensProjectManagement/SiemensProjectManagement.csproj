@@ -152,6 +152,7 @@
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WishListsController.cs" />
+    <Compile Include="Controllers\WishListTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -172,12 +173,20 @@
     <Compile Include="Models\Device.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetWishAutomappedDetailsModel.cs" />
+    <Compile Include="Models\GetWishAutoMappedDetails_Result.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetWishListDetails_Result.cs">
+      <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PlcDetail.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlcInfo.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PlcVirtualization.cs" />
     <Compile Include="Models\PlcVirtualizationModel.cs" />
     <Compile Include="Models\ProcessList.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
@@ -226,6 +235,7 @@
     <Compile Include="Models\WishList.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WishListDetailsModel.cs" />
     <Compile Include="Models\WishListType.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
@@ -571,6 +581,7 @@
     <Content Include="Views\PlcInfoes\Details.cshtml" />
     <Content Include="Views\PlcInfoes\Edit.cshtml" />
     <Content Include="Views\PlcInfoes\Index.cshtml" />
+    <Content Include="Views\WishLists\MappedAssetDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -588,6 +599,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SIemensLibraries\SiemensLibraries.csproj">
+      <Project>{c92b4031-5935-4d8d-b517-05f288e8e816}</Project>
+      <Name>SiemensLibraries</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

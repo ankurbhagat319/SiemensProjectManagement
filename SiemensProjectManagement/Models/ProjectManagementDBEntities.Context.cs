@@ -147,5 +147,15 @@ namespace SiemensProjectManagement.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<GetWishAutoMappedDetails_Result> GetWishAutoMappedDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetWishAutoMappedDetails_Result>("GetWishAutoMappedDetails");
+        }
+    
+        public virtual ObjectResult<GetWishListDetails_Result> GetWishListDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetWishListDetails_Result>("GetWishListDetails");
+        }
     }
 }

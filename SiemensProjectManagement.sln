@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiemensProjectManagement", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiemensProjectManagement.Tests", "SiemensProjectManagement.Tests\SiemensProjectManagement.Tests.csproj", "{3EE7917C-85B6-4669-A7F0-EC07DC38AD39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiemensLibraries", "SIemensLibraries\SiemensLibraries.csproj", "{C92B4031-5935-4D8D-B517-05F288E8E816}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3EE7917C-85B6-4669-A7F0-EC07DC38AD39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EE7917C-85B6-4669-A7F0-EC07DC38AD39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EE7917C-85B6-4669-A7F0-EC07DC38AD39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C92B4031-5935-4D8D-B517-05F288E8E816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C92B4031-5935-4D8D-B517-05F288E8E816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C92B4031-5935-4D8D-B517-05F288E8E816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C92B4031-5935-4D8D-B517-05F288E8E816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
