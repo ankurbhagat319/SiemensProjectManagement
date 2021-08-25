@@ -40,5 +40,9 @@ namespace SiemensProjectManagement.Models
         public virtual AssetType AssetType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProcessList> ProcessLists { get; set; }
+        public virtual AssestTransfer AssestTransfer1 { get; set; }
+        public virtual AssestTransfer AssestTransfer2 { get; set; }
+        public virtual Project Project { get; set; }
+        public virtual User User { get; set; }
     }
 }

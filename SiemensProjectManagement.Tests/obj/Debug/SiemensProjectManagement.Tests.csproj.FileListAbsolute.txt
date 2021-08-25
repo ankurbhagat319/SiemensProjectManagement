@@ -84,3 +84,5 @@ D:\ProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj
 D:\ProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.csproj.CopyComplete
 D:\ProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.dll
 D:\ProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\obj\Debug\SiemensProjectManagement.Tests.pdb
+E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\SIemensLibraries.dll
+E:\save2021 Work\SiemensProjectManagement\SiemensProjectManagement\SiemensProjectManagement.Tests\bin\Debug\SIemensLibraries.pdb

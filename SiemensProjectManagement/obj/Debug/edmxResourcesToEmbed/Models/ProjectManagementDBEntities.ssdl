@@ -290,6 +290,18 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
         <EntityType Name="ZidUsers">
           <Property Name="ZID" Type="nvarchar(max)" />
         </EntityType>-->
+  <Association Name="FK_AssestTransfer_AssestTransfer">
+    <End Role="AssestTransfer" Type="Self.AssestTransfer" Multiplicity="1" />
+    <End Role="AssestTransfer1" Type="Self.AssestTransfer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AssestTransfer">
+        <PropertyRef Name="Transfer_id" />
+      </Principal>
+      <Dependent Role="AssestTransfer1">
+        <PropertyRef Name="Transfer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_AssestTransfer_AssetType">
     <End Role="AssetType" Type="Self.AssetType" Multiplicity="0..1" />
     <End Role="AssestTransfer" Type="Self.AssestTransfer" Multiplicity="*" />
@@ -299,6 +311,30 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
       </Principal>
       <Dependent Role="AssestTransfer">
         <PropertyRef Name="AssetType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssestTransfer_Projects">
+    <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+    <End Role="AssestTransfer" Type="Self.AssestTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="AssestTransfer">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssestTransfer_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="AssestTransfer" Type="Self.AssestTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="AssestTransfer">
+        <PropertyRef Name="Responsible_UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -350,6 +386,18 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PlcInfo_AssetType">
+    <End Role="AssetType" Type="Self.AssetType" Multiplicity="0..1" />
+    <End Role="PlcInfo" Type="Self.PlcInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssetType">
+        <PropertyRef Name="AssetType_Id" />
+      </Principal>
+      <Dependent Role="PlcInfo">
+        <PropertyRef Name="AssetType_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PlcInfo_Devices">
     <End Role="Devices" Type="Self.Devices" Multiplicity="0..1" />
     <End Role="PlcInfo" Type="Self.PlcInfo" Multiplicity="*" />
@@ -371,6 +419,18 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
       </Principal>
       <Dependent Role="PlcInfo1">
         <PropertyRef Name="PlcId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlcInfo_Projects">
+    <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+    <End Role="PlcInfo" Type="Self.PlcInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="PlcInfo">
+        <PropertyRef Name="ProjectId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -582,8 +642,20 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
     [WishMapper].[IsActive] AS [IsActive]
     FROM [dbo].[WishMapper] AS [WishMapper]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK_AssestTransfer_AssestTransfer" Association="Self.FK_AssestTransfer_AssestTransfer">
+      <End Role="AssestTransfer" EntitySet="AssestTransfer" />
+      <End Role="AssestTransfer1" EntitySet="AssestTransfer" />
+    </AssociationSet>
     <AssociationSet Name="FK_AssestTransfer_AssetType" Association="Self.FK_AssestTransfer_AssetType">
       <End Role="AssetType" EntitySet="AssetType" />
+      <End Role="AssestTransfer" EntitySet="AssestTransfer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssestTransfer_Projects" Association="Self.FK_AssestTransfer_Projects">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="AssestTransfer" EntitySet="AssestTransfer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssestTransfer_Users" Association="Self.FK_AssestTransfer_Users">
+      <End Role="Users" EntitySet="Users" />
       <End Role="AssestTransfer" EntitySet="AssestTransfer" />
     </AssociationSet>
     <AssociationSet Name="FK_AssetDetails_AssetType" Association="Self.FK_AssetDetails_AssetType">
@@ -602,6 +674,10 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
       <End Role="PlcInfo" EntitySet="PlcInfo" />
       <End Role="PlcDetails" EntitySet="PlcDetails" />
     </AssociationSet>
+    <AssociationSet Name="FK_PlcInfo_AssetType" Association="Self.FK_PlcInfo_AssetType">
+      <End Role="AssetType" EntitySet="AssetType" />
+      <End Role="PlcInfo" EntitySet="PlcInfo" />
+    </AssociationSet>
     <AssociationSet Name="FK_PlcInfo_Devices" Association="Self.FK_PlcInfo_Devices">
       <End Role="Devices" EntitySet="Devices" />
       <End Role="PlcInfo" EntitySet="PlcInfo" />
@@ -609,6 +685,10 @@ warning 6013: The table/view 'ProjectManagementDB.dbo.ZidUsers' does not have a 
     <AssociationSet Name="FK_PlcInfo_PlcInfo" Association="Self.FK_PlcInfo_PlcInfo">
       <End Role="PlcInfo" EntitySet="PlcInfo" />
       <End Role="PlcInfo1" EntitySet="PlcInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlcInfo_Projects" Association="Self.FK_PlcInfo_Projects">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="PlcInfo" EntitySet="PlcInfo" />
     </AssociationSet>
     <AssociationSet Name="FK_ProcessList_AssestTransfer" Association="Self.FK_ProcessList_AssestTransfer">
       <End Role="AssestTransfer" EntitySet="AssestTransfer" />

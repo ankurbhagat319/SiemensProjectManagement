@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,9 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SiemensLibraries;
 using SiemensProjectManagement.Models;
+using static SiemensProjectManagement.Models.AssetModel;
 
 namespace SiemensProjectManagement.Controllers
 {
@@ -16,6 +19,10 @@ namespace SiemensProjectManagement.Controllers
     {
         ProjectManagementDB db = new ProjectManagementDB();
         int selectedID;
+
+    
+   
+
         // GET: Assets
         public ActionResult Index()
         {
@@ -26,8 +33,48 @@ namespace SiemensProjectManagement.Controllers
             };
             return View(uModel);
         }
-        public ActionResult Assets()
+        public ActionResult Assets(string UserId)
         {
+            int Role_id;
+            List<SelectListItem> lst = new List<SelectListItem>();
+            foreach (var us in db.Users)
+            {
+
+                lst.Add(new SelectListItem
+                {
+                    Text = us.DisplayName,
+                    Value = us.UserID.ToString()
+                });
+
+            }
+          
+                string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                var Username = userName.Split('\\');
+                var Name = Username[1];
+                var user = db.Users.Select(x => x).Where(x => x.UserName == Name).ToList();
+                var selectedID = user[0].UserID;
+        
+            if (!string.IsNullOrEmpty(UserId))
+            {
+                selectedID = Int32.Parse(UserId);
+                user = db.Users.Select(x => x).Where(x => x.UserName == Name).ToList();
+
+            }
+            Role_id = user[0].RoleID;
+            var assets = db.AssetDetails.Where(x => x.UserID == selectedID).ToList();
+                var plcs = db.PlcInfoes.Where(x => x.UserId == selectedID).ToList();
+                var transfer = db.AssestTransfers.Where(x => x.Responsible_UserId == selectedID).ToList();
+                var processList = db.AssestTransfers.Where(x => x.Requester_UserId == selectedID.ToString()).ToList();
+                TempData["assets"] = assets;
+                TempData["plcs"] = plcs;
+                TempData["transfer"] = transfer;
+                TempData["processList"] = processList;
+                TempData["Users"] = lst;
+            ViewBag.Role_Id  = Role_id;
+
+
+               
+            
             return View();
         }
         public ActionResult GetAsset(string SerialNo)
@@ -91,6 +138,54 @@ namespace SiemensProjectManagement.Controllers
             };
         }
 
+
+
+        public ActionResult GetAssetPlc(string SerialNo)
+        {
+            List<PlcInfoModel> assetDetails = new List<PlcInfoModel>();
+
+            assetDetails = db.PlcInfoes.Where(x => x.Serial_No == SerialNo).Select(x => new PlcInfoModel
+            {
+                UserId = x.UserId,
+                UserName = x.UserName,
+                PlcId = x.PlcId,
+                ProjectId = x.ProjectId,
+                ProjectName = x.Project.ProjectName,
+                 AssetType_Id = x.AssetType_id,
+                AssetType_Name = x.AssetType.AssetType_Name,
+          
+                CreatedBy = x.CreatedBy,
+                ModifiedBy = x.ModifiedBy,
+
+            }).ToList();
+            var Users = db.Users.Select(x => new Requester
+            {
+                id = x.UserID,
+
+                text = x.DisplayName
+            });
+
+            // return Json(assetDetails.ToArray(), JsonRequestBehavior.AllowGet);
+           
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    Users = Users.ToArray(),
+                    AsseDetails = assetDetails.ToArray(),
+
+
+                },
+                ContentType = "application/json",
+                ContentEncoding = Encoding.UTF8,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
+
+            };
+        }
+
+
+
         public ActionResult AssetTransfer(string list)
         {
             //var jsonData = JObject.Parse(list);
@@ -102,6 +197,10 @@ namespace SiemensProjectManagement.Controllers
             {
                 Create(_transefr);
                 dbcontext.SaveChanges();
+                var template = EmailUtility.UpdateEmailTemplate("Plc","1518 3 PN/DP" , "192.168.10.32", "Rack1", "SC-H4AR34062016", "z003ef1m");
+
+
+                     EmailUtility.SendEmail("ProjectAssetsdept@Itest.com", "ankur.bhagat@siemens.com,ajith.k@siemens.com,monika.babu@siemens.com,suresh.mohan@siemens.com,ashutosh.kumar@siemens.com", "Asset Transfer Request", template, true);
             }
 
 

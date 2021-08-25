@@ -41,6 +41,11 @@
         <EntityTypeShape EntityType="ProjectManagementDBModel.Asset" Width="1.5" PointX="8.375" PointY="6.75" />
         <EntityTypeShape EntityType="ProjectManagementDBModel.PlcDetail" Width="1.5" PointX="7.25" PointY="1.125" />
         <AssociationConnector Association="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_PlcInfo_Projects" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_PlcInfo_AssetType" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_AssestTransfer_AssestTransfer" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_AssestTransfer_Projects" />
+        <AssociationConnector Association="ProjectManagementDBModel.FK_AssestTransfer_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

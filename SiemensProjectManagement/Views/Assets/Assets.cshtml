@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 @using SiemensProjectManagement.Models;
-@model SiemensProjectManagement.Models.AssetDetail
+@model SiemensProjectManagement.Models.AssetModel
 @{ ViewBag.Title = "Assets"; Layout = "~/Views/Shared/_Layout.cshtml"; }
 <style>
     /* Style the tab */
@@ -47,6 +47,19 @@
 </style>
 <h2>Assets</h2>
 <body>
+
+    <div class="container-fluid">
+        @using (Html.BeginForm(null, null, FormMethod.Post))
+        {
+
+            @Html.AntiForgeryToken();
+            @Html.DropDownList("Users", (IEnumerable<SelectListItem>)TempData["Users"], new { @id = "ddluser", @class = "bootstrap-select" });
+          //  @Html.DropDownListFor(Model => Model.selectedUserID, new SelectList(TempData["Users"] as List<dynamic>, "UserID", "DisplayName"), new { @id = "userID" })
+            <input type="button" value="submit" onclick="fnShow()" />
+        }
+
+    </div>
+
     <br />
     <div class="container-fluid">
         <div class="row">
@@ -293,8 +306,7 @@
                             <label>Requester_Id</label>
                         </div>
                         <div class="col-sm-9">
-                            <select id="mdlrequesteruser" disabled class="bootstrap-select" style="width:100%;">
-                            </select>
+                            <select id="mdlrequesteruser" disabled class="bootstrap-select" style="width:100%;"></select>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -321,6 +333,11 @@
 </body>
 
 <script>
+    var Role_Id;
+    $(document).ready(function () {
+        Role_Id = @ViewBag.Role_Id;
+      
+    });
     document.getElementById("tabassets").click();
     var tablefc1 = $('#AssetTable').DataTable({
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
@@ -520,9 +537,10 @@
     }
 
     function fnTransferAssets() {
+        var AssetID = parseInt($('#mdlAssettype').val());
          var assetTransfer = new AssetTransfer();
         assetTransfer.ProjectId = parseInt( $('#mdlProject').val());
-        assetTransfer.AssetId = 1;
+        assetTransfer.AssetId = AssetID;
         assetTransfer.AssetType_Id = parseInt($('#mdlAssettype').val());
         assetTransfer.Responsible_UserId = parseInt( $('#mdlReponsible').val());
                 assetTransfer.Transfer_State = "Initiated"
@@ -543,7 +561,7 @@
 
         $.getJSON("@Url.Action("AssetTransfer", "Assets")", { list: JSON.stringify(assetTransfer) }, function (data) {
             if (data) {
-
+                alert("Transfered Successfully");
             }
         });
 
@@ -592,7 +610,7 @@
         var tr = $(this).closest("tr");
 
         var SerialNo = tr[0].childNodes[11].innerText;
-        $.getJSON("@Url.Action("GetAsset", "Assets")", { SerialNo: SerialNo }, function (data) {
+        $.getJSON("@Url.Action("GetAssetPlc", "Assets")", { SerialNo: SerialNo }, function (data) {
             if (data) {
                 debugger;
                 assetdet = data.AsseDetails[0];
@@ -678,5 +696,13 @@
             }
         });
     });*@
+
+
+    function fnShow() {
+        debugger;
+        var UserId = $('#ddluser').val();
+        var RedirectUri = location.origin + "/" + "Assets//Assets/"  + "?UserId=" + UserId;
+        window.location.href = RedirectUri;
+    }
 
 </script>

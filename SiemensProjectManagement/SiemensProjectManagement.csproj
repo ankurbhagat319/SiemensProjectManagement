@@ -166,6 +166,7 @@
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AssetDetailsModel.cs" />
+    <Compile Include="Models\AssetModel.cs" />
     <Compile Include="Models\AssetTransferModel.cs" />
     <Compile Include="Models\AssetType.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
@@ -186,6 +187,7 @@
     <Compile Include="Models\PlcInfo.cs">
       <DependentUpon>ProjectManagementDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PlcInfoModel.cs" />
     <Compile Include="Models\PlcVirtualization.cs" />
     <Compile Include="Models\PlcVirtualizationModel.cs" />
     <Compile Include="Models\ProcessList.cs">
@@ -408,6 +410,7 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="EmailTemplate\Email.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -453,6 +456,7 @@
     <None Include=".bin\bower.cmd" />
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\carousel.js" />
     <Content Include="Scripts\i18n\af.js" />

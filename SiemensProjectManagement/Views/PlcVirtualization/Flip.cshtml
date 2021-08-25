@@ -157,7 +157,7 @@
                 <div class=" row jumbotron" style="height:1000px; border:ridge; border-color:cadetblue;background-color:white;">
 
                     <div class="row">
-                        <div id="Rack1_Plc1_green1" class="led-green btn pull-left"></div>
+                        @*<div id="Rack1_Plc1_green1" class="led-green btn pull-left"></div>*@
                         <div id="Rack1_Plc1_yellow1" class="led-yellow btn pull-left"></div>
                         <div id="Rack1_Plc1_red1" class="led-red btn pull-left"></div>
 
@@ -171,7 +171,7 @@
                         <button id="Rack1_Plc1" class="btn pull-left" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal" style="background-color:white;">
                             <img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" />
                             <img src="~/Images/di.png" style="height:70px;" />
-                            <img src="~/Images/di.png" style="height:70px;" />
+                            @*<img src="~/Images/di.png" style="height:70px;" />*@
                         </button>
                         <button id="Rack1_Plc2" class=" btn btnright" onclick="fnGetplcInfos()" data-toggle="modal" data-target="#myModal"><img src="~/Images/s71500PLC.png" style="width:70px;height:70px;" /></button>
 
@@ -266,6 +266,7 @@
     var card = document.getElementById('card');
 
     document.getElementById('flip').addEventListener('click', function () {
+        debugger;
         card.classList.toggle('flipped');
     }, false);
 

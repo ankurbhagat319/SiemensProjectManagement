@@ -21,6 +21,7 @@ namespace SiemensProjectManagement.Models
             this.AssetDetails = new HashSet<AssetDetail>();
             this.Tools = new HashSet<Tool>();
             this.WishLists = new HashSet<WishList>();
+            this.PlcInfoes = new HashSet<PlcInfo>();
         }
     
         public int AssetType_Id { get; set; }
@@ -35,5 +36,7 @@ namespace SiemensProjectManagement.Models
         public virtual ICollection<Tool> Tools { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WishList> WishLists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlcInfo> PlcInfoes { get; set; }
     }
 }

@@ -22,6 +22,10 @@
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="AssetType" Relationship="Self.FK_AssestTransfer_AssetType" FromRole="AssestTransfer" ToRole="AssetType" />
     <NavigationProperty Name="ProcessLists" Relationship="Self.FK_ProcessList_AssestTransfer" FromRole="AssestTransfer" ToRole="ProcessList" />
+    <NavigationProperty Name="AssestTransfer1" Relationship="ProjectManagementDBModel.FK_AssestTransfer_AssestTransfer" FromRole="AssestTransfer" ToRole="AssestTransfer1" />
+    <NavigationProperty Name="AssestTransfer2" Relationship="ProjectManagementDBModel.FK_AssestTransfer_AssestTransfer" FromRole="AssestTransfer1" ToRole="AssestTransfer" />
+    <NavigationProperty Name="Project" Relationship="ProjectManagementDBModel.FK_AssestTransfer_Projects" FromRole="AssestTransfer" ToRole="Project" />
+    <NavigationProperty Name="User" Relationship="ProjectManagementDBModel.FK_AssestTransfer_Users" FromRole="AssestTransfer" ToRole="User" />
   </EntityType>
   <EntityType Name="AssetDetail">
     <Key>
@@ -73,6 +77,7 @@
     <NavigationProperty Name="AssetDetails" Relationship="Self.FK_AssetDetails_AssetType" FromRole="AssetType" ToRole="AssetDetails" />
     <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_AssetType" FromRole="AssetType" ToRole="Tools" />
     <NavigationProperty Name="WishLists" Relationship="Self.FK_WishList_AssetType" FromRole="AssetType" ToRole="WishList" />
+    <NavigationProperty Name="PlcInfoes" Relationship="ProjectManagementDBModel.FK_PlcInfo_AssetType" FromRole="AssetType" ToRole="PlcInfo" />
   </EntityType>
   <EntityType Name="Device">
     <Key>
@@ -108,6 +113,8 @@
     <NavigationProperty Name="PlcInfo1" Relationship="Self.FK_PlcInfo_PlcInfo" FromRole="PlcInfo" ToRole="PlcInfo1" />
     <NavigationProperty Name="PlcInfo2" Relationship="Self.FK_PlcInfo_PlcInfo" FromRole="PlcInfo1" ToRole="PlcInfo" />
     <NavigationProperty Name="PlcDetails" Relationship="ProjectManagementDBModel.FK_PlcDetails_PlcInfo" FromRole="PlcInfo" ToRole="PlcDetail" />
+    <NavigationProperty Name="Project" Relationship="ProjectManagementDBModel.FK_PlcInfo_Projects" FromRole="PlcInfo" ToRole="Project" />
+    <NavigationProperty Name="AssetType" Relationship="ProjectManagementDBModel.FK_PlcInfo_AssetType" FromRole="PlcInfo" ToRole="AssetType" />
   </EntityType>
   <EntityType Name="ProcessList">
     <Key>
@@ -174,6 +181,8 @@
     <NavigationProperty Name="AssetDetails" Relationship="Self.FK_AssetDetails_Projects" FromRole="Projects" ToRole="AssetDetails" />
     <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Projects" FromRole="Projects" ToRole="Tools" />
     <NavigationProperty Name="WishLists" Relationship="Self.FK_WishList_Projects" FromRole="Projects" ToRole="WishList" />
+    <NavigationProperty Name="PlcInfoes" Relationship="ProjectManagementDBModel.FK_PlcInfo_Projects" FromRole="Project" ToRole="PlcInfo" />
+    <NavigationProperty Name="AssestTransfers" Relationship="ProjectManagementDBModel.FK_AssestTransfer_Projects" FromRole="Project" ToRole="AssestTransfer" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -235,6 +244,7 @@
     <NavigationProperty Name="Role" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
     <NavigationProperty Name="Tools" Relationship="Self.FK_Tools_Users" FromRole="Users" ToRole="Tools" />
     <NavigationProperty Name="WishLists" Relationship="Self.FK_WishList_Users" FromRole="Users" ToRole="WishList" />
+    <NavigationProperty Name="AssestTransfers" Relationship="ProjectManagementDBModel.FK_AssestTransfer_Users" FromRole="User" ToRole="AssestTransfer" />
   </EntityType>
   <EntityType Name="WishList">
     <Key>
@@ -632,6 +642,26 @@
     </AssociationSet>
     <FunctionImport Name="GetWishAutoMappedDetails" ReturnType="Collection(ProjectManagementDBModel.GetWishAutoMappedDetails_Result)" />
     <FunctionImport Name="GetWishListDetails" ReturnType="Collection(ProjectManagementDBModel.GetWishListDetails_Result)" />
+    <AssociationSet Name="FK_PlcInfo_Projects" Association="ProjectManagementDBModel.FK_PlcInfo_Projects">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="PlcInfo" EntitySet="PlcInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlcInfo_AssetType" Association="ProjectManagementDBModel.FK_PlcInfo_AssetType">
+      <End Role="AssetType" EntitySet="AssetTypes" />
+      <End Role="PlcInfo" EntitySet="PlcInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssestTransfer_AssestTransfer" Association="ProjectManagementDBModel.FK_AssestTransfer_AssestTransfer">
+      <End Role="AssestTransfer" EntitySet="AssestTransfers" />
+      <End Role="AssestTransfer1" EntitySet="AssestTransfers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssestTransfer_Projects" Association="ProjectManagementDBModel.FK_AssestTransfer_Projects">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="AssestTransfer" EntitySet="AssestTransfers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssestTransfer_Users" Association="ProjectManagementDBModel.FK_AssestTransfer_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="AssestTransfer" EntitySet="AssestTransfers" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -709,4 +739,64 @@
     <Property Type="String" Name="Description" Nullable="true" />
     <Property Type="String" Name="RequestDuration" Nullable="true" MaxLength="50" />
   </ComplexType>
+  <Association Name="FK_PlcInfo_Projects">
+    <End Type="ProjectManagementDBModel.Project" Role="Project" Multiplicity="0..1" />
+    <End Type="ProjectManagementDBModel.PlcInfo" Role="PlcInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="PlcInfo">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlcInfo_AssetType">
+    <End Type="ProjectManagementDBModel.AssetType" Role="AssetType" Multiplicity="0..1" />
+    <End Type="ProjectManagementDBModel.PlcInfo" Role="PlcInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssetType">
+        <PropertyRef Name="AssetType_Id" />
+      </Principal>
+      <Dependent Role="PlcInfo">
+        <PropertyRef Name="AssetType_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssestTransfer_AssestTransfer">
+    <End Type="ProjectManagementDBModel.AssestTransfer" Role="AssestTransfer" Multiplicity="1" />
+    <End Type="ProjectManagementDBModel.AssestTransfer" Role="AssestTransfer1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AssestTransfer">
+        <PropertyRef Name="Transfer_id" />
+      </Principal>
+      <Dependent Role="AssestTransfer1">
+        <PropertyRef Name="Transfer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssestTransfer_Projects">
+    <End Type="ProjectManagementDBModel.Project" Role="Project" Multiplicity="0..1" />
+    <End Type="ProjectManagementDBModel.AssestTransfer" Role="AssestTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="AssestTransfer">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssestTransfer_Users">
+    <End Type="ProjectManagementDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ProjectManagementDBModel.AssestTransfer" Role="AssestTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="AssestTransfer">
+        <PropertyRef Name="Responsible_UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
