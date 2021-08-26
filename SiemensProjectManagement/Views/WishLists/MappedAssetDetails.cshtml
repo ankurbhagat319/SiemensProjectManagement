@@ -185,7 +185,7 @@
                                     <tr>
 
                                         <td>
-                                            <input id="Checkbox1" class="checkboxclass" type="checkbox" />
+                                            <input id="Checkbox1" class="checkboxclass" type="checkbox"  />
                                         </td>
                                         <td>
                                             @result.WishlistId
@@ -223,7 +223,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" id="btnRequest" class="btn btn-primary" data-dismiss="modal">Request for Asset</button>
+                    <button type="button" id="btnRequest" class="btn btn-primary" data-dismiss="modal" onclick="fnRequestTransfer()">Request for Asset</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
 
@@ -259,24 +259,77 @@
             $("#mdlAssets").modal("show");
         });
 
-        $("#btnRequest").click(function () {
+        //$("#btnRequest").click(function () {
 
-            if ($('.checkboxclass:checked').length > 0) {
-                alert('Transfer request mail has been sent to the user.');
-            }
-            else {
-                if (confirm('Please select required mapped asset details to be requested.')) {
-                    $('#mdlAssets').modal({ 'backdrop': 'static' });
-                }
-                else {
-                    $('#mdlAssets').modal({ 'backdrop': 'static' });
-                }
-            }
-        });
+        //    if ($('.checkboxclass:checked').length > 0) {
+        //        alert('Transfer request mail has been sent to the user.');
+        //    }
+        //    else {
+        //        if (confirm('Please select required mapped asset details to be requested.')) {
+        //            $('#mdlAssets').modal({ 'backdrop': 'static' });
+        //        }
+        //        else {
+        //            $('#mdlAssets').modal({ 'backdrop': 'static' });
+        //        }
+        //    }
+        //});
 
-        
+
 
     });
+    function AssetTransfer() {
+        this.ProjectId;
+        this.AssetId;
+        this.AssetType_Id;
+        this.Responsible_UserId;
+        this.Requester_UserId;
+        this.Transfer_State;
+        this.Responsible_Comments;
+        this.Requester_Comments;
+        this.CreatedDate;
+        this.CreatedBy;
+        this.ModifiedDate;
+        this.ModifiedBy;
+        this.IsCancelled;
+        this.IsAcknowledeged;
+        this.IsActive;
+        this.Transfer_id;
+    }
+    $('#wishlistpcdetails tbody').on('click', '.btn-success', function () {
+
+        var tr = $(this).closest("tr");
+        alert(tr);
+    });
+
+
+    function fnRequestTransfer() {
+        debugger;
+        var table = document.getElementById('wishlistpcdetails');
+        //document.getElementById('info').innerHTML = "";
+        var myTab = document.getElementById('wishlistpcdetails');
+
+        // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
+        //for (i = 1; i < myTab.rows.length; i++) {
+
+            // GET THE CELLS COLLECTION OF THE CURRENT ROW.
+            var objCells = myTab.rows.item(1).cells;
+        //}
+
+        var wishId = objCells[1].innerText;
+        alert(wishId);
+            @*$.getJSON("@Url.Action("GetmappingRequest", "WishLists")", { wishId: wishId }, function (data) {
+                if (data) { }
+               
+        });*@
+
+        $.getJSON("@Url.Action("GetmappingRequest", "WishLists")", { wishId: wishId }, function (data) {
+            if (data) {
+                alert("Transfered Successfully");
+            }
+        });
+    }
+
+
 
 
 </script>

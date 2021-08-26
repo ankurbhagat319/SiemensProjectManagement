@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using SiemensLibraries;
 using SiemensProjectManagement.Models;
 
 namespace SiemensProjectManagement.Controllers
@@ -107,7 +108,34 @@ namespace SiemensProjectManagement.Controllers
             result = Json( wishLists.ToList());
             return result;
         }
+        public ActionResult GetmappingRequest(int wishId) {
 
+        var mappedWish =     db.WishLists.Where(x => x.WishlistId == wishId).ToList();
+            
+            var  responsibleUserId = Convert.ToInt32(mappedWish[0].UserId);
+          
+            var Responsiblemail = db.Users.Where(x => x.UserID == responsibleUserId).FirstOrDefault().Email.ToString();
+
+
+            var recipents = Responsiblemail;
+            if (mappedWish[0].AssetTypeId == 1)
+            {
+                var template = EmailUtility.UpdateEmailTemplate(mappedWish[0].AssetType.AssetType_Name, mappedWish[0].AssetType.PlcInfoes.FirstOrDefault().Device.Mlfb, "Initiated", Responsiblemail, mappedWish[0].AssetType.PlcInfoes.FirstOrDefault().IpAddress, mappedWish[0].Comments, "Automapped Transfer Request sent to user");
+                EmailUtility.SendEmail("ProjectAssetsdept@Itest.com", recipents + ", ankur.bhagat@siemens.com", "Asset Transfer Request", template, true);
+            }
+            else if (mappedWish[0].AssetTypeId == 2)
+            {
+                var template = EmailUtility.UpdateEmailTemplate(mappedWish[0].AssetType.AssetType_Name, mappedWish[0].AssetType.AssetDetails.FirstOrDefault().HostName, "Initiated", Responsiblemail, mappedWish[0].AssetType.AssetDetails.FirstOrDefault().Serial_No, mappedWish[0].Comments, "Automapped Transfer Request sent to user");
+                EmailUtility.SendEmail("ProjectAssetsdept@Itest.com", recipents + ", ankur.bhagat@siemens.com", "Asset Transfer Request", template, true);
+            }
+            else
+            {
+                var template = EmailUtility.UpdateEmailTemplate(mappedWish[0].AssetType.AssetType_Name, mappedWish[0].AssetType.Tools.FirstOrDefault().Description, "Initiated", Responsiblemail, mappedWish[0].AssetType.Tools.FirstOrDefault().SerialNo, mappedWish[0].Comments, "Automapped Transfer Request sent to user");
+                EmailUtility.SendEmail("ProjectAssetsdept@Itest.com", recipents + ", ankur.bhagat@siemens.com", "Asset Transfer Request", template, true);
+            }
+            return Json("Request sent");
+                
+                }
         public ActionResult MappedAssetDetails()
         {
 
