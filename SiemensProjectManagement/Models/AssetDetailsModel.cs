@@ -41,6 +41,6 @@ namespace SiemensProjectManagement.Models
         public bool ISActive { get; set; }
         public bool ToBeReplaced { get; set; }
         public bool Acknowledge { get; set; }
-
+        public int Id { get; internal set; }
     }
 }

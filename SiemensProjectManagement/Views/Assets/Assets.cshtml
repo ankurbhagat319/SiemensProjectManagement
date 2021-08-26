@@ -1,9 +1,8 @@
-﻿<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-@*<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />*@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js" integrity="sha512-ZuOjyqq409+q6uc49UiBF3fTeyRyP8Qs0Jf/7FxH5LfhqBMzrR5cwbpDA4BgzSo884w6q/+oNdIeHenOqhISGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+﻿<script src="~/Scripts/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+
+<script src="~/Scripts/underscore-min.js" integrity="sha512-ZuOjyqq409+q6uc49UiBF3fTeyRyP8Qs0Jf/7FxH5LfhqBMzrR5cwbpDA4BgzSo884w6q/+oNdIeHenOqhISGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/Scripts/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="~/Scripts/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 @using SiemensProjectManagement.Models;
 @model SiemensProjectManagement.Models.AssetModel
@@ -45,27 +44,38 @@
         border-top: none;
     }
 </style>
-<h2>Assets</h2>
+<h1 style="text-align: center; color:gray;">Assets Management</h1>
+
+<br />
+
+<span style="padding-left:15px;">@Html.ActionLink("Add Plc", "Create", "PlcInfoes")</span>
+<span style="padding-left:15px;">@Html.ActionLink("Add PC/VM", "Create", "AssetDetails")</span>
+<span style="padding-left:15px;">@Html.ActionLink("Add Tools", "Create", "Tools")</span>
+
 <body>
-
+    <br />
+    <br />
     <div class="container-fluid">
-        @using (Html.BeginForm(null, null, FormMethod.Post))
-        {
+        <div class="row bootstrap-select">
+            @using (Html.BeginForm(null, null, FormMethod.Post))
+            {
 
-            @Html.AntiForgeryToken();
-            @Html.DropDownList("Users", (IEnumerable<SelectListItem>)TempData["Users"], new { @id = "ddluser", @class = "bootstrap-select" });
-          //  @Html.DropDownListFor(Model => Model.selectedUserID, new SelectList(TempData["Users"] as List<dynamic>, "UserID", "DisplayName"), new { @id = "userID" })
-            <input type="button" value="submit" onclick="fnShow()" />
-        }
-
+                @Html.AntiForgeryToken();
+                <label style=""> Users</label>
+                @Html.DropDownList("Users", (IEnumerable<SelectListItem>)TempData["Users"], new { @id = "ddluser", @class = "bootstrap-select" });
+                //  @Html.DropDownListFor(Model => Model.selectedUserID, new SelectList(TempData["Users"] as List<dynamic>, "UserID", "DisplayName"), new { @id = "userID" })
+                <input class="btn-info" type="button" value="submit" onclick="fnShow()" />
+            }
+        </div>
     </div>
 
+    <br />
     <br />
     <div class="container-fluid">
         <div class="row">
         </div>
         <div class="row">
-            <div class="tab">
+            <div class="tab" style="background-color:gray;color:white;">
                 <button class="tablinks active" id="tabassets" onclick="openAssets(event, 'Assets')">Assets</button>
                 <button class="tablinks" id="tabplcs" onclick="openAssets(event, 'PLCs')">PLCs</button>
                 <button class="tablinks" id="tabtransfer" onclick="openAssets(event, 'Transfer')">Transfer</button>
@@ -140,27 +150,33 @@
                 <table id="TransferTable" class="table-bordered table-striped">
                     <thead>
                         <tr>
-                            <td>Transfer_Id </td>
-                            <td>Asset_Id </td>
-                            <td>Requester_UserId</td>
-                            <td>TransferState</td>
+                            <td style="display:none">Transfer_Id </td>
+                            <td>Asset Type </td>
+                            <td>Requester</td>
+                            <td>Asset Info</td>
                             <td>Comments </td>
-                            <td>CreatedDate</td>
+                            <td>State</td>
                             <td>Revert</td>
                         </tr>
                     </thead>
                     <tbody>
                         @{ foreach (var result in TempData["transfer"] as List<AssestTransfer>)
                             {
-                                <tr>
-                                    <td> @result.Transfer_id</td>
-                                    <td>@result.AssetId</td>
-                                    <td>@result.Requester_UserId</td>
-                                    <td>@result.Transfer_State</td>
-                                    <td>@result.Responsible_Comments</td>
-                                    <td>@result.CreatedDate</td>
-                                    <td></td>
-                                </tr>
+                        <tr>
+                            <td style="display:none"> @result.Transfer_id</td>
+                            <td>@result.AssetType.AssetType_Name</td>
+                            <td>@result.User.DisplayName</td>
+                            @if(@result.AssetType_Id == 1){
+                            <td>@result.AssetType.PlcInfoes.First().Device.Mlfb</td>
+                            }
+                            else
+                            {
+                            <td>@result.AssetType.AssetDetails.First().HostName</td>
+                            }
+                            <td>@result.Responsible_Comments</td>
+                            <td>@result.Transfer_State</td>
+                            <td></td>
+                        </tr>
                             } }
 
                     </tbody>
@@ -327,7 +343,7 @@
 
                 <div class="modal-footer">
                     <button type="button" id="btnUpdate" onclick="EditTransferRequest()" class="btn btn-primary" data-dismiss="modal">Approve</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="fnRejectTransfer()">Close</button>
                 </div>
 
             </div>
@@ -336,11 +352,11 @@
 </body>
 
 <script>
-    var Role_Id;
+    @*var Role_Id;
     $(document).ready(function () {
         Role_Id = @ViewBag.Role_Id;
-      
-    });
+
+    });*@
     document.getElementById("tabassets").click();
     var tablefc1 = $('#AssetTable').DataTable({
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
@@ -422,7 +438,7 @@
                 'orderable': false,
                 'className': 'dt-body-center',
                 'render': function (data, type, full, meta) {
-                    return '<input type="button"  class = "btn btn-danger" class="btn-primary" value="Reject" name="id[]" value="'
+                    return '<input type="button"  class = "btn btn-danger" id ="btnReject" class="btn-primary" value="Reject" name="id[]" onclick="fnRejectTransfer()" value="'
                         + $('<div/>').text(data).html() + '">';
                 },
             },
@@ -452,7 +468,10 @@
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
     }
-    $(document).ready(function (){
+    $(document).ready(function () {
+        
+
+        $('#ddluser').val(@ViewBag.CurrentUser).trigger('change');;
         $("#mdlProject")
             .select2({
 
@@ -516,11 +535,19 @@
         this.IsCancelled;
         this.IsAcknowledeged;
         this.IsActive;
+        this.Transfer_id;
     }
 
     function EditTransferRequest() {
-
+        debugger;
+        var asseType = $('#mdlAssetid').val();
         var assetTransfer = new AssetTransfer();
+        assetTransfer.Transfer_id = $('#mdlTransferid').val();
+        assetTransfer.Responsible_UserId = $('mdlReponsibleuser').val();
+        assetTransfer.Requester_UserId = $('#mdlrequesteruser').val();
+  
+            assetTransfer.AssetId = _processAssetId;
+        
         assetTransfer.Transfer_State = "Accepted";
         assetTransfer.Requester_Comments = $('#mdlRequestercomments').val();
         assetTransfer.CreatedDate = new Date().toLocaleString();
@@ -529,24 +556,34 @@
         assetTransfer.ModifiedBy = $('#mdlrequesteruser').val();
         assetTransfer.IsCancelled = null;
         assetTransfer.IsAcknowledeged = true;
-        assetTransfer.IsActive = true;
+        assetTransfer.IsActive = false;
+        assetTransfer.AssetType_Id = asseType;
 
         $.getJSON("@Url.Action("EditEntry", "AssetTransfer")", { list: JSON.stringify(assetTransfer) }, function (data) {
             if (data) {
-
+                alert("Asset Transfer request approved Successfully.")
             }
         });
 
     }
-
+    var _rejectCLicked = false;
+    function fnRejectTransfer() {
+        _rejectCLicked = true;
+    }
     function fnTransferAssets() {
-        var AssetID = parseInt($('#mdlAssettype').val());
+        debugger;
+        var AssetType_ID = parseInt($('#mdlAssettype').val());
          var assetTransfer = new AssetTransfer();
-        assetTransfer.ProjectId = parseInt( $('#mdlProject').val());
-        assetTransfer.AssetId = AssetID;
+        assetTransfer.ProjectId = parseInt($('#mdlProject').val());
+        if (AssetType_ID === 1) {
+            assetTransfer.AssetId = _plcId;
+        }
+        else {
+            assetTransfer.AssetId = _PcVM_Id;
+        }
         assetTransfer.AssetType_Id = parseInt($('#mdlAssettype').val());
-        assetTransfer.Responsible_UserId = parseInt( $('#mdlReponsible').val());
-                assetTransfer.Transfer_State = "Initiated"
+        assetTransfer.Responsible_UserId = parseInt($('#mdlReponsible').val());
+       assetTransfer.Transfer_State = "Initiated"
         assetTransfer.Responsible_Comments = $('#mdlcomments').val();
         assetTransfer.Requester_UserId = parseInt($('#mdlrequester').val());
         assetTransfer.Requester_Comments = "";
@@ -556,7 +593,7 @@
         assetTransfer.ModifiedBy = null;
         assetTransfer.IsCancelled = null;
         assetTransfer.IsAcknowledeged = null;
-        assetTransfer.IsActive = null;
+        assetTransfer.IsActive = true;
 
 
         //var a = JSON.stringify(assetTransfer);
@@ -600,32 +637,35 @@
                 $('#mdlrequester').select2({
                     data: _requester
                 });
-
+                _PcVM_Id = assetdet.Id;
                 $('#mdlAssets').modal({
                     show: 'true'
                 });
                 }
          });
     });
-
-    $('#PLCTable tbody' ).on('click', '.btn-success', function () {
-
+    var _plcId; var transferID; var _PcVM_Id;
+    $('#PLCTable tbody').on('click', '.btn-success', function () {
+        debugger;
         var tr = $(this).closest("tr");
 
         var SerialNo = tr[0].childNodes[11].innerText;
+
         $.getJSON("@Url.Action("GetAssetPlc", "Assets")", { SerialNo: SerialNo }, function (data) {
             if (data) {
                 debugger;
+
                 assetdet = data.AsseDetails[0];
                 _requester = data.Users;
                 var assetType = [];
                 $('#mdlAssettype').append(new Option(assetdet.AssetType_Name, assetdet.AssetType_Id));
-                $('#mdlReponsible').append(new Option(assetdet.UserName, assetdet.UserID));
+                $('#mdlReponsible').append(new Option(assetdet.UserName, assetdet.UserId));
                 $('#mdlProject').append(new Option(assetdet.ProjectName, assetdet.ProjectId));
+                _plcId = assetdet.PlcId;
                 $('#mdlrequester').select2({
                     data: _requester
                 });
-
+               
                 $('#mdlAssets').modal({
                     show: 'true'
                 });
@@ -638,6 +678,7 @@
 
         debugger;
         var Transfer_ID = parseInt(tr[0].childNodes[1].innerText);
+        _transferID = parseInt(tr[0].childNodes[1].innerText);
         tr.remove();
         $.getJSON("@Url.Action("DeleteEntry", "AssetTransfer")", { id: Transfer_ID }, function (data) {
             if (data) {
@@ -667,12 +708,13 @@
             if (data) {
                 debugger;
                 assetDet = data.AssetTransferDetails[0];
-                
+                var currentUserId = $('#ddluser').val();
+                var currentUserName = $("#ddluser :selected").text();
                 $('#mdlTransferid').append(new Option(assetDet.TransferId, assetDet.TransferId));
-                $('#mdlReponsibleuser').append(new Option(assetDet.Responsible_UserId, assetDet.Responsible_UserId));
-                $('#mdlAssetid').append(new Option(assetDet.AssetId, assetDet.AssetId));
-                $('#mdlrequesteruser').append(new Option(assetDet.Requester_UserId, assetDet.Requester_UserId));
-                
+                $('#mdlReponsibleuser').append(new Option(assetDet.Responsible_Name, assetDet.Responsible_UserId));
+                $('#mdlAssetid').append(new Option(assetDet.AssetTypeName, assetDet.AssetType_Id));
+                $('#mdlrequesteruser').append(new Option(currentUserName, currentUserId));
+
                 $('#mdlTransfer').modal({
                     show: 'true'
                 });
@@ -707,5 +749,24 @@
         var RedirectUri = location.origin + "/" + "Assets//Assets/"  + "?UserId=" + UserId;
         window.location.href = RedirectUri;
     }
+    var _processAssetId;;
+    var table = $('#ProcessTable').DataTable();
+    $('#ProcessTable tbody').on('click', 'tr', function () {
+        var tr = table.row(this).data();
+        _processAssetId = tr[1];
+        if (_rejectCLicked) {
+            alert("Transfer Request Rejected")
+            var tr = table.row(this).data();
+            _transferID = tr[0]
+            var _requester = $('#ddluser').val();
+            var _responsible = _processAssetId = tr[2];
+            $.getJSON("@Url.Action("RejectEntry", "AssetTransfer")", { transferId: _transferID, Requester: _requester, Responsible: _responsible}, function (data) {
+                if (data) {
+                    alert("Transfer Request Rejected")
+                }
+            });
+        }
+    });
+
 
 </script>

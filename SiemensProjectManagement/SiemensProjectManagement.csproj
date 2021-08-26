@@ -141,6 +141,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AssetDetailsController.cs" />
     <Compile Include="Controllers\AssetsController.cs" />
     <Compile Include="Controllers\AssetTransferController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Controllers\PlcVirtualizationController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WishListsController.cs" />
     <Compile Include="Controllers\WishListTypesController.cs" />
@@ -586,6 +588,16 @@
     <Content Include="Views\PlcInfoes\Edit.cshtml" />
     <Content Include="Views\PlcInfoes\Index.cshtml" />
     <Content Include="Views\WishLists\MappedAssetDetails.cshtml" />
+    <Content Include="Views\AssetDetails\Create.cshtml" />
+    <Content Include="Views\AssetDetails\Delete.cshtml" />
+    <Content Include="Views\AssetDetails\Details.cshtml" />
+    <Content Include="Views\AssetDetails\Edit.cshtml" />
+    <Content Include="Views\AssetDetails\Index.cshtml" />
+    <Content Include="Views\Tools\Create.cshtml" />
+    <Content Include="Views\Tools\Delete.cshtml" />
+    <Content Include="Views\Tools\Details.cshtml" />
+    <Content Include="Views\Tools\Edit.cshtml" />
+    <Content Include="Views\Tools\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

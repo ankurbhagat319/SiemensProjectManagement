@@ -61,16 +61,21 @@ namespace SiemensProjectManagement.Controllers
 
             }
             Role_id = user[0].RoleID;
+            if(Role_id ==3)
+            {
+                ViewBag.RoleID = Role_id;
+            }
             var assets = db.AssetDetails.Where(x => x.UserID == selectedID).ToList();
                 var plcs = db.PlcInfoes.Where(x => x.UserId == selectedID).ToList();
-                var transfer = db.AssestTransfers.Where(x => x.Responsible_UserId == selectedID).ToList();
-                var processList = db.AssestTransfers.Where(x => x.Requester_UserId == selectedID.ToString()).ToList();
+                var transfer = db.AssestTransfers.Where(x => x.Responsible_UserId == selectedID && x.IsActive == true).ToList();
+                var processList = db.AssestTransfers.Where(x => x.Requester_UserId == selectedID.ToString() && x.IsActive == true).ToList();
                 TempData["assets"] = assets;
                 TempData["plcs"] = plcs;
                 TempData["transfer"] = transfer;
                 TempData["processList"] = processList;
                 TempData["Users"] = lst;
-            ViewBag.Role_Id  = Role_id;
+            ViewBag.CurrentUser = selectedID;
+           
 
 
                
@@ -84,6 +89,7 @@ namespace SiemensProjectManagement.Controllers
             assetDetails = db.AssetDetails.Where(x => x.Serial_No == SerialNo).Select(x => new AssetDetailsModel
             {
                 UserID = x.UserID,
+                Id = x.Id,
                 UserName = x.UserName,
                 DisplayName = x.User.DisplayName,
                 ProjectId = x.ProjectID,
@@ -197,13 +203,45 @@ namespace SiemensProjectManagement.Controllers
             {
                 Create(_transefr);
                 dbcontext.SaveChanges();
-                var template = EmailUtility.UpdateEmailTemplate("Plc","1518 3 PN/DP" , "192.168.10.32", "Rack1", "SC-H4AR34062016", "z003ef1m");
-
-
-                     EmailUtility.SendEmail("ProjectAssetsdept@Itest.com", "ankur.bhagat@siemens.com,ajith.k@siemens.com,monika.babu@siemens.com,suresh.mohan@siemens.com,ashutosh.kumar@siemens.com", "Asset Transfer Request", template, true);
             }
+            var template = "";
+                var record = db.AssestTransfers.Where(x => x.Transfer_id == _transefr.Transfer_id).ToList();
+                var assetType = ""; var Plcmlfb = ""; var Ipaddress = "";
+                //if (record[0].AssetType_Id == 1)
+                //{
+                    
+                if (_transefr.AssetType_Id == 1)
+                {
+                assetType = "Plc"; var assetId = record[0].AssetId;
+                var plcdet = db.PlcInfoes.Where(x => x.PlcId == assetId).ToList();
+                Plcmlfb = plcdet[0].Device.Mlfb.ToString();
+                Ipaddress = plcdet[0].IpAddress.ToString();
+                var UserId = plcdet[0].UserId;
+                var DisplayName = db.Users.Where(x => x.UserID == UserId).First().DisplayName.ToString();
+                template = EmailUtility.UpdateEmailTemplate(assetType, Plcmlfb, record[0].Transfer_State, DisplayName, Ipaddress, record[0].Responsible_Comments, "Asset Transfer Request Created Successfully");
+                }
+                else
+                {
+               
+                var assetId = record[0].AssetId;
+                    var pcDet  = db.AssetDetails.Where(x => x.Id == assetId).ToList();
+                assetType = pcDet[0].AssetType.AssetType_Name;
+                    var serial_No = pcDet[0].Serial_No;
+                var UserId = pcDet[0].UserID;
+                var Hostname = pcDet[0].HostName;
+                var DisplayName = db.Users.Where(x => x.UserID == UserId).First().DisplayName.ToString();
+                template = EmailUtility.UpdateEmailTemplate(assetType, Hostname, record[0].Transfer_State, DisplayName, serial_No, record[0].Responsible_Comments, "Asset Transfer Request Created Successfully");
+                }
+                var requesterUserId = Convert.ToInt32(_transefr.Requester_UserId);
+                    var responsibleUserId = Convert.ToInt32(_transefr.Responsible_UserId);
+                    var RequesterEmail = db.Users.Where(x => x.UserID == requesterUserId).FirstOrDefault().Email.ToString();
+                    var Responsiblemail = db.Users.Where(x => x.UserID == responsibleUserId).FirstOrDefault().Email.ToString();
 
+                    var recipents = RequesterEmail + "," + Responsiblemail;
+                    EmailUtility.SendEmail("ProjectAssetsdept@Itest.com", recipents, "Asset Transfer Request", template, true);
+                
 
+        
             return null;
         }
 

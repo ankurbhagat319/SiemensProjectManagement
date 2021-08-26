@@ -18,390 +18,390 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />*@
 
-<h2>WishList details</h2>
-<br />
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-<body>
-
+<h1 style="text-align: center; color:gray;"> WishList details</h1>
     <br />
-    <div class="container-fluid">
-        <div class="row">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <body>
+
+        <br />
+        <div class="container-fluid">
+            <div class="row">
+            </div>
+            <div class="row" >
+                <div class="tab" style="background-color:gray;color:white;">
+                    <button class="tablinks active" id="tabassets" onclick="openAssets(event, 'WishListPLC')">WishListPLC</button>
+                    <button class="tablinks" id="tabplcs" onclick="openAssets(event, 'WishListPC')">WishListPC</button>
+                    <button class="tablinks" id="tabtransfer" onclick="openAssets(event, 'WishListTools')">WishListTools</button>
+
+                </div>
+
+                <div id="WishListPLC" class="tabcontent">
+                    <h3>WishList PLC details</h3>
+                    <table id="wishlistplcdetails" class="table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <td>
+                                    WishlistId
+                                </td>
+                                <td>
+                                    WishTypeName
+                                </td>
+                                <td>
+                                    UserName
+                                </td>
+                                <td>
+                                    ProjectName
+                                </td>
+                                <td>
+                                    AssetType_Name
+                                </td>
+                                <td>
+                                    Asset
+                                </td>
+                                <td>
+                                    Quantity
+                                </td>
+                                <td>
+                                    Description
+                                </td>
+                                <td>
+                                    RequestDuration
+                                </td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ foreach (var result in TempData["PLCwishList"] as List<WishListDetailsModel>)
+                                {
+                                    <tr>
+                                        <td>
+                                            @result.WishlistId
+                                        </td>
+
+                                        <td>
+                                            @result.WishTypeName
+                                        </td>
+                                        <td>
+                                            @result.UserName
+                                        </td>
+                                        <td>
+                                            @result.ProjectName
+                                        </td>
+                                        <td>
+                                            @result.AssetType_Name
+                                        </td>
+                                        <td>
+                                            @result.Asset
+                                        </td>
+                                        <td>
+                                            @result.Quantity
+                                        </td>
+                                        <td>
+                                            @result.Description
+                                        </td>
+                                        <td>
+                                            @result.RequestDuration
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = result.WishlistId }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = result.WishlistId })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div id="WishListPC" class="tabcontent">
+                    <h3>WishList PC/VM details</h3>
+                    <table id="wishlistpcdetails" class="table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <td>
+                                    WishlistId
+                                </td>
+                                <td>
+                                    WishTypeName
+                                </td>
+                                <td>
+                                    UserName
+                                </td>
+                                <td>
+                                    ProjectName
+                                </td>
+                                <td>
+                                    AssetType_Name
+                                </td>
+                                <td>
+                                    Asset
+                                </td>
+                                <td>
+                                    Quantity
+                                </td>
+                                <td>
+                                    Description
+                                </td>
+                                <td>
+                                    RequestDuration
+                                </td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ foreach (var result in TempData["PCwishList"] as List<WishListDetailsModel>)
+                                {
+                                    <tr>
+                                        <td>
+                                            @result.WishlistId
+                                        </td>
+
+                                        <td>
+                                            @result.WishTypeName
+                                        </td>
+                                        <td>
+                                            @result.UserName
+                                        </td>
+                                        <td>
+                                            @result.ProjectName
+                                        </td>
+                                        <td>
+                                            @result.AssetType_Name
+                                        </td>
+                                        <td>
+                                            @result.Asset
+                                        </td>
+                                        <td>
+                                            @result.Quantity
+                                        </td>
+                                        <td>
+                                            @result.Description
+                                        </td>
+                                        <td>
+                                            @result.RequestDuration
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = result.WishlistId }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = result.WishlistId })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div id="WishListTools" class="tabcontent">
+                    <h3>WishList Tools details</h3>
+                    <table id="wishlisttoolsdetails" class="table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <td>
+                                    WishlistId
+                                </td>
+                                <td>
+                                    WishTypeName
+                                </td>
+                                <td>
+                                    UserName
+                                </td>
+                                <td>
+                                    ProjectName
+                                </td>
+                                <td>
+                                    AssetType_Name
+                                </td>
+                                <td>
+                                    Asset
+                                </td>
+                                <td>
+                                    Quantity
+                                </td>
+                                <td>
+                                    Description
+                                </td>
+                                <td>
+                                    RequestDuration
+                                </td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ foreach (var result in TempData["ToolswishList"] as List<WishListDetailsModel>)
+                                {
+                                    <tr>
+                                        <td>
+                                            @result.WishlistId
+                                        </td>
+
+                                        <td>
+                                            @result.WishTypeName
+                                        </td>
+                                        <td>
+                                            @result.UserName
+                                        </td>
+                                        <td>
+                                            @result.ProjectName
+                                        </td>
+                                        <td>
+                                            @result.AssetType_Name
+                                        </td>
+                                        <td>
+                                            @result.Asset
+                                        </td>
+                                        <td>
+                                            @result.Quantity
+                                        </td>
+                                        <td>
+                                            @result.Description
+                                        </td>
+                                        <td>
+                                            @result.RequestDuration
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = result.WishlistId }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = result.WishlistId })
+                                        </td>
+                                        @*<td>
+                                                <div class="modal-footer">
+                                                    <button type="button" id="btnUpdate" class="btn btn-primary" value="@result.WishlistId" data-dismiss="modal">Update</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </td>*@
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <div class="tab">
-                <button class="tablinks active" id="tabassets" onclick="openAssets(event, 'WishListPLC')">WishListPLC</button>
-                <button class="tablinks" id="tabplcs" onclick="openAssets(event, 'WishListPC')">WishListPC</button>
-                <button class="tablinks" id="tabtransfer" onclick="openAssets(event, 'WishListTools')">WishListTools</button>
-               
-            </div>
 
-            <div id="WishListPLC" class="tabcontent">
-                <h3>WishList PLC details</h3>
-                <table id="wishlistplcdetails" class="table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <td>
-                                WishlistId
-                            </td>
-                            <td>
-                                WishTypeName
-                            </td>
-                            <td>
-                                UserName
-                            </td>
-                            <td>
-                                ProjectName
-                            </td>
-                            <td>
-                                AssetType_Name
-                            </td>
-                            <td>
-                                Asset
-                            </td>
-                            <td>
-                                Quantity
-                            </td>
-                            <td>
-                                Description
-                            </td>
-                            <td>
-                                RequestDuration
-                            </td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{ foreach (var result in TempData["PLCwishList"] as List<WishListDetailsModel>)
-                            {
-                                <tr>
-                                    <td>
-                                        @result.WishlistId
-                                    </td>
+    </body>
 
-                                    <td>
-                                        @result.WishTypeName
-                                    </td>
-                                    <td>
-                                        @result.UserName
-                                    </td>
-                                    <td>
-                                        @result.ProjectName
-                                    </td>
-                                    <td>
-                                        @result.AssetType_Name
-                                    </td>
-                                    <td>
-                                        @result.Asset
-                                    </td>
-                                    <td>
-                                        @result.Quantity
-                                    </td>
-                                    <td>
-                                        @result.Description
-                                    </td>
-                                    <td>
-                                        @result.RequestDuration
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = result.WishlistId }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = result.WishlistId })
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
+    <script>
+        document.getElementById("tabassets").click();
+        var tableplc = $('#wishlistplcdetails').DataTable({
+            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+            "autoWidth": false,
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false,
+                    'orderable': false,
+                    'className': 'dt-body-center'
+                    //'render': function (data, type, full, meta) {
+                    //    return '<input type="button"  class = "btn btn-success"  class="btn-primary" value="Edit" name="id[]" value="'
+                    //        + $('<div/>').text(data).html() + '">';
+                    //},
+                }
+            ],
+            "order": [[0, "desc"]]
+        });
 
 
-            <div id="WishListPC" class="tabcontent">
-                <h3>WishList PC/VM details</h3>
-                <table id="wishlistpcdetails" class="table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <td>
-                                WishlistId
-                            </td>
-                            <td>
-                                WishTypeName
-                            </td>
-                            <td>
-                                UserName
-                            </td>
-                            <td>
-                                ProjectName
-                            </td>
-                            <td>
-                                AssetType_Name
-                            </td>
-                            <td>
-                                Asset
-                            </td>
-                            <td>
-                                Quantity
-                            </td>
-                            <td>
-                                Description
-                            </td>
-                            <td>
-                                RequestDuration
-                            </td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{ foreach (var result in TempData["PCwishList"] as List<WishListDetailsModel>)
-                            {
-                                <tr>
-                                    <td>
-                                        @result.WishlistId
-                                    </td>
-
-                                    <td>
-                                        @result.WishTypeName
-                                    </td>
-                                    <td>
-                                        @result.UserName
-                                    </td>
-                                    <td>
-                                        @result.ProjectName
-                                    </td>
-                                    <td>
-                                        @result.AssetType_Name
-                                    </td>
-                                    <td>
-                                        @result.Asset
-                                    </td>
-                                    <td>
-                                        @result.Quantity
-                                    </td>
-                                    <td>
-                                        @result.Description
-                                    </td>
-                                    <td>
-                                        @result.RequestDuration
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = result.WishlistId }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = result.WishlistId })
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
+        var tablepc = $('#wishlistpcdetails').DataTable({
+            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+            "autoWidth": false,
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false,
+                    'orderable': false,
+                    'className': 'dt-body-center'
+                }
+            ],
+            "order": [[0, "desc"]]
+        });
 
 
-            <div id="WishListTools" class="tabcontent">
-                <h3>WishList Tools details</h3>
-                <table id="wishlisttoolsdetails" class="table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <td>
-                                WishlistId
-                            </td>
-                            <td>
-                                WishTypeName
-                            </td>
-                            <td>
-                                UserName
-                            </td>
-                            <td>
-                                ProjectName
-                            </td>
-                            <td>
-                                AssetType_Name
-                            </td>
-                            <td>
-                                Asset
-                            </td>
-                            <td>
-                                Quantity
-                            </td>
-                            <td>
-                                Description
-                            </td>
-                            <td>
-                                RequestDuration
-                            </td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{ foreach (var result in TempData["ToolswishList"] as List<WishListDetailsModel>)
-                            {
-                                <tr>
-                                    <td>
-                                        @result.WishlistId
-                                    </td>
+        var tabletools = $('#wishlisttoolsdetails').DataTable({
+            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+            "autoWidth": false,
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false,
+                    'orderable': false,
+                    'className': 'dt-body-center'
+                }
+            ],
+            "order": [[0, "desc"]]
+        });
 
-                                    <td>
-                                        @result.WishTypeName
-                                    </td>
-                                    <td>
-                                        @result.UserName
-                                    </td>
-                                    <td>
-                                        @result.ProjectName
-                                    </td>
-                                    <td>
-                                        @result.AssetType_Name
-                                    </td>
-                                    <td>
-                                        @result.Asset
-                                    </td>
-                                    <td>
-                                        @result.Quantity
-                                    </td>
-                                    <td>
-                                        @result.Description
-                                    </td>
-                                    <td>
-                                        @result.RequestDuration
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = result.WishlistId }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = result.WishlistId })
-                                    </td>
-                                    @*<td>
-                                        <div class="modal-footer">
-                                            <button type="button" id="btnUpdate" class="btn btn-primary" value="@result.WishlistId" data-dismiss="modal">Update</button>
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </td>*@
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+        function openAssets(evt, cityName) {
+            debugger;
+            // Declare all variables
+            var i, tabcontent, tablinks;
 
-</body>
-
-<script>
-    document.getElementById("tabassets").click();
-    var tableplc = $('#wishlistplcdetails').DataTable({
-        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-        "autoWidth": false,
-        "columnDefs": [
-            {
-                "targets": [0],
-                "visible": false,
-                "searchable": false,
-                'orderable': false,
-                'className': 'dt-body-center'
-                //'render': function (data, type, full, meta) {
-                //    return '<input type="button"  class = "btn btn-success"  class="btn-primary" value="Edit" name="id[]" value="'
-                //        + $('<div/>').text(data).html() + '">';
-                //},
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
             }
-        ],
-        "order": [[0, "desc"]]
-    });
 
-
-    var tablepc = $('#wishlistpcdetails').DataTable({
-        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-        "autoWidth": false,
-        "columnDefs": [
-            {
-                "targets": [0],
-                "visible": false,
-                "searchable": false,
-                'orderable': false,
-                'className': 'dt-body-center'
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-        ],
-        "order": [[0, "desc"]]
-    });
 
-
-    var tabletools = $('#wishlisttoolsdetails').DataTable({
-        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-        "autoWidth": false,
-        "columnDefs": [
-            {
-                "targets": [0],
-                "visible": false,
-                "searchable": false,
-                'orderable': false,
-                'className': 'dt-body-center'
-            }
-        ],
-        "order": [[0, "desc"]]
-    });
-
-    function openAssets(evt, cityName) {
-        debugger;
-        // Declare all variables
-        var i, tabcontent, tablinks;
-
-        // Get all elements with class="tabcontent" and hide them
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
 
-        // Get all elements with class="tablinks" and remove the class "active"
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
+    </script>
+    <style>
+        table {
+            margin: 0 auto;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
         }
 
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-
-</script>
-<style>
-    table {
-        margin: 0 auto;
-        width: 100%;
-        clear: both;
-        border-collapse: collapse;
-        table-layout: fixed;
-    }
-
-    /* Style the tab */
-    .tab {
-        overflow: hidden;
-        border: 1px solid #ccc;
-        background-color: #f1f1f1;
-    }
-
-        /* Style the buttons that are used to open the tab content */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
         }
 
-            /* Change background color of buttons on hover */
-            .tab button:hover {
-                background-color: #ddd;
+            /* Style the buttons that are used to open the tab content */
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
             }
 
-            /* Create an active/current tablink class */
-            .tab button.active {
-                background-color: #ccc;
-            }
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
 
-    /* Style the tab content */
-    .tabcontent {
-        display: none;
-        padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-top: none;
-    }
-</style>
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+    </style>
